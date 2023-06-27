@@ -286,6 +286,7 @@ button {
 }
 
 .stats {
+  background-color: #f9fbfd;
   width: 1440px;
   padding: 60px 140px;
   display: flex;
