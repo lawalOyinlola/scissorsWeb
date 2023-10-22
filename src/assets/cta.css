@@ -1,0 +1,58 @@
+.cta-form {
+  background-color: #1e3448;
+  display: flex;
+  align-items: center;
+}
+
+.form {
+  max-width: 47.6rem;
+  position: relative;
+  text-align: center;
+  border-radius: 12px;
+  background-color: #fff;
+  margin: 8.15rem auto;
+  padding: 4.2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.4rem;
+}
+
+.form * {
+  border: 1px solid #3284ff;
+  color: #0065fe;
+  text-align: center;
+  border-radius: 12px;
+  height: 5.1rem;
+}
+
+.form button {
+  color: #fff;
+  border-radius: 100px;
+  grid-column: 1/-1;
+}
+
+.form p:last-child,
+.form input:first-child {
+  grid-column: 1/-1;
+}
+
+.trim-url {
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 100px;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form p,
+.form strong {
+  border: none;
+}
+
+.magic-wand {
+  border: none;
+  width: 9%;
+}

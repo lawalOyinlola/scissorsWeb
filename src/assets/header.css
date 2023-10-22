@@ -1,0 +1,36 @@
+header {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+}
+
+.header-row {
+  display: flex;
+  /* align-items: center; */
+  /* justify-content: space-between; */
+  gap: 14rem;
+  /* border: 1px solid green; */
+}
+
+.center-nav {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+}
+
+.features {
+  display: flex;
+  align-items: center;
+}
+
+.features span {
+  color: inherit;
+}
+
+.login {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+}

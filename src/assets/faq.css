@@ -1,0 +1,40 @@
+.faq {
+  margin: 4.3rem auto 15.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6.4rem;
+}
+
+.faq-intro {
+  font-family: "Gilroy-Bold", sans-serif;
+  font-size: 3.7rem;
+  display: flex;
+  gap: 1.6rem;
+}
+
+.faq-block {
+  max-width: 79.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+
+.faq-text {
+  line-height: 3.2rem;
+  border-bottom: 1px solid #d6d6d6;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  justify-content: center;
+  column-gap: 2.4rem;
+}
+
+.faq-text p:first-child {
+  font-size: 2rem;
+  line-height: 3.2rem;
+  margin-bottom: 1.6rem;
+}
+
+.open {
+  grid-column: 1/-1;
+}

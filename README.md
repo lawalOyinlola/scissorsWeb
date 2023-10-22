@@ -1,1 +1,3 @@
-# altschoolproject-submit
+# AltSchool First Semester Project
+
+Scissors Web

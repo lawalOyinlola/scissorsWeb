@@ -1,0 +1,74 @@
+.scissors-info {
+  margin-bottom: 13rem;
+  line-height: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12.8rem;
+}
+
+.stats {
+  background-color: #f9fbfd;
+  padding: 6rem 14rem;
+  display: flex;
+  justify-content: center;
+  gap: 12rem;
+}
+
+.stat {
+  font-family: "Gilroy-SemiBold", sans-serif;
+  font-size: 4rem;
+  line-height: 4.8rem;
+  /* margin-bottom: 0.8rem; */
+}
+
+.stat-texts {
+  display: flex;
+  gap: 7.2rem;
+}
+
+.stat-texts p:first-child {
+  font-size: 3.2rem;
+  line-height: 4rem;
+}
+
+.info {
+  display: flex;
+  gap: 9.6rem;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.why-scissors {
+  display: grid;
+  align-self: flex-start;
+  grid-template-columns: auto 37rem;
+  column-gap: 1.1rem;
+  row-gap: 1.6rem;
+}
+
+.why-text {
+  font-family: "Gilroy-Bold", sans-serif;
+  font-size: 3.7rem;
+  line-height: 3.2rem;
+  align-self: center;
+}
+
+.why-text + p {
+  line-height: 2.8rem;
+  grid-column: 2;
+}
+
+.info-blocks {
+  width: 70.8rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2.8rem;
+  row-gap: 6.4rem;
+}
+
+.info-block p:first-child {
+  font-size: 3.2rem;
+  line-height: 2.8rem;
+  margin-top: 4rem;
+  margin-bottom: 1.6rem;
+}

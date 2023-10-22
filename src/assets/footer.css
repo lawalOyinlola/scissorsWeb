@@ -1,0 +1,57 @@
+.documentation {
+  position: relative;
+  margin: 9.5rem auto 2.3rem;
+  justify-content: center;
+  display: flex;
+  gap: 3.9rem;
+}
+
+.socials-block {
+  display: flex;
+  flex-direction: column;
+  gap: 3.2rem;
+}
+
+.socials {
+  padding: 0 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+}
+
+.documents-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 2.4rem;
+}
+
+.documents {
+  line-height: 2.4rem;
+  padding: 0 2.4rem;
+}
+
+.documents li:first-child {
+  font-family: "Gilroy-Bold", sans-serif;
+  margin-bottom: 0.8rem;
+}
+
+.tos {
+  justify-content: end;
+  margin-left: 101.7rem;
+  margin-bottom: 3.9rem;
+  padding: 0 1.2rem;
+  display: flex;
+  gap: 0.8rem;
+}
+
+/* .bg-footer-left {
+  position: absolute;
+  top: -6.3rem;
+  left: -5rem;
+}
+
+.bg-footer-right {
+  position: absolute;
+  top: 12.2rem;
+  right: -6.2rem;
+} */
