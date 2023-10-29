@@ -19,9 +19,13 @@
   gap: 2.4rem;
 }
 
+.socials img {
+  width: 100%;
+}
+
 .documents-block {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   column-gap: 2.4rem;
 }
 
@@ -37,7 +41,6 @@
 
 .tos {
   justify-content: end;
-  margin-left: 101.7rem;
   margin-bottom: 3.9rem;
   padding: 0 1.2rem;
   display: flex;

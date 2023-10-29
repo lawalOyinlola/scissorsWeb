@@ -18,7 +18,6 @@
   font-family: "Gilroy-SemiBold", sans-serif;
   font-size: 4rem;
   line-height: 4.8rem;
-  /* margin-bottom: 0.8rem; */
 }
 
 .stat-texts {
@@ -35,7 +34,7 @@
   display: flex;
   gap: 9.6rem;
   justify-content: center;
-  /* align-items: center; */
+  align-items: center;
 }
 
 .why-scissors {

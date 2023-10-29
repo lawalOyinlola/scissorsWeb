@@ -5,7 +5,7 @@ import "./assets/pricing.css";
 
 function Pricing() {
   return (
-    <section className="pricing" id="priceee">
+    <section className="pricing" id="pricing">
       <div className="price-texts">
         <img src={LineGradient} alt="horizontal grey line gradient" />
 
@@ -60,7 +60,6 @@ function Pricing() {
             </ul>
           </div>
         </div>
-
         <div className="professional box">
           <p className="price-title">Professional</p>
 

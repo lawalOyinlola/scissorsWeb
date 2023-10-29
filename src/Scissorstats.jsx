@@ -7,9 +7,9 @@ import "./assets/scissorstats.css";
 
 function ScissorStats() {
   return (
-    <section className="scissors-info">
+    <section className="scissors-info" id="stats">
       <div className="stats">
-        <p className="stat heading">
+        <p className="stat">
           One Stop Four <span>Possibilities</span>
         </p>
         <div className="stat-texts">
@@ -31,7 +31,7 @@ function ScissorStats() {
           </div>
         </div>
       </div>
-      <div className="info">
+      <div className="info" id="features">
         <div className="why-scissors">
           <img src={LineGradient} alt="horizontal grey line gradient" />
           <p className="why-text">

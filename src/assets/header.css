@@ -1,23 +1,25 @@
-header {
-  margin-top: 12px;
+.header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 144rem;
+  z-index: 999;
+  margin: 0 auto 10.6rem;
+  background-color: #fff;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  /* border: 1px solid red; */
 }
 
-.header-row {
-  display: flex;
-  /* align-items: center; */
-  /* justify-content: space-between; */
-  gap: 14rem;
-  /* border: 1px solid green; */
-}
-
-.center-nav {
+.nav,
+.nav-open {
   display: flex;
   gap: 4rem;
   align-items: center;
+}
+
+.nav a {
+  color: #141414;
 }
 
 .features {
@@ -30,7 +32,15 @@ header {
 }
 
 .login {
+  margin-left: 10rem;
   display: flex;
   align-items: center;
   gap: 2.4rem;
+}
+
+.menu-btn {
+  display: none;
+  z-index: 999;
+  background-color: transparent;
+  color: inherit;
 }

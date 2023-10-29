@@ -35,6 +35,14 @@
   margin-bottom: 1.6rem;
 }
 
+.faq-text > img {
+  cursor: pointer;
+}
+
+.faq-text > img:active {
+  transform: translateY(1px);
+}
+
 .open {
   grid-column: 1/-1;
 }

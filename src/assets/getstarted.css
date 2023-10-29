@@ -1,9 +1,10 @@
 .gap {
-  height: 29.9rem;
   background-color: #1e3448;
   color: #fff;
+  text-align: center;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .get-started {
