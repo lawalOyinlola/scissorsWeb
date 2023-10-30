@@ -18,6 +18,7 @@ body {
   font-size: 1.6rem;
   color: #141414;
   transition: all 0.25s;
+  overflow-x: hidden;
 }
 
 button {
