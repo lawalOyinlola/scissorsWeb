@@ -125,7 +125,7 @@ span,
     height: 100vh;
     display: flex;
     flex-direction: column;
-    gap: 8rem;
+    gap: 5rem;
     align-items: center;
     justify-content: center;
   }
@@ -136,7 +136,7 @@ span,
   }
 
   .login li {
-    margin: 2rem;
+    margin: 1rem;
   }
 
   .main-intro {
