@@ -1,63 +1,34 @@
-# AltSchool First Semester Project
+# AltSchool First Semester Project | Scissors Web
 
 Replicated the Scissors Web.
-
-This is a simple React-based application designed for ease of use and practicality. With this application, you can effortlessly adjust the margin for both increment and decrement operations, reset the count to its initial state, and directly edit the count value.
-
-Additionally, we've implemented robust error handling. In case of non-numeric entries (NaN) or values exceeding 8 characters, the app will gracefully handle these scenarios. We've also included a "Test Error Handling" button for convenient testing.
-
-Explore the app effortlessly and enjoy a polished and user-friendly experience, complete with a "Not Found" page for incorrect URLs.
+This is the Scissors Web project, a user-friendly and efficient URL shortening application. This React-based web application is built with a focus on simplicity, practicality, and enhanced user experience. It's a replica of a project that was part of my journey in learning software development at AltSchool Africa. This project aims to provide a seamless and straightforward solution for shortening URLs, offering an intuitive and easy-to-use interface for quick link generation.
+NB: The link shortening is only a placeholder and doesn't work
 
 ## Table of Contents
 
 - [Demo](#demo)
-- [Features](#features)
 - [Dependencies](#dependencies)
-- [Custom Hook](#custom-hook)
-- [Error Handling](#error-handling)
 - [Folder Structure](#folder-structure)
 - [Contributing](#contributing)
 - [Screenshot](#screenshot)
 - [Built With](#built-with)
+- [Earlier Version](#earlier-version)
 
 ## Demo
 
-You can try the app live at [Counter404 Demo App](https://altschool-counter404.netlify.app/).
-
-## Features
-
-- Set Margin for both increment and decrement operations.
-- Increment the count value.
-- Decrement the count value.
-- Reset the count value to its initial state.
-- Edit the count value directly.
-- Error handling for NaN and count length > 8.
-- Error handling by click of a button.
-- Error handling for missing page.
+You can try the app live at [Scissors Web](https://altschool-scissors.netlify.app/).
 
 ## Dependencies
 
 - react
-- react-dom
-- react-router-dom
-- react-error-boundary
-- react-feather
 - @phosphor-icons/react
-
-## Custom Hook
-
-The app uses a custom hook called useCounter to manage the count value and editing state. You can find this hook in the useCounter.js file.
-
-## Error Handling
-
-The app includes error handling for NaN (Not a Number) inputs and count length exceeding 8 characters. When such errors occur, the app will navigate to an error page.
-
-It can also trigger an Error by using the "Test Error Handling" button and when you navigate to a missing page through a wrong/ non-existent url.
 
 ## Folder Structure
 
-The project structure is organized as follows: src/: Contains the source code of the application.
-components/: React components used in the app.
+The project structure is organized as follows:
+src/: Contains the source code of the application and all components
+src/assets/: css styling for individual component and the images/ .
+assets/images/: contains images used in the components
 App.js: The main application component.
 public/: Contains the public assets.
 package.json: Lists the project dependencies and scripts.
@@ -77,10 +48,8 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 
 ## Screenshot
 
-![Desktop screenshot](./public/counter-desktop.png)
-![Mobile screenshot](./public/counter.png)
-![404 Error screenshot](./public/404.png)
-![ErrorBoundary screenshot](./public/error.png)
+![Desktop screenshot](./public/screenshot_scissors_desktop.png)
+![Mobile screenshot](./public/screenshot_scissors_mobile.png)
 
 ## Built with
 
@@ -89,3 +58,7 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 - Vanilla JavaScript
 - Semantic HTML5 markup
 - CSS custom properties
+
+## Earlier Version
+
+Checkout earlier non-responsive design using just HTML and CSS in the ![HTML](https://github.com/lawalOyinlola/altschoolproject-submit/tree/html) branch of this repo.
