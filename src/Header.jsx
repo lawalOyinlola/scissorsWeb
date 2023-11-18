@@ -3,7 +3,7 @@ import ChevronDown from "./assets/images/chevron-down.svg";
 
 import { X, List } from "@phosphor-icons/react";
 import { useState, useEffect } from "react";
-import "./assets/header.css";
+import "./assets/css/header.css";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);

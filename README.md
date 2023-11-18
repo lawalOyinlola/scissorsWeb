@@ -26,14 +26,16 @@ You can try the app live at [Scissors Web](https://altschool-scissors.netlify.ap
 ## Folder Structure
 
 The project structure is organized as follows:
-src/: Contains the source code of the application and all components
-src/assets/: css styling for individual component and the images/ .
-assets/images/: contains images used in the components
-App.js: The main application component.
 public/: Contains the public assets.
+src/: Contains the source code of the application and all components
+src/assets: contains ./images and ./data assets .
+assets/css: css styling for individual component
+assets/data: contains data files used in some components
+assets/images: contains images used in the App components
+App.jsx: The main application component.
+index.html
 package.json: Lists the project dependencies and scripts.
 README.md/: The documentation file.
-index.html
 ...and others
 
 ## Contributing

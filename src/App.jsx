@@ -6,7 +6,7 @@ import CtaForm from "./Cta";
 import Faq from "./Faq";
 import GetStarted from "./Getstarted";
 import Footer from "./Footer";
-import "./index.css";
+import "./assets/css/index.css";
 
 function App() {
   return (

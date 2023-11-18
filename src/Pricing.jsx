@@ -1,7 +1,8 @@
 import LineGradient from "./assets/images/line-gradient.svg";
 import IconTickBlue from "./assets/images/icon-check-circle-blue.svg";
 import IconTick from "./assets/images/icon-check-circle.svg";
-import "./assets/pricing.css";
+import pricingData from "./assets/data/pricingData";
+import "./assets/css/pricing.css";
 
 function Pricing() {
   return (
@@ -19,136 +20,29 @@ function Pricing() {
         </p>
       </div>
       <div className="price-block">
-        <div className="basic box">
-          <p className="price-title">Basic</p>
-
-          <div>
-            <h2 className="price">Free</h2>
-
-            <ul>
-              <p className="price-subtitle">Free plan for all users</p>
-
-              <li>
-                <img src={IconTickBlue} alt="tick icon" />
-
-                <p>Unlimited URL Shortening</p>
-              </li>
-
-              <li>
-                <img src={IconTickBlue} alt="tick icon" />
-
-                <p>Basic Link Analytics</p>
-              </li>
-
-              <li>
-                <img src={IconTickBlue} alt="tick icon" />
-
-                <p>Customizable Short Links</p>
-              </li>
-
-              <li>
-                <img src={IconTickBlue} alt="tick icon" />
-
-                <p>Standard Support</p>
-              </li>
-
-              <li>
-                <img src={IconTickBlue} alt="tick icon" />
-
-                <p>Ad-supported</p>
-              </li>
-            </ul>
+        {pricingData.map((pricing, index) => (
+          <div key={index} className={`${pricing.type.toLowerCase()} box`}>
+            <p className="price-title">{pricing.type}</p>
+            <div>
+              <h2 className="price">{pricing.price}</h2>
+              <ul>
+                <p className="price-subtitle">{pricing.subtitle}</p>
+                {pricing.features.map((feature, featureIndex) => (
+                  <li key={featureIndex}>
+                    <img
+                      src={
+                        pricing.type == "Professional" ? IconTickBlue : IconTick
+                      }
+                      alt="tick icon"
+                    />
+                    <p>{feature}</p>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
-        </div>
-        <div className="professional box">
-          <p className="price-title">Professional</p>
-
-          <div>
-            <h2 className="price">
-              $15<span>/</span>month
-            </h2>
-
-            <ul>
-              <p className="price-subtitle">Ideal for business creators</p>
-
-              <li>
-                <img src={IconTick} alt="tick icon" />
-
-                <p>Enhanced Link Analytics</p>
-              </li>
-
-              <li>
-                <img src={IconTick} alt="tick icon" />
-
-                <p>Custom Branded Domains</p>
-              </li>
-
-              <li>
-                <img src={IconTick} alt="tick icon" />
-
-                <p>Advanced Link Customization</p>
-              </li>
-
-              <li>
-                <img src={IconTick} alt="tick icon" />
-
-                <p>Priority Support</p>
-              </li>
-
-              <li>
-                <img src={IconTick} alt="tick icon" />
-
-                <p>Ad-free Experience</p>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="teams box">
-          <p className="price-title">Teams</p>
-
-          <div>
-            <h2 className="price">
-              $25<span>/</span>month
-            </h2>
-
-            <ul>
-              <p className="price-subtitle">Share with up to 10 users</p>
-
-              <li>
-                <img src={IconTickBlue} alt="tick icon" />
-
-                <p>Team Collaboration</p>
-              </li>
-
-              <li>
-                <img src={IconTickBlue} alt="tick icon" />
-
-                <p>User Roles and Permissions</p>
-              </li>
-
-              <li>
-                <img src={IconTickBlue} alt="tick icon" />
-
-                <p>Enhanced Security</p>
-              </li>
-
-              <li>
-                <img src={IconTickBlue} alt="tick icon" />
-
-                <p>API Access</p>
-              </li>
-
-              <li>
-                <img src={IconTickBlue} alt="tick icon" />
-
-                <p>Dedicated Account Manager</p>
-              </li>
-            </ul>
-          </div>
-        </div>
+        ))}
       </div>
-
       <div className="price-btn">
         <button className="white-btn" href="#">
           Get Custom Pricing

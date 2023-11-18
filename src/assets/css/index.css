@@ -184,9 +184,9 @@ span,
   }
 
   .socials-block {
-    max-width: 17rem;
+    max-width: 14rem;
     position: absolute;
-    left: 3rem;
+    left: 4%;
     gap: 1rem;
   }
 

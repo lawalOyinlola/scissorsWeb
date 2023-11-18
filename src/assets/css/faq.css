@@ -1,4 +1,5 @@
 .faq {
+  position: relative;
   margin: 4.3rem auto 15.5rem;
   display: flex;
   flex-direction: column;
@@ -45,4 +46,18 @@
 
 .open {
   grid-column: 1/-1;
+}
+
+.faq-left {
+  height: 50%;
+  position: absolute;
+  right: 0;
+  bottom: -15.5rem;
+}
+
+.faq-right {
+  height: 87%;
+  position: absolute;
+  left: 0;
+  top: -4.3rem;
 }

@@ -4,7 +4,10 @@ import SocialsIg from "./assets/images/socials-instagram.svg";
 import SocialsLn from "./assets/images/socials-linkedin.svg";
 import SocialsFb from "./assets/images/socials-facebook.svg";
 import LineVector from "./assets/images/line-vector.svg";
-import "./assets/footer.css";
+import FooterLeft from "./assets/images/footer-left.svg";
+import FooterRight from "./assets/images/footer-right.svg";
+import footerData from "./assets/data/footerData";
+import "./assets/css/footer.css";
 
 function Footer() {
   return (
@@ -28,73 +31,14 @@ function Footer() {
           </div>
         </div>
         <div className="documents-block">
-          <ul className="documents">
-            <li>Why Scissor ?</li>
-            <li>Scissor 101</li>
-            <li>Integrations &amp; API</li>
-            <li>Pricing</li>
-          </ul>
-          <ul className="documents">
-            <li>Solutions</li>
-            <li>Social Media</li>
-            <li>Digital Marketing</li>
-            <li>Customer Service</li>
-            <li>For Developers</li>
-          </ul>
-          <ul className="documents">
-            <li>Products</li>
-            <li>Link Management</li>
-            <li>QR Codes</li>
-            <li>Link-in-bio</li>
-          </ul>
-          <ul className="documents">
-            <li>Company</li>
-            <li>About Scissor</li>
-            <li>Careers</li>
-            <li>Partners</li>
-            <li>Press</li>
-            <li>Contact</li>
-            <li>Reviews</li>
-          </ul>
-          <ul className="documents">
-            <li>Resources</li>
-            <li>Blog</li>
-            <li>Resource Library</li>
-            <li>Developers</li>
-            <li>App Connectors</li>
-            <li>Support</li>
-            <li>Trust Center</li>
-            <li>Browser Extension</li>
-            <li>Mobile App</li>
-          </ul>
-          <ul className="documents">
-            <li>Features</li>
-            <li>Branded Links</li>
-            <li>Mobile Links</li>
-            <li>Campaign</li>
-            <li>Management &amp;</li>
-            <li>Analytics</li>
-            <li>QR Code generation</li>
-          </ul>
-          <ul className="documents">
-            <li>Legal</li>
-            <li>Privacy Policy</li>
-            <li>Cookie Policy</li>
-            <li>Terms of Service</li>
-            <li>Acceptable Use Policy</li>
-            <li>Code of Conduct</li>
-          </ul>
+          {footerData.map((category, index) => (
+            <ul key={index} className="documents">
+              {category.items.map((item, itemIndex) => (
+                <li key={itemIndex}>{item}</li>
+              ))}
+            </ul>
+          ))}
         </div>
-        {/* <img
-          className="bg-footer-left"
-          src="images/footer-left.svg"
-          alt="footer background"
-        />
-        <img
-          className="bg-footer-right"
-          src="images/footer-right.svg"
-          alt="footer background"
-        /> */}
       </div>
       <aside className="tos">
         <p>Terms of Service</p>
@@ -103,6 +47,8 @@ function Footer() {
         <img src={LineVector} alt="horizontal line vector" />
         <p>Scissor 2023</p>
       </aside>
+      <img className="bg-footer-left" src={FooterLeft} alt="abstract" />
+      <img className="bg-footer-right" src={FooterRight} alt="abstract" />
     </footer>
   );
 }

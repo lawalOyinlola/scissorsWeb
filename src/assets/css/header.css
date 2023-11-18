@@ -5,6 +5,7 @@
   max-width: 144rem;
   z-index: 999;
   margin: 0 auto 10.6rem;
+  padding: 0.8rem 0;
   background-color: #fff;
   display: flex;
   justify-content: space-around;

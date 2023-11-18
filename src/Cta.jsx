@@ -1,5 +1,7 @@
 import MagicWand from "./assets/images/magic-wand.svg";
-import "./assets/cta.css";
+import FormLeft from "./assets/images/form-left.svg";
+import FormRight from "./assets/images/form-right.svg";
+import "./assets/css/cta.css";
 
 function CtaForm() {
   return (
@@ -24,6 +26,8 @@ function CtaForm() {
           <strong>Terms of Service, Privacy Policy</strong> and Use of Cookies.
         </p>
       </form>
+      <img className="form-left" src={FormLeft} alt="abstract" />
+      <img className="form-right" src={FormRight} alt="abstract" />
     </section>
   );
 }

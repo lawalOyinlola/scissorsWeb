@@ -3,7 +3,7 @@ import Triangle from "./assets/images/triangle-vector.svg";
 import ChainLink from "./assets/images/chainlink.svg";
 import EllipseBg from "./assets/images/ellipse-background.svg";
 import Ellipse from "./assets/images/ellipse.svg";
-import "./assets/mainbody.css";
+import "./assets/css/mainbody.css";
 
 function MainBody() {
   return (
@@ -14,14 +14,14 @@ function MainBody() {
             <p className="main-intro">
               Optimize Your Online Experience with Our Advanced
               <span>
-                &nbsp; URL Shortening
+                &nbsp;URL Shortening
                 <img
                   className="underline"
                   src={BlueLine}
                   alt=" blue underline"
                 />
-              </span>{" "}
-              Solution
+              </span>
+              &nbsp;Solution
             </p>
           </div>
           <p>

@@ -1,3 +1,8 @@
+footer {
+  position: relative;
+  padding-bottom: 3.9rem;
+}
+
 .documentation {
   position: relative;
   margin: 9.5rem auto 2.3rem;
@@ -41,20 +46,26 @@
 
 .tos {
   justify-content: end;
-  margin-bottom: 3.9rem;
+  padding-bottom: 3.9rem;
+  /* margin-bottom: 3.9rem; */
   padding: 0 1.2rem;
   display: flex;
   gap: 0.8rem;
 }
 
-/* .bg-footer-left {
+.bg-footer-left {
   position: absolute;
-  top: -6.3rem;
-  left: -5rem;
+  height: 120%;
+  z-index: -1;
+  left: 0;
+  bottom: 0;
 }
 
 .bg-footer-right {
   position: absolute;
-  top: 12.2rem;
-  right: -6.2rem;
-} */
+  height: 100%;
+  z-index: -1;
+  right: 0;
+  bottom: 0;
+  transform: translateX(28%);
+}
