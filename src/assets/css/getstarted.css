@@ -1,5 +1,6 @@
 .gap {
   position: relative;
+  overflow-x: hidden;
   background-color: #1e3448;
   color: #fff;
   text-align: center;

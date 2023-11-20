@@ -1,5 +1,6 @@
 .faq {
   position: relative;
+  /* overflow-x: hidden; */
   margin: 4.3rem auto 15.5rem;
   display: flex;
   flex-direction: column;

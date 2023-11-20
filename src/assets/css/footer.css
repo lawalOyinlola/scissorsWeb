@@ -1,5 +1,6 @@
 footer {
   position: relative;
+  overflow-x: hidden;
   padding-bottom: 3.9rem;
 }
 
