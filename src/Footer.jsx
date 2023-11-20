@@ -41,11 +41,17 @@ function Footer() {
         </div>
       </div>
       <aside className="tos">
-        <p>Terms of Service</p>
+        <a href="#">
+          <p>Terms of Service</p>
+        </a>
         <img src={LineVector} alt="horizontal line vector" />
-        <p>Security</p>
+        <a href="#">
+          <p>Security</p>
+        </a>
         <img src={LineVector} alt="horizontal line vector" />
-        <p>Scissor 2023</p>
+        <a href="#">
+          <p>Scissor 2023</p>
+        </a>
       </aside>
       <img className="bg-footer-left" src={FooterLeft} alt="abstract" />
       <img className="bg-footer-right" src={FooterRight} alt="abstract" />

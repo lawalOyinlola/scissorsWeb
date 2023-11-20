@@ -58,7 +58,7 @@
 }
 
 .box:hover {
-  transform: scale(1.04);
+  transform: scale(1.02);
   outline: 2px solid #0065fe;
 }
 

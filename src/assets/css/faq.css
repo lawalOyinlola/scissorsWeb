@@ -15,6 +15,7 @@
 }
 
 .faq-block {
+  z-index: 1;
   max-width: 79.2rem;
   display: flex;
   flex-direction: column;
@@ -49,15 +50,17 @@
 }
 
 .faq-left {
-  height: 50%;
   position: absolute;
   right: 0;
   bottom: -15.5rem;
+  height: 50%;
+  width: fit-content;
 }
 
 .faq-right {
-  height: 87%;
   position: absolute;
   left: 0;
   top: -4.3rem;
+  height: 87%;
+  width: fit-content;
 }

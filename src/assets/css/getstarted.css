@@ -25,13 +25,15 @@
 }
 
 .gap-left {
-  height: 100%;
   position: absolute;
   left: 0;
+  width: fit-content;
+  height: 100%;
 }
 
 .gap-right {
-  height: 100%;
   position: absolute;
   right: 0;
+  width: fit-content;
+  height: 100%;
 }

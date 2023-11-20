@@ -62,10 +62,13 @@
 .form-left {
   position: absolute;
   height: 100%;
+  width: fit-content;
+  left: 0;
 }
 
 .form-right {
   position: absolute;
+  width: fit-content;
   right: 0;
   height: 100%;
 }

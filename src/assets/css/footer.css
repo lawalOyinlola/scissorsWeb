@@ -45,9 +45,9 @@ footer {
 }
 
 .tos {
+  z-index: 1;
   justify-content: end;
   padding-bottom: 3.9rem;
-  /* margin-bottom: 3.9rem; */
   padding: 0 1.2rem;
   display: flex;
   gap: 0.8rem;
@@ -55,6 +55,7 @@ footer {
 
 .bg-footer-left {
   position: absolute;
+  width: fit-content;
   height: 120%;
   z-index: -1;
   left: 0;
@@ -62,10 +63,10 @@ footer {
 }
 
 .bg-footer-right {
+  height: 80%;
+  width: fit-content;
   position: absolute;
-  height: 100%;
   z-index: -1;
   right: 0;
   bottom: 0;
-  transform: translateX(28%);
 }
