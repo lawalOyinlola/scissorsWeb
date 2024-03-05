@@ -1,6 +1,5 @@
 .faq {
   position: relative;
-  /* overflow-x: hidden; */
   margin: 4.3rem auto 15.5rem;
   display: flex;
   flex-direction: column;
@@ -15,6 +14,10 @@
   gap: 1.6rem;
 }
 
+.faq-intro img {
+  filter: grayscale(100%) invert(100%);
+}
+
 .faq-block {
   z-index: 1;
   max-width: 79.2rem;
@@ -25,11 +28,12 @@
 
 .faq-text {
   line-height: 3.2rem;
-  border-bottom: 1px solid #d6d6d6;
+  border-bottom: 1.5px solid #d6d6d6;
   display: grid;
   grid-template-columns: 1fr auto;
   justify-content: center;
   column-gap: 2.4rem;
+  transition: all 0.3s ease-out;
 }
 
 .faq-text p:first-child {
@@ -40,6 +44,7 @@
 
 .faq-text > img {
   cursor: pointer;
+  filter: grayscale(100%) invert(100%);
 }
 
 .faq-text > img:active {

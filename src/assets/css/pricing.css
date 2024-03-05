@@ -1,9 +1,10 @@
 .pricing {
+  background-color: #1f2128;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 6.8rem;
-  margin-bottom: 11.2rem;
+  padding-bottom: 11.2rem;
 }
 
 .price-texts {
@@ -11,6 +12,10 @@
   grid-template-columns: auto 56rem;
   column-gap: 1.6rem;
   row-gap: 0.8rem;
+}
+
+.price-texts img {
+  filter: grayscale(100%) invert(100%);
 }
 
 .price-intro {
@@ -92,7 +97,7 @@
   border: none;
   padding: 9.5rem 10.6rem 14.8rem 6.5rem;
   background-color: #1e3448;
-  color: #fff;
+  color: #f1f4f8;
 }
 
 .price-btn {
@@ -106,6 +111,6 @@
 
 .white-btn {
   border: 1px solid #0065fe;
-  background-color: #fff;
+  background-color: transparent;
   color: #0065fe;
 }

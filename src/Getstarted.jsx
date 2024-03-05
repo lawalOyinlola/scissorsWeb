@@ -7,7 +7,9 @@ function GetStarted() {
     <div className="gap" id="get-started">
       <div className="get-started">
         <p>Revolutionizing Link Optimization</p>
-        <button href="#">Get Started</button>
+        <button className="button" href="#">
+          Get Started
+        </button>
       </div>
       <img className="gap-left" src={GapLeft} alt="abstract" />
       <img className="gap-right" src={GapRight} alt="abstract" />

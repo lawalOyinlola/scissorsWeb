@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import LineGradient from "./assets/images/line-gradient.svg";
 import { statData, infoData } from "./assets/data/scissorsData";
 import "./assets/css/scissorstats.css";
@@ -57,5 +58,12 @@ const InfoBlock = ({ iconSrc, altText, title, description }) => (
     </div>
   </div>
 );
+
+InfoBlock.propTypes = {
+  iconSrc: PropTypes.string.isRequired,
+  altText: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired,
+};
 
 export default ScissorStats;
