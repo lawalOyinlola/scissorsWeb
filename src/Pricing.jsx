@@ -9,16 +9,15 @@ function Pricing() {
     <section className="pricing" id="pricing">
       <div className="price-texts">
         <img src={LineGradient} alt="horizontal grey line gradient" />
-
         <p className="price-intro">
           A <span>price perfect</span> for your needs.
         </p>
-
         <p>
           From catering for your personal, business, event, socials needs, you
           can be rest assured we have you in mind in our pricing.
         </p>
       </div>
+
       <div className="price-block">
         {pricingData.map((pricing, index) => (
           <div key={index} className={`${pricing.type.toLowerCase()} box`}>
@@ -31,7 +30,7 @@ function Pricing() {
                   <li key={featureIndex}>
                     <img
                       src={
-                        pricing.type == "Professional" ? IconTickBlue : IconTick
+                        pricing.type != "Professional" ? IconTickBlue : IconTick
                       }
                       alt="tick icon"
                     />
@@ -44,11 +43,13 @@ function Pricing() {
         ))}
       </div>
       <div className="price-btn">
-        <button className="white-btn" href="#">
+        <button className="white-btn button" href="#">
           Get Custom Pricing
         </button>
 
-        <button href="#">Select Pricing</button>
+        <button className="button" href="#">
+          Select Pricing
+        </button>
       </div>
     </section>
   );

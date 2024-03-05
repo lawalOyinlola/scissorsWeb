@@ -1,12 +1,31 @@
 import Logo from "./assets/images/logo-scissor.svg";
 import ChevronDown from "./assets/images/chevron-down.svg";
-
+import ChevronDownBlue from "./assets/images/chevron-down-blue.svg";
 import { X, List } from "@phosphor-icons/react";
 import { useState, useEffect } from "react";
 import "./assets/css/header.css";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
+
+  function toggleFixedHeader() {
+    const navbar = document.getElementById("navbar");
+    const main = document.getElementById("main");
+    const scrollPosition = window.scrollY;
+
+    const threshold = 500;
+
+    if (scrollPosition > threshold) {
+      navbar.classList.add("fixed");
+      main.style.paddingTop = navbar.offsetHeight + "px";
+    } else {
+      navbar.classList.remove("fixed");
+      main.style.paddingTop = 0;
+    }
+  }
+
+  window.addEventListener("scroll", toggleFixedHeader);
 
   useEffect(() => {
     document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
@@ -30,7 +49,7 @@ function Header() {
   }
 
   return (
-    <header>
+    <header id="navbar">
       <div className="header">
         <a href="#main">
           <img src={Logo} alt="scissors logo" />
@@ -41,9 +60,18 @@ function Header() {
               <a href="#cta-form">My URLs</a>
             </li>
             <li onClick={toggleMenu}>
-              <a href="#features" className="features">
+              <a
+                href="#features"
+                className="features"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
                 <span>Features</span>
-                <img src={ChevronDown} alt="arrow down icon" />
+                <img
+                  className="chevron"
+                  src={isHovered ? ChevronDownBlue : ChevronDown}
+                  alt="arrow down icon"
+                />
               </a>
             </li>
             <li onClick={toggleMenu}>
@@ -62,7 +90,7 @@ function Header() {
                 </a>
               </li>
               <li onClick={toggleMenu}>
-                <button className="btn">Try for free</button>
+                <button className="try-btn button">Try for free</button>
               </li>
             </ul>
           </ul>

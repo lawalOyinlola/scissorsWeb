@@ -2,7 +2,7 @@
 
 Replicated the Scissors Web.
 This is the Scissors Web project, a user-friendly and efficient URL shortening application. This React-based web application is built with a focus on simplicity, practicality, and enhanced user experience. It's a replica of a project that was part of my journey in learning software development at AltSchool Africa. This project aims to provide a seamless and straightforward solution for shortening URLs, offering an intuitive and easy-to-use interface for quick link generation.
-NB: The link shortening is only a placeholder and doesn't work
+NB: The link shortening is only a placeholder and doesn't work yet
 
 ## Table of Contents
 
@@ -52,6 +52,7 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 
 ![Desktop screenshot](./public/screenshot_scissors_desktop.png)
 ![Mobile screenshot](./public/screenshot_scissors_mobile.png)
+![Dark Mode screenshot](./public/scissors-darkmode.png)
 
 ## Built with
 

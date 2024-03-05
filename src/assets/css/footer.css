@@ -18,15 +18,20 @@ footer {
   gap: 3.2rem;
 }
 
+.socials-block img {
+  width: 100%;
+  filter: grayscale(100%) invert(100%);
+}
+
+.socials img:hover {
+  filter: none;
+}
+
 .socials {
   padding: 0 0.8rem;
   display: flex;
   align-items: center;
   gap: 2.4rem;
-}
-
-.socials img {
-  width: 100%;
 }
 
 .documents-block {
@@ -52,6 +57,10 @@ footer {
   padding: 0 1.2rem;
   display: flex;
   gap: 0.8rem;
+}
+
+.tos a {
+  color: inherit;
 }
 
 .bg-footer-left {

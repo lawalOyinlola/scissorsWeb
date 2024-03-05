@@ -12,7 +12,9 @@
   position: relative;
   text-align: center;
   border-radius: 12px;
-  background-color: #fff;
+  background-color: #f1f4f8;
+  background-color: #7f7f7fc3;
+  background-color: #292e3c;
   margin: 8.15rem auto;
   padding: 4.2rem;
   display: grid;
@@ -23,13 +25,21 @@
 .form * {
   border: 1px solid #3284ff;
   color: #0065fe;
+  color: #f1f2f4;
   text-align: center;
   border-radius: 12px;
   height: 5.1rem;
 }
 
+.form input,
+.form select {
+  background-color: #e9e9edb9;
+  background-color: #f1f2f4;
+  background-color: #ffff;
+  color: #0065fe;
+}
+
 .form button {
-  color: #fff;
   border-radius: 100px;
   grid-column: 1/-1;
 }
@@ -43,7 +53,7 @@
   font-size: 1.4rem;
   border: none;
   border-radius: 100px;
-  color: #fff;
+  color: #f1f4f8;
   display: flex;
   justify-content: center;
   align-items: center;

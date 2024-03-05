@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 8rem;
-  margin: 10.6rem auto 7.6rem;
+  margin: 4.5rem auto 7.6rem;
   align-items: center;
 }
 
@@ -47,18 +47,28 @@
   gap: 5.6rem;
 }
 
-.signup button {
+.signup-btn {
   padding: 1.2rem 4.4rem;
+}
+
+.signup > a {
+  color: #0065fe;
+}
+
+.signup > a:hover {
+  color: inherit;
+  transform: scale(1.05);
 }
 
 .chainlink {
   position: relative;
   align-self: flex-end;
   border: 0.5px solid #99bbef;
+  border: 0.5px solid #141414;
   border-radius: 24px;
   max-width: 76.8rem;
   padding: 4rem 6rem;
-  background: linear-gradient(to right, #e2e9f0, #fff);
+  background: linear-gradient(to right, #6b6c6f, #6b6c6f, #6b6c6f, #9e9e9e);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -77,6 +87,7 @@
   position: absolute;
   top: -1.5rem;
   left: 1rem;
+  filter: grayscale(100%) invert(55%);
 }
 
 .triangle + img {
@@ -88,13 +99,16 @@
 }
 
 .ellipse {
+  z-index: 1;
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
   width: 70%;
+  transform: translate(-50%, -50%);
+  filter: grayscale(100%) invert(30%);
 }
 
 .grey-bg {
   width: 100%;
+  filter: grayscale(100%) invert(45%);
 }

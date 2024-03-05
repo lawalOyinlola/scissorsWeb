@@ -9,5 +9,14 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      var admin = require("firebase-admin");
+
+      var serviceAccount = require("path/to/serviceAccountKey.json");
+
+      admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+      });
+    </script>
   </body>
 </html>

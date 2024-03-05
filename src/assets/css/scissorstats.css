@@ -3,12 +3,13 @@
   line-height: 2.4rem;
   display: flex;
   flex-direction: column;
-  gap: 12.8rem;
+  gap: 6.7rem;
 }
 
 .stats {
-  background-color: #f9fbfd;
-  padding: 6rem 14rem;
+  background-color: #7f7f7fc3;
+  color: inherit;
+  padding: 6.1rem 14rem 6.1rem;
   display: flex;
   justify-content: center;
   gap: 12rem;
@@ -18,6 +19,10 @@
   font-family: "Gilroy-SemiBold", sans-serif;
   font-size: 4rem;
   line-height: 4.8rem;
+}
+
+.stat span {
+  color: #0047b2;
 }
 
 .stat-texts {
@@ -31,6 +36,7 @@
 }
 
 .info {
+  padding-top: 6.1rem;
   display: flex;
   gap: 9.6rem;
   justify-content: center;
@@ -43,6 +49,10 @@
   grid-template-columns: auto 37rem;
   column-gap: 1.1rem;
   row-gap: 1.6rem;
+}
+
+.why-scissors img {
+  filter: grayscale(100%) invert(100%);
 }
 
 .why-text {

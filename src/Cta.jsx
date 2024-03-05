@@ -1,9 +1,13 @@
 import MagicWand from "./assets/images/magic-wand.svg";
+import MagicWandBlue from "./assets/images/magic-wand-blue.svg";
 import FormLeft from "./assets/images/form-left.svg";
 import FormRight from "./assets/images/form-right.svg";
+import { useState } from "react";
 import "./assets/css/cta.css";
 
 function CtaForm() {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <section className="cta-form" id="cta-form">
       <form className="form">
@@ -17,9 +21,17 @@ function CtaForm() {
           <option value=".com">Choose Domain</option>
         </select>
         <input type="text" name="alias" placeholder="Type Alias here" />
-        <button className="trim-url">
+        <button
+          className="trim-url button"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
           Trim URL
-          <img className="magic-wand" src={MagicWand} alt="magic wand" />
+          <img
+            className="magic-wand"
+            src={isHovered ? MagicWandBlue : MagicWand}
+            alt="arrow down icon"
+          />
         </button>
         <p>
           By clicking TrimURL, I agree to the
