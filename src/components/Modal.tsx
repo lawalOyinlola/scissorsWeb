@@ -1,0 +1,26 @@
+import React, { useEffect } from "react";
+import "../css/modal.css";
+
+interface ModalProps {
+  message: string;
+  onClose: () => void;
+}
+
+const Modal: React.FC<ModalProps> = ({ message, onClose }) => {
+  // Automatically close the modal after 3 seconds
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onClose();
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [onClose]);
+
+  return (
+    <div className="modal">
+      <p className="modal-content">{message}</p>
+    </div>
+  );
+};
+
+export default Modal;

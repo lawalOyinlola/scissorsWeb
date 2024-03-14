@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
-import BlueLine from "./assets/images/blue-line.svg";
-import Triangle from "./assets/images/triangle-vector.svg";
-import ChainLink from "./assets/images/chainlink.svg";
-import ChainLinkDark from "./assets/images/chainlink-dark.svg";
-import EllipseBg from "./assets/images/ellipse-background.svg";
-import Ellipse from "./assets/images/ellipse.svg";
-import "./assets/css/mainbody.css";
+import BlueLine from "../images/blue-line.svg";
+import Triangle from "../images/triangle-vector.svg";
+import ChainLink from "../images/chainlink.svg";
+import ChainLinkDark from "../images/chainlink-dark.svg";
+import EllipseBg from "../images/ellipse-background.svg";
+import Ellipse from "../images/ellipse.svg";
+import "../css/hero.css";
 
-function MainBody() {
-  const [colorScheme, setColorScheme] = useState("light");
+interface HeroProps {
+  handleSignUpButtonClick: () => void;
+}
+
+const Hero: React.FC<HeroProps> = ({ handleSignUpButtonClick }) => {
+  const [colorScheme, setColorScheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -48,8 +52,13 @@ function MainBody() {
             engagement.
           </p>
           <div className="signup">
-            <button className="signup-btn button">Sign Up</button>
-            <a href="#">Learn more</a>
+            <button
+              className="signup-btn button"
+              onClick={handleSignUpButtonClick}
+            >
+              Sign Up
+            </button>
+            <a href="#features">Learn more...</a>
           </div>
         </div>
         <div className="chainlink">
@@ -70,6 +79,6 @@ function MainBody() {
       </figure>
     </main>
   );
-}
+};
 
-export default MainBody;
+export default Hero;

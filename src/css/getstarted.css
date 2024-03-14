@@ -38,3 +38,7 @@
   width: fit-content;
   height: 100%;
 }
+
+.qr {
+  filter: grayscale(100%) invert(100%);
+}

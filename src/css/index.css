@@ -1,0 +1,415 @@
+:root {
+  font-family: "Gilroy-Medium", sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color-scheme: light dark;
+  background-color: #292e3c;
+  color: #f1f4f8;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  /* 1rem = 16px,  convert 1rem =10px */
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  max-width: 144rem;
+  margin: 0 auto;
+  font-size: 1.6rem;
+  transition: all 0.3;
+  overflow-x: hidden;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  line-height: 1.2rem;
+  border: none;
+  border-radius: 100px;
+  padding: 1.2rem 2.4rem;
+  background-color: #0065fe;
+  color: #f1f4f8;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+a {
+  cursor: pointer;
+}
+
+a:link,
+a:visited {
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+}
+
+a:active,
+button:active {
+  transform: translateY(1px);
+}
+
+img {
+  display: block;
+}
+
+span {
+  color: #0065fe;
+}
+
+.button:hover {
+  outline: 2px solid #0065fe;
+  background-color: #f1f4f8;
+  color: #0065fe;
+}
+
+#pricing,
+#faq {
+  padding-top: 6.1rem;
+}
+
+/* LIGHT MODE */
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #fffefe;
+  }
+
+  .header {
+    background-color: #fffefe;
+  }
+
+  .signup > a,
+  .login a:link,
+  .login a:visited,
+  .stat span {
+    color: #0065fe;
+  }
+
+  .login a:hover,
+  .signup > a:hover {
+    color: inherit;
+  }
+
+  .chainlink {
+    background: linear-gradient(to right, #e2e9f0, #fff);
+  }
+
+  .stats {
+    background-color: #f9fbfd;
+  }
+
+  .pricing,
+  .form,
+  .auth-container {
+    background-color: #f1f4f8;
+  }
+
+  .white-btn {
+    border: 1px solid #0065fe;
+    background-color: transparent;
+    color: #0065fe;
+  }
+
+  .chevron,
+  .triangle,
+  .triangle + img,
+  .price-texts img,
+  .main-bottom img,
+  .why-scissors img,
+  .faq-intro img,
+  .faq-text img,
+  .socials-block img {
+    filter: none;
+  }
+
+  .input-box input {
+    border-bottom: 1px solid #213547;
+  }
+
+  .forgot {
+    color: #0065fe;
+  }
+
+  .forgot:hover,
+  .forgot:active {
+    color: #213547;
+  }
+
+  .socials img:hover {
+    filter: grayscale(100%) invert(40%);
+  }
+}
+
+/* RESPONSIVENESS */
+
+/* BELOW 1392PX - SMALL DESKTOP */
+@media (max-width: 87em) {
+  html {
+    font-size: 56.25%;
+  }
+
+  .main-intros,
+  .main-intros + p {
+    padding: 0 1rem;
+  }
+
+  .documentation {
+    gap: 2rem;
+  }
+
+  .socials-block {
+    gap: 2rem;
+  }
+
+  .socials {
+    gap: 2rem;
+  }
+
+  .documents-block {
+    grid-template-columns: 1fr 1fr 1fr 0.75fr;
+    gap: 0;
+  }
+
+  .tos {
+    gap: 0.5rem;
+  }
+}
+
+/* BELOW 896PX - TABLET */
+@media (max-width: 56em) {
+  html {
+    font-size: 50%;
+  }
+
+  .menu-btn {
+    display: block;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .nav-open {
+    z-index: 999;
+    font-size: 4rem;
+    background-color: rgba(255, 255, 255, 0.008);
+    -webkit-backdrop-filter: blur(50px);
+    backdrop-filter: blur(20px);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    transition: all 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5rem;
+  }
+
+  .btn {
+    padding: 3rem 4rem;
+    font-size: 4rem;
+  }
+
+  .login li {
+    margin: 1rem;
+  }
+
+  .main-intro {
+    font-size: 4.4rem;
+  }
+
+  .main-intro {
+    line-height: 1.8;
+  }
+
+  .stats {
+    padding: 6rem 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4rem;
+  }
+
+  .stat-texts {
+    text-align: center;
+    gap: 5rem;
+  }
+
+  .info {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .why-scissors {
+    align-self: center;
+    grid-template-columns: auto 50rem;
+  }
+
+  .price-block {
+    flex-direction: column;
+  }
+
+  .teams {
+    border-radius: 0 0 1.2rem 1.2rem;
+  }
+
+  .basic {
+    border-radius: 1.2rem 1.2rem 0 0;
+  }
+
+  .socials-block {
+    max-width: 14rem;
+    position: absolute;
+    left: 4%;
+    gap: 1rem;
+  }
+
+  .documents-block {
+    grid-template-columns: 0.8fr 1fr 1fr 1.1fr;
+    row-gap: 4rem;
+    column-gap: 0;
+  }
+
+  .documents-block ul:first-of-type {
+    grid-column: 2;
+  }
+}
+
+/* BELOW 640PX - MOBILE */
+
+@media (max-width: 40em) {
+  .main-body {
+    margin-top: 9rem;
+    padding: 0 1rem;
+  }
+
+  .main-intro {
+    font-family: "Gilroy-Bold", sans-serif;
+    font-size: 4rem;
+    line-height: 1.5;
+  }
+
+  .chainlink {
+    border-radius: 20px;
+  }
+
+  .chainlink p {
+    font-size: 1.2rem;
+    padding: 0;
+  }
+
+  .scissors-info {
+    text-align: center;
+    margin-bottom: 16rem;
+  }
+
+  .stats {
+    padding: 6rem 1rem;
+  }
+
+  .stat {
+    font-size: 3.2rem;
+  }
+
+  .stat-texts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+  }
+
+  .info {
+    padding: 0 1rem;
+  }
+
+  .why-scissors {
+    max-width: 60rem;
+    grid-template-columns: inherit;
+    row-gap: 1rem;
+  }
+
+  .info-blocks {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 7rem;
+  }
+
+  .info-block {
+    max-width: 40rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .info-block p:first-child {
+    margin-bottom: 1.2rem;
+  }
+
+  .info-block p {
+    font-size: 1.8rem;
+  }
+
+  .pricing {
+    margin: 0 1rem 11rem;
+  }
+
+  .price-texts {
+    max-width: 60rem;
+    grid-template-columns: auto 1fr;
+    text-align: center;
+    column-gap: 0.6rem;
+  }
+
+  .price-intro {
+    font-size: 4.1rem;
+    line-height: 4rem;
+  }
+
+  .price-btn button {
+    padding: 2rem 3rem;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .faq {
+    margin: 4.3rem 1rem 15.5rem;
+  }
+
+  .documents-block {
+    grid-template-columns: repeat(2, auto);
+  }
+}
+
+@media (max-width: 32em) {
+  header a,
+  .btn {
+    font-size: 3rem;
+  }
+
+  .login {
+    flex-direction: column;
+    margin-left: -1rem;
+  }
+
+  .btn {
+    padding: 2rem 2rem;
+  }
+}

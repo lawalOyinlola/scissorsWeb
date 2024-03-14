@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   gap: 8rem;
-  margin: 4.5rem auto 7.6rem;
+  margin: 5rem auto 7.6rem;
   align-items: center;
 }
 
@@ -52,11 +52,11 @@
 }
 
 .signup > a {
-  color: #0065fe;
+  color: #f1f4f8;
 }
 
 .signup > a:hover {
-  color: inherit;
+  color: #0065fe;
   transform: scale(1.05);
 }
 

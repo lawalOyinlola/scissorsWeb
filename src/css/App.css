@@ -26,14 +26,24 @@ body {
   margin: 0 auto;
   font-size: 1.6rem;
   transition: all 0.3;
+  position: relative;
   overflow-x: hidden;
+}
+
+.auth-open {
+  overflow: hidden;
+}
+
+.hidden {
+  display: none;
 }
 
 li {
   list-style: none;
 }
 
-button {
+button,
+.try-btn {
   line-height: 1.2rem;
   border: none;
   border-radius: 100px;
@@ -42,6 +52,10 @@ button {
   color: #f1f4f8;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+}
+
+a {
+  cursor: pointer;
 }
 
 a:link,
@@ -71,7 +85,7 @@ span {
 
 #pricing,
 #faq {
-  padding-top: 6.1rem;
+  padding-top: 7rem;
 }
 
 /* LIGHT MODE */
@@ -81,26 +95,60 @@ span {
     background-color: #fffefe;
   }
 
-  .pricing {
+  .header {
+    background-color: #fffefe;
+  }
+
+  .modal {
     background-color: #f1f4f8;
   }
 
-  .header {
-    background-color: #fffefe;
+  .login a:link,
+  .login a:visited,
+  .signup > a,
+  .analytics-heading span,
+  .forgot {
+    color: #0065fe;
+  }
+
+  .login a:hover,
+  .signup > a:hover,
+  .tos a,
+  .forgot:hover,
+  .forgot:active {
+    color: #213547;
+  }
+
+  .nav .login .try a:link,
+  .nav .login .try a:visited {
+    color: #f1f4f8;
+  }
+
+  .nav .login .try a:hover {
+    color: #0065fe;
   }
 
   .chainlink {
     background: linear-gradient(to right, #e2e9f0, #fff);
   }
 
-  .stats {
+  .analytics {
     background-color: #f9fbfd;
   }
 
-  .stat span {
+  .pricing,
+  .url-form,
+  .auth-container {
+    background-color: #f1f4f8;
+  }
+
+  .white-btn {
+    border: 1px solid #0065fe;
+    background-color: transparent;
     color: #0065fe;
   }
 
+  .chevron,
   .triangle,
   .triangle + img,
   .price-texts img,
@@ -110,6 +158,10 @@ span {
   .faq-text img,
   .socials-block img {
     filter: none;
+  }
+
+  .input-box input {
+    border-bottom: 1px solid #213547;
   }
 
   .socials img:hover {
@@ -167,7 +219,7 @@ span {
   }
 
   .nav-open {
-    z-index: 999;
+    z-index: 99;
     font-size: 4rem;
     background-color: rgba(255, 255, 255, 0.008);
     -webkit-backdrop-filter: blur(50px);
@@ -202,7 +254,7 @@ span {
     line-height: 1.8;
   }
 
-  .stats {
+  .analytics {
     padding: 6rem 10rem;
     display: flex;
     flex-direction: column;
@@ -210,12 +262,12 @@ span {
     gap: 4rem;
   }
 
-  .stat-texts {
+  .analytics-info {
     text-align: center;
     gap: 5rem;
   }
 
-  .info {
+  .features {
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -284,21 +336,21 @@ span {
     margin-bottom: 16rem;
   }
 
-  .stats {
+  .analytics {
     padding: 6rem 1rem;
   }
 
-  .stat {
+  .analytics-heading {
     font-size: 3.2rem;
   }
 
-  .stat-texts {
+  .analytics-info {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
   }
 
-  .info {
+  .features {
     padding: 0 1rem;
   }
 
@@ -308,25 +360,25 @@ span {
     row-gap: 1rem;
   }
 
-  .info-blocks {
+  .features-container {
     width: auto;
     display: flex;
     flex-direction: column;
     gap: 7rem;
   }
 
-  .info-block {
+  .feature-block {
     max-width: 40rem;
     display: flex;
     flex-direction: column;
     align-items: center;
   }
 
-  .info-block p:first-child {
+  .feature-block p:first-child {
     margin-bottom: 1.2rem;
   }
 
-  .info-block p {
+  .feature-block p {
     font-size: 1.8rem;
   }
 
@@ -350,7 +402,7 @@ span {
     padding: 2rem 3rem;
   }
 
-  .form {
+  .url-form {
     display: flex;
     flex-direction: column;
   }

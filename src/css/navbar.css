@@ -1,11 +1,15 @@
 .header {
   position: relative;
-  padding: 0.8rem 0;
+  padding: 1.4rem 0;
   background-color: #292e3c;
   transition: top 0.8s ease-in-out;
   display: flex;
   justify-content: space-around;
   align-items: center;
+}
+
+.link.active {
+  color: red;
 }
 
 .fixed {
@@ -27,23 +31,36 @@
 .nav a:link,
 .nav a:visited,
 .nav-open a:link,
-.nav-open:visited {
+.nav-open:visited,
+.login a:link,
+.login a:visited {
   color: inherit;
 }
 
 .header-nav a:hover,
-.header-nav a:active,
+.header-nav a:active {
+  color: #0065fe;
+}
+
 .login a:hover {
   color: #0065fe;
 }
 
-.features {
+.features-link {
   display: flex;
   align-items: center;
 }
 
-.features span {
+.features-link span {
   color: inherit;
+}
+
+.chevron {
+  filter: grayscale(100%) invert(100%);
+}
+
+.features-link:hover .chevron {
+  filter: none;
 }
 
 .login {

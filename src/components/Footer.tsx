@@ -1,15 +1,23 @@
-import LogoBlack from "./assets/images/logo-black.svg";
-import SocialsX from "./assets/images/socials-x.svg";
-import SocialsIg from "./assets/images/socials-instagram.svg";
-import SocialsLn from "./assets/images/socials-linkedin.svg";
-import SocialsFb from "./assets/images/socials-facebook.svg";
-import LineVector from "./assets/images/line-vector.svg";
-import FooterLeft from "./assets/images/footer-left.svg";
-import FooterRight from "./assets/images/footer-right.svg";
-import footerData from "./assets/data/footerData";
-import "./assets/css/footer.css";
+import LogoBlack from "../images/logo-black.svg";
+import SocialsX from "../images/socials-x.svg";
+import SocialsIg from "../images/socials-instagram.svg";
+import SocialsLn from "../images/socials-linkedin.svg";
+import SocialsFb from "../images/socials-facebook.svg";
+import LineVector from "../images/line-vector.svg";
+import FooterLeft from "../images/footer-left.svg";
+import FooterRight from "../images/footer-right.svg";
+import "../css/footer.css";
 
-function Footer() {
+interface FooterDataItem {
+  category: string;
+  items: string[];
+}
+
+interface FooterProps {
+  footerData: FooterDataItem[];
+}
+
+const Footer: React.FC<FooterProps> = ({ footerData }) => {
   return (
     <footer>
       <div className="documentation">
@@ -57,6 +65,6 @@ function Footer() {
       <img className="bg-footer-right" src={FooterRight} alt="abstract" />
     </footer>
   );
-}
+};
 
 export default Footer;
