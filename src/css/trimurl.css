@@ -1,0 +1,100 @@
+.trim-url {
+  position: relative;
+  overflow-x: hidden;
+  background-color: #1e3448;
+  display: flex;
+  align-items: center;
+}
+
+p.error {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  color: red;
+}
+
+.url-form {
+  z-index: 1;
+  max-width: 47.6rem;
+  position: relative;
+  text-align: center;
+  border-radius: 12px;
+  background-color: #292e3c;
+  margin: 8.15rem auto;
+  padding: 4.2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.4rem;
+}
+
+.url-form * {
+  border: 1px solid #3284ff;
+  color: #f1f2f4;
+  text-align: center;
+  border-radius: 12px;
+  height: 5.1rem;
+}
+
+.url-form input,
+.url-form select {
+  background-color: #ffff;
+  color: #0065fe;
+}
+
+.url-form p:last-child,
+.url-form input:first-child {
+  grid-column: 1/-1;
+}
+
+.url-btn {
+  border-radius: 100px;
+  font-size: 1.4rem;
+  border: none;
+  color: #f1f4f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-column: 1/-1;
+  gap: 1rem;
+}
+
+.url-form p,
+.url-form strong {
+  border: none;
+}
+
+.alias {
+  position: relative;
+}
+
+.alias input {
+  width: 100%;
+}
+
+.alias-error {
+  font-size: 1.2rem;
+  color: #4d93fe;
+  position: absolute;
+  bottom: 10;
+  left: 1rem;
+}
+
+.magic-wand {
+  border: none;
+  width: 9%;
+}
+
+.form-left {
+  position: absolute;
+  width: fit-content;
+  height: 100%;
+  left: 0;
+}
+
+.form-right {
+  position: absolute;
+  right: 0;
+  width: fit-content;
+  height: 100%;
+}

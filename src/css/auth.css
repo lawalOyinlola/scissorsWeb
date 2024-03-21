@@ -1,0 +1,162 @@
+.auth {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-container {
+  position: relative;
+  z-index: 9999;
+  width: 100%;
+  max-width: 56rem;
+  min-height: 40rem;
+  border-radius: 12px;
+  padding: 4rem 6rem;
+  margin: 0 2rem;
+  background-color: #1f2128;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tab-group {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 4rem;
+}
+
+.tab-group::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.tab {
+  width: 50%;
+}
+
+.tab a {
+  display: block;
+  font-size: 1.4rem;
+  text-align: center;
+  padding: 1.2rem;
+  background-color: #cce0ff;
+  color: #1f2128;
+  transition: 0.5s ease;
+}
+
+.tab.active a {
+  background: #0065fe;
+  color: #f1f4f8;
+}
+
+.tab a:hover {
+  background-color: #f1f4f8;
+  color: #0065fe;
+}
+
+.tab-content {
+  width: 100%;
+  padding: 0 2rem;
+}
+
+.tab-content h2 {
+  text-align: left;
+  font-size: 2rem;
+  margin: 0 0 30px;
+  text-align: center;
+  font-weight: 300;
+}
+
+.tab-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.input-box {
+  position: relative;
+}
+
+.input-box input {
+  width: 100%;
+  padding: 10px;
+  font-size: 1.4rem;
+  border: none;
+  border-bottom: 1px solid #f1f4f8;
+  outline: none;
+  background: transparent;
+}
+
+.input-box input + label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1rem 0;
+  font-size: 1.4rem;
+  pointer-events: none;
+  transition: 0.5s;
+}
+
+.input-box input:focus + label,
+.input-box input:valid + label {
+  top: -20px;
+  left: 0;
+  color: #0065fe;
+  font-size: 1.2rem;
+}
+
+.input-box input:focus:invalid + label {
+  color: red;
+}
+
+.req {
+  margin: 0.2rem;
+  color: #1ab188;
+}
+
+.tab-content .button {
+  transition: all.5s ease;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.5rem;
+  padding: 2rem 0;
+}
+
+.forgot {
+  align-self: end;
+  font-size: 1.2rem;
+  padding: 0.2rem;
+  color: #f1f4f8;
+}
+
+.forgot:hover,
+.forgot:active {
+  color: #0065fe;
+}
+
+.cancel-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(10%, -30%);
+  cursor: pointer;
+  background-color: #1f2128;
+  border-radius: 100%;
+  color: #f1f4f8;
+}
+
+.cancel-btn:hover,
+.cancel-btn:active {
+  color: #0065fe;
+}

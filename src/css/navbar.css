@@ -1,0 +1,87 @@
+.header {
+  position: relative;
+  padding: 1.4rem 0;
+  background-color: #292e3c;
+  transition: top 0.8s ease-in-out;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.link.active {
+  color: red;
+}
+
+.fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  max-width: 144rem;
+  z-index: 999;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
+}
+
+.nav {
+  display: flex;
+  gap: 4rem;
+  align-items: center;
+}
+
+.nav a:link,
+.nav a:visited {
+  color: #f1f4f8;
+}
+
+.nav.open {
+  background-color: rgba(41, 46, 60, 0.243);
+}
+
+.header-nav a:hover,
+.header-nav a:active {
+  color: #0065fe !important;
+}
+
+.features-link {
+  display: flex;
+  align-items: center;
+}
+
+.chevron {
+  filter: grayscale(100%) invert(100%);
+}
+
+.features-link:hover .chevron {
+  filter: none;
+}
+
+.login {
+  margin-left: 8rem;
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+}
+
+.try-btn {
+  line-height: 1.2rem;
+  border: none;
+  border-radius: 100px;
+  padding: 1.2rem 2.4rem;
+  background-color: #0065fe;
+  outline: 1px solid #0065fe;
+  color: #f1f4f8;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.menu-btn {
+  display: none;
+  z-index: 999;
+  background-color: transparent;
+  color: inherit;
+  padding: 1rem;
+  border: none;
+}
+
+button.menu-btn {
+  outline: none;
+}

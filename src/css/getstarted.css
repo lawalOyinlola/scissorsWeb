@@ -1,0 +1,44 @@
+.gap {
+  position: relative;
+  overflow-x: hidden;
+  background-color: #1e3448;
+  color: #f1f4f8;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.get-started {
+  z-index: 1;
+  font-family: "Gilroy-SemiBold", sans-serif;
+  font-size: 4rem;
+  line-height: 4.8rem;
+  margin: 10.9rem auto 5.3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.get-started button {
+  padding: 1.6rem 6rem;
+}
+
+.gap-left {
+  position: absolute;
+  left: 0;
+  width: fit-content;
+  height: 100%;
+}
+
+.gap-right {
+  position: absolute;
+  right: 0;
+  width: fit-content;
+  height: 100%;
+}
+
+.qr {
+  filter: grayscale(100%) invert(100%);
+}

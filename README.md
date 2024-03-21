@@ -1,11 +1,14 @@
-# AltSchool First Semester Project | Scissors Web
+# Capstone Project | Scissors Web
 
-Replicated the Scissors Web.
-This is the Scissors Web project, a user-friendly and efficient URL shortening application. This React-based web application is built with a focus on simplicity, practicality, and enhanced user experience. It's a replica of a project that was part of my journey in learning software development at AltSchool Africa. This project aims to provide a seamless and straightforward solution for shortening URLs, offering an intuitive and easy-to-use interface for quick link generation.
-NB: The link shortening is only a placeholder and doesn't work yet
+### Overview:
+
+The Scissors Web project is a testament to the principles of modern web development, featuring a sleek and intuitive user interface coupled with powerful functionality. From authentication to link management and analytics, every aspect of the application is designed to streamline the URL management process and empower users with actionable insights.
+
+Whether you're a casual user looking to share links with friends or a business professional seeking to track link performance, the Scissors Web project offers a comprehensive solution tailored to your needs.
 
 ## Table of Contents
 
+- [Features](#features)
 - [Demo](#demo)
 - [Dependencies](#dependencies)
 - [Folder Structure](#folder-structure)
@@ -13,6 +16,33 @@ NB: The link shortening is only a placeholder and doesn't work yet
 - [Screenshot](#screenshot)
 - [Built With](#built-with)
 - [Earlier Version](#earlier-version)
+
+## Features
+
+### Authentication:
+
+- Implemented a secure authentication system to ensure user data privacy and access control.
+- Users can securely log in and manage their shortened URLs within a personalized dashboard.
+
+### Link Shortening:
+
+- Utilized advanced techniques, including use of emoji combinations, to provide unique and memorable shortened URLs.
+- Users can effortlessly trim lengthy URLs into concise and visually appealing links, making sharing and managing links more engaging.
+
+### QR Code Generation:
+
+- Integrated QR code generation functionality to allow users to generate QR codes for their shortened URLs.
+- Enhances the usability of shortened URLs by enabling users to easily share and access links through QR codes, especially in mobile environments.
+
+### Analytics:
+
+- Implemented analytics features to provide users with insights into the performance of their shortened URLs.
+- Users can track various metrics such as click counts, browser statistics, geographical distribution... to gain valuable insights into link engagement and audience behavior.
+
+### Error Boundary:
+
+- Implemented error boundaries to enhance application robustness and provide a graceful fallback mechanism in case of unexpected errors.
+- Ensures a smooth user experience by handling errors gracefully without disrupting the overall functionality of the application.
 
 ## Demo
 
@@ -22,19 +52,24 @@ You can try the app live at [Scissors Web](https://altschool-scissors.netlify.ap
 
 - react
 - @phosphor-icons/react
+- @supabase/supabase-js
+- file-saver
+- react-router-dom
 
 ## Folder Structure
 
 The project structure is organized as follows:
 public/: Contains the public assets.
 src/: Contains the source code of the application and all components
-src/assets: contains ./images and ./data assets .
-assets/css: css styling for individual component
-assets/data: contains data files used in some components
-assets/images: contains images used in the App components
-App.jsx: The main application component.
-index.html
+src/components: Contains all component file .
+src/pages: Contains the Pages and their CSS styles .
+src/css: CSS styling for individual component
+src/data: Contains data files used in some components
+src/images: Contains images used in the App components
+App.tsx: The main application component where routing is done.
+main.tsx: The root component file.
 package.json: Lists the project dependencies and scripts.
+index.html
 README.md/: The documentation file.
 ...and others
 
@@ -57,8 +92,8 @@ Contributions are welcome! If you'd like to contribute to this project, please f
 ## Built with
 
 - React
-- JSX
 - Vanilla JavaScript
+- TypeScript
 - Semantic HTML5 markup
 - CSS custom properties
 

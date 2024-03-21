@@ -1,0 +1,82 @@
+.scissors-info {
+  margin-bottom: 13rem;
+  line-height: 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6.7rem;
+}
+
+.analytics {
+  background-color: #7f7f7fc3;
+  padding: 7rem 14rem 6.1rem;
+  display: flex;
+  justify-content: center;
+  gap: 12rem;
+}
+
+.analytics-heading {
+  font-family: "Gilroy-SemiBold", sans-serif;
+  font-size: 4rem;
+  line-height: 4.8rem;
+}
+
+.analytics-heading span {
+  color: #0047b2;
+}
+
+.analytics-info {
+  display: flex;
+  gap: 7.2rem;
+}
+
+.analytics-info p:first-child {
+  font-size: 3.2rem;
+  line-height: 4rem;
+}
+
+.features {
+  padding-top: 7rem;
+  display: flex;
+  gap: 9.6rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.why-scissors {
+  display: grid;
+  align-self: flex-start;
+  grid-template-columns: auto 37rem;
+  column-gap: 1.1rem;
+  row-gap: 1.6rem;
+}
+
+.why-scissors img {
+  filter: grayscale(100%) invert(100%);
+}
+
+.features-heading {
+  font-family: "Gilroy-Bold", sans-serif;
+  font-size: 3.7rem;
+  line-height: 3.2rem;
+  align-self: center;
+}
+
+.features-heading + p {
+  line-height: 2.8rem;
+  grid-column: 2;
+}
+
+.features-container {
+  width: 70.8rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 2.8rem;
+  row-gap: 6.4rem;
+}
+
+.feature-block p:first-child {
+  font-size: 3.2rem;
+  line-height: 2.8rem;
+  margin-top: 4rem;
+  margin-bottom: 1.6rem;
+}

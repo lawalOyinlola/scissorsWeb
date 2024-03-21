@@ -1,0 +1,112 @@
+.pricing {
+  background-color: #1f2128;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6.8rem;
+  padding-bottom: 11.2rem;
+}
+
+.price-texts {
+  display: grid;
+  grid-template-columns: auto 56rem;
+  column-gap: 1.6rem;
+  row-gap: 0.8rem;
+}
+
+.price-texts img {
+  filter: grayscale(100%) invert(100%);
+}
+
+.price-intro {
+  font-family: "Gilroy-Bold", sans-serif;
+  font-size: 4rem;
+  line-height: 4.8rem;
+}
+
+.price-intro + p {
+  text-align: center;
+  grid-column: 2;
+}
+
+.price-block {
+  margin-left: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  width: 37.9rem;
+  border: 0.4px solid #b6cff5;
+  border-radius: 1.2rem;
+  margin-left: -4rem;
+  padding: 2.4rem 9.8rem 4.5rem 8.7rem;
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3.4rem;
+}
+
+.box ul {
+  font-size: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.box li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.8rem;
+}
+
+.box:hover {
+  transform: scale(1.02);
+  outline: 2px solid #0065fe;
+}
+
+.price-title {
+  font-size: 2.4rem;
+}
+
+.price {
+  font-family: "Gilroy-SemiBold", sans-serif;
+  font-size: 4rem;
+  line-height: 4.8rem;
+  margin-bottom: 0.8rem;
+  align-self: center;
+}
+
+.price-subtitle {
+  font-size: 1.9rem;
+}
+
+.teams {
+  padding: 2.6rem 6.6rem 4.3rem 8.6rem;
+}
+
+.professional {
+  width: 41rem;
+  z-index: 1;
+  border: none;
+  padding: 9.5rem 10.6rem 14.8rem 6.5rem;
+  background-color: #1e3448;
+  color: #f1f4f8;
+}
+
+.price-btn {
+  display: flex;
+  gap: 1.6rem;
+}
+
+.price-btn button {
+  padding: 2rem 3.8rem;
+}
+
+.white-btn {
+  outline: 1px solid #f1f4f8;
+  background-color: transparent;
+  color: #f1f4f8;
+}
