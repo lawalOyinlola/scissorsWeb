@@ -27,9 +27,9 @@ const AnalyticsPage: React.FC = () => {
       <div className="flex">
         <strong>Browser:</strong>
         <ul>
-          {Object.entries(analyticsData.browser).map(([browserName, value]) => (
+          {Object.entries(analyticsData.browser).map(([browserName]) => (
             <li key={browserName}>
-              {browserName}: {value}
+              {browserName}: {}
             </li>
           ))}
         </ul>
@@ -56,9 +56,9 @@ const AnalyticsPage: React.FC = () => {
       <div className="column flex">
         <strong>Country:</strong>
         <ul>
-          {Object.entries(analyticsData.country).map(([country, count]) => (
+          {Object.entries(analyticsData.country).map(([country]) => (
             <li key={country}>
-              {country}: {count}
+              {country}: {}
             </li>
           ))}
         </ul>
