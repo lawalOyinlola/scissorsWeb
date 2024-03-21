@@ -51,19 +51,29 @@
   padding: 1.2rem 4.4rem;
 }
 
-.signup > a {
+.signup > a:hover {
+  transform: scale(1.05);
+}
+
+.signup-btn:disabled {
+  background-color: #6b6c6f;
+  outline: none;
+}
+
+.signup-btn:disabled:hover {
+  background-color: #6b6c6f;
+  outline: none;
+  transform: none;
   color: #f1f4f8;
 }
 
-.signup > a:hover {
-  color: #0065fe;
-  transform: scale(1.05);
+.learn-btn {
+  color: #f1f4f8;
 }
 
 .chainlink {
   position: relative;
   align-self: flex-end;
-  border: 0.5px solid #99bbef;
   border: 0.5px solid #141414;
   border-radius: 24px;
   max-width: 76.8rem;

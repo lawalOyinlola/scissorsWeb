@@ -1,22 +1,35 @@
-import { useEffect, useState } from "react";
-// import supabase from "../supabase";
-import { supabase } from "../supabase";
-import Modal from "./Modal";
+import { useEffect } from "react";
+import { XCircle } from "@phosphor-icons/react";
 import "../css/auth.css";
-// import { getSession } from "../supabase";
 
 interface AuthProps {
-  isOpen: boolean;
+  isLoading: boolean;
   closeAuth: () => void;
-  activeTab: "signup" | "login" | "forgot";
+  handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSignUp: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleLogin: (e: React.FormEvent<HTMLFormElement>) => void;
   handleTabClick: (tabId: "signup" | "login" | "forgot") => void;
+  activeTab: "signup" | "login" | "forgot";
+  authIsOpen: boolean;
+  errors: any;
+  formData: {
+    email: string;
+    password: string;
+    confirmPassword: string;
+  };
 }
 
 const Auth: React.FC<AuthProps> = ({
-  isOpen,
-  closeAuth,
+  authIsOpen,
   activeTab,
+  closeAuth,
+  errors,
+  formData,
   handleTabClick,
+  handleLogin,
+  handleInputChange,
+  handleSignUp,
+  isLoading,
 }) => {
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -25,14 +38,14 @@ const Auth: React.FC<AuthProps> = ({
       }
     };
 
-    if (isOpen) {
+    if (authIsOpen) {
       document.addEventListener("keydown", handleKeyPress);
     }
 
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, [isOpen, closeAuth]);
+  }, [authIsOpen, closeAuth]);
 
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
@@ -40,109 +53,10 @@ const Auth: React.FC<AuthProps> = ({
     }
   };
 
-  const [modalMessage, setModalMessage] = useState<string>("");
-  const [showModal, setShowModal] = useState<boolean>(false);
-  // const [isInvalid, setIsInvalid] = useState(false);
-
-  // const handleInputClick = () => {
-  //   setIsInvalid(true);
-  // };
-
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (formData.password !== formData.confirmPassword) {
-      console.error("Passwords do not match");
-      return;
-    }
-
-    try {
-      const { data, error } = await supabase.auth.signUp({
-        email: formData.email,
-        password: formData.password,
-      });
-
-      if (error) {
-        throw error;
-      }
-      setModalMessage("You signed up successfully");
-      setShowModal(true);
-      closeAuth();
-
-      console.log("User signed up successfully:", data);
-    } catch (error) {
-      console.error("Error signing up:", (error as Error).message);
-
-      setModalMessage(`Error signing up: ${(error as Error).message}`);
-      setShowModal(true);
-    }
-  };
-
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: formData.email,
-        password: formData.password,
-      });
-
-      if (error) {
-        throw error;
-      }
-      setModalMessage("You logged in successfully, Log in to use the app");
-      setShowModal(true);
-      closeAuth();
-
-      console.log("User logged in successfully:", data);
-    } catch (error) {
-      console.error("Error logging in:", (error as Error).message);
-
-      setModalMessage(`Error loggin in: ${(error as Error).message}`);
-      setShowModal(true);
-    }
-  };
-
-  const handleLogOut = async () => {
-    try {
-      const { error } = await supabase.auth.signOut();
-
-      if (error) {
-        throw error;
-      }
-      setModalMessage("You logged out - Login to explore analytics");
-      setShowModal(true);
-      closeAuth();
-
-      console.log("User logged out successfully");
-    } catch (error) {
-      console.error("Error logging out:", (error as Error).message);
-
-      setModalMessage(`Error logging out: ${(error as Error).message}`);
-      setShowModal(true);
-    }
-  };
-
   return (
     <>
-      {showModal && (
-        <Modal message={modalMessage} onClose={() => setShowModal(false)} />
-      )}
       <section
-        className={isOpen ? "auth" : "auth hidden"}
+        className={authIsOpen ? "auth " : "auth hidden"}
         onClick={handleOverlayClick}
       >
         <div className="auth-container">
@@ -164,21 +78,11 @@ const Auth: React.FC<AuthProps> = ({
           </ul>
 
           <div className="tab-content">
+            {/* Signup form */}
             {activeTab === "signup" && (
               <div id="signup">
                 <h2>Create Account</h2>
                 <form onSubmit={handleSignUp}>
-                  {/* <div className={`input-box ${isInvalid ? "invalid" : ""}`}>
-                  <input
-                    type="text"
-                    name="displayName"
-                    value={formData.displayName}
-                    onChange={handleInputChange}
-                    onClick={handleInputClick}
-                    required
-                  />
-                  <label>Username</label>
-                </div> */}
                   <div className="input-box">
                     <input
                       type="email"
@@ -190,6 +94,7 @@ const Auth: React.FC<AuthProps> = ({
                     <label>
                       Email<span className="req">*</span>
                     </label>
+                    {errors.email && <p className="error">{errors.email}</p>}
                   </div>
                   <div className="input-box">
                     <input
@@ -203,6 +108,9 @@ const Auth: React.FC<AuthProps> = ({
                     <label>
                       Password<span className="req">*</span>
                     </label>
+                    {errors.password && (
+                      <p className="error">{errors.password}</p>
+                    )}
                   </div>
                   <div className="input-box">
                     <input
@@ -216,15 +124,18 @@ const Auth: React.FC<AuthProps> = ({
                     <label>
                       Confirm password<span className="req">*</span>
                     </label>
+                    {errors.confirmPassword && (
+                      <p className="error">{errors.confirmPassword}</p>
+                    )}
                   </div>
-                  <button className="button">Get Started</button>
-                  <a href="#" onClick={closeAuth}>
-                    Close
-                  </a>
+                  <button className="button">
+                    {isLoading ? "..." : "Get Started"}
+                  </button>
                 </form>
               </div>
             )}
 
+            {/* Login form */}
             {activeTab === "login" && (
               <div id="login">
                 <h2>Welcome Back!</h2>
@@ -238,6 +149,7 @@ const Auth: React.FC<AuthProps> = ({
                       required
                     />
                     <label>Email</label>
+                    {errors.email && <p className="error">{errors.email}</p>}
                   </div>
                   <div className="input-box">
                     <input
@@ -248,6 +160,9 @@ const Auth: React.FC<AuthProps> = ({
                       required
                     />
                     <label>Password</label>
+                    {errors.password && (
+                      <p className="error">{errors.password}</p>
+                    )}
                   </div>
                   <a
                     onClick={() => handleTabClick("forgot")}
@@ -256,14 +171,15 @@ const Auth: React.FC<AuthProps> = ({
                   >
                     Forgot Password?
                   </a>
-                  <button className="button">Log In</button>
-                  <button className="button" onClick={handleLogOut}>
-                    Log Out
+                  <button className="button">
+                    {" "}
+                    {isLoading ? "..." : "Log In"}
                   </button>
                 </form>
               </div>
             )}
 
+            {/* Forgot password form */}
             {activeTab === "forgot" && (
               <div id="forgot">
                 <h2>Create New Password</h2>
@@ -276,12 +192,17 @@ const Auth: React.FC<AuthProps> = ({
                     <input type="password" name="password" required />
                     <label>Confirm New Password</label>
                   </div>
-
                   <button className="button">next →</button>
                 </form>
               </div>
             )}
           </div>
+          <XCircle
+            size={34}
+            weight="duotone"
+            onClick={closeAuth}
+            className="cancel-btn"
+          />
         </div>
       </section>
     </>

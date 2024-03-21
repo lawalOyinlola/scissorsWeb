@@ -7,7 +7,6 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ message, onClose }) => {
-  // Automatically close the modal after 3 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();

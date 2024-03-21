@@ -1,19 +1,26 @@
+import { Session } from "@supabase/supabase-js";
 import GapLeft from "../images/get-started-left.svg";
 import GapRight from "../images/get-started-right.svg";
-import Qr from "../images/qr.png";
 import "../css/getstarted.css";
 
 interface StartedProps {
   handleSignUpButtonClick: () => void;
+  session: Session | null;
 }
 
-const GetStarted: React.FC<StartedProps> = ({ handleSignUpButtonClick }) => {
+const GetStarted: React.FC<StartedProps> = ({
+  session,
+  handleSignUpButtonClick,
+}) => {
   return (
     <div className="gap" id="get-started">
       <div className="get-started">
         <p>Revolutionizing Link Optimization</p>
-        <img src={Qr} alt="" className="qr" />
-        <button className="button" onClick={handleSignUpButtonClick}>
+        <button
+          className="button"
+          onClick={handleSignUpButtonClick}
+          disabled={session !== null}
+        >
           Get Started
         </button>
       </div>

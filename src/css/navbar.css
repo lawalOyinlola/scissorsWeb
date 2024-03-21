@@ -21,38 +21,29 @@
   box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.05);
 }
 
-.nav,
-.nav-open {
+.nav {
   display: flex;
   gap: 4rem;
   align-items: center;
 }
 
 .nav a:link,
-.nav a:visited,
-.nav-open a:link,
-.nav-open:visited,
-.login a:link,
-.login a:visited {
-  color: inherit;
+.nav a:visited {
+  color: #f1f4f8;
+}
+
+.nav.open {
+  background-color: rgba(41, 46, 60, 0.243);
 }
 
 .header-nav a:hover,
 .header-nav a:active {
-  color: #0065fe;
-}
-
-.login a:hover {
-  color: #0065fe;
+  color: #0065fe !important;
 }
 
 .features-link {
   display: flex;
   align-items: center;
-}
-
-.features-link span {
-  color: inherit;
 }
 
 .chevron {
@@ -64,10 +55,22 @@
 }
 
 .login {
-  margin-left: 10rem;
+  margin-left: 8rem;
   display: flex;
   align-items: center;
   gap: 2.4rem;
+}
+
+.try-btn {
+  line-height: 1.2rem;
+  border: none;
+  border-radius: 100px;
+  padding: 1.2rem 2.4rem;
+  background-color: #0065fe;
+  outline: 1px solid #0065fe;
+  color: #f1f4f8;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .menu-btn {
@@ -75,4 +78,10 @@
   z-index: 999;
   background-color: transparent;
   color: inherit;
+  padding: 1rem;
+  border: none;
+}
+
+button.menu-btn {
+  outline: none;
 }

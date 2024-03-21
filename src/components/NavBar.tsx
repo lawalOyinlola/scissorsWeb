@@ -1,44 +1,58 @@
-// import { useNavigate } from "react-router-dom";
-import { NavLink } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import { X, List } from "@phosphor-icons/react";
+import { Session } from "@supabase/supabase-js";
 import Logo from "../images/logo-scissor.svg";
 import ChevronDown from "../images/chevron-down.svg";
 import ChevronDownBlue from "../images/chevron-down-blue.svg";
 import "../css/navbar.css";
-import { Session } from "@supabase/supabase-js";
 
 interface NavBarProps {
   handleLoginButtonClick: () => void;
-  // session: Session | null;
-  // sessionData: Session | null;
+  handleLogout: () => void;
   session: Session | null;
 }
 
-const NavBar: React.FC<NavBarProps> = ({ handleLoginButtonClick, session }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const NavBar: React.FC<NavBarProps> = ({
+  handleLoginButtonClick,
+  handleLogout,
+  session,
+}) => {
+  const body = document.body;
+
+  const [navIsOpen, setNavIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  // const display = useNavigate();
-
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    setNavIsOpen(!navIsOpen);
+    toggleNavOpenClass(!navIsOpen);
+  };
+
+  const handleMenuBtn = () => {
+    setNavIsOpen(false);
+    toggleNavOpenClass(false);
+  };
+
+  const toggleNavOpenClass = (navIsOpen: boolean) => {
+    if (navIsOpen) {
+      body.classList.add("nav-open");
+    } else {
+      body.classList.remove("nav-open");
+    }
   };
 
   const toggleFixedHeader = () => {
     const navbar = document.getElementById("navbar");
-    const main = document.getElementById("main");
 
     const scrollPosition = window.scrollY;
     const threshold = 500;
-
-    if (navbar && main) {
+    if (navbar && body) {
       if (scrollPosition > threshold) {
         navbar.classList.add("fixed");
-        main.style.paddingTop = navbar.offsetHeight + "px";
+        body.style.paddingTop = navbar.offsetHeight + "px";
       } else {
         navbar.classList.remove("fixed");
-        main.style.paddingTop = "0";
+        body.style.paddingTop = "0";
       }
     }
   };
@@ -50,23 +64,6 @@ const NavBar: React.FC<NavBarProps> = ({ handleLoginButtonClick, session }) => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  //     anchor.addEventListener("click", (e) => {
-  //       e.preventDefault();
-
-  //       const targetId = anchor.getAttribute("href") ?? "";
-  //       const targetElement = document.querySelector(targetId);
-
-  //       if (targetElement) {
-  //         targetElement.scrollIntoView({
-  //           behavior: "smooth",
-  //         });
-  //       }
-  //     });
-  //   });
-  // }, []);
-
   return (
     <header id="navbar">
       <div className="header">
@@ -74,23 +71,20 @@ const NavBar: React.FC<NavBarProps> = ({ handleLoginButtonClick, session }) => {
           <img src={Logo} alt="scissors logo" />
         </NavLink>
         <nav className="header-nav">
-          <ul className={!isOpen ? "nav" : "nav-open"}>
-            {/* <li >
-              <a href="#trim-url">My URLs</a>
-            </li> */}
-            <li onClick={toggleMenu}>
+          <ul className={!navIsOpen ? "nav" : "nav open"}>
+            <li onClick={handleMenuBtn}>
               <NavLink to="/myurl" className="link">
-                My Urls
+                My URLs
               </NavLink>
             </li>
-            <li onClick={toggleMenu}>
+            <li onClick={handleMenuBtn}>
               <a
                 href="#features"
                 className="features-link"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
               >
-                <span>Features</span>
+                Features
                 <img
                   className="chevron"
                   src={isHovered ? ChevronDownBlue : ChevronDown}
@@ -98,33 +92,28 @@ const NavBar: React.FC<NavBarProps> = ({ handleLoginButtonClick, session }) => {
                 />
               </a>
             </li>
-            <li onClick={toggleMenu}>
+            <li onClick={handleMenuBtn}>
               <a href="#pricing"> Pricing </a>
             </li>
-            <li onClick={toggleMenu}>
+            <li onClick={handleMenuBtn}>
               <a href="#stats">Analytics</a>
             </li>
-            <li onClick={toggleMenu}>
+            <li onClick={handleMenuBtn}>
               <a href="#faq">FAQs</a>
             </li>
+
             <ul className="login">
-              <li onClick={toggleMenu}>
-                <a className="login-btn" onClick={handleLoginButtonClick}>
-                  Login
-                </a>
-              </li>
-              <div>
+              <li onClick={handleMenuBtn}>
                 {session ? (
-                  <div>
-                    <p>Signed in as: {session.user?.email}</p>
-                    <a>Logout out</a>
-                  </div>
+                  <a className="login-btn" onClick={handleLogout}>
+                    Logout
+                  </a>
                 ) : (
-                  <div>
-                    <button onClick={handleLoginButtonClick}>Login 2</button>
-                  </div>
+                  <a className="login-btn" onClick={handleLoginButtonClick}>
+                    Login
+                  </a>
                 )}
-              </div>
+              </li>
               <li className="try" onClick={toggleMenu}>
                 <a href="#trim-url" className="try-btn button">
                   Try for free
@@ -133,8 +122,9 @@ const NavBar: React.FC<NavBarProps> = ({ handleLoginButtonClick, session }) => {
             </ul>
           </ul>
         </nav>
+
         <button className="menu-btn" onClick={toggleMenu}>
-          {!isOpen ? (
+          {!navIsOpen ? (
             <List size={42} weight="bold" />
           ) : (
             <X size={42} weight="bold" />
