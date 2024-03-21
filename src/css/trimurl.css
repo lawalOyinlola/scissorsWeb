@@ -6,6 +6,14 @@
   align-items: center;
 }
 
+p.error {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  color: red;
+}
+
 .url-form {
   z-index: 1;
   max-width: 47.6rem;
@@ -54,6 +62,22 @@
 .url-form p,
 .url-form strong {
   border: none;
+}
+
+.alias {
+  position: relative;
+}
+
+.alias input {
+  width: 100%;
+}
+
+.alias-error {
+  font-size: 1.2rem;
+  color: #4d93fe;
+  position: absolute;
+  bottom: 10;
+  left: 1rem;
 }
 
 .magic-wand {

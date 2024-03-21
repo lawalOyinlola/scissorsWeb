@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Session } from "@supabase/supabase-js";
 import BlueLine from "../images/blue-line.svg";
 import Triangle from "../images/triangle-vector.svg";
 import ChainLink from "../images/chainlink.svg";
@@ -9,9 +10,10 @@ import "../css/hero.css";
 
 interface HeroProps {
   handleSignUpButtonClick: () => void;
+  session: Session | null;
 }
 
-const Hero: React.FC<HeroProps> = ({ handleSignUpButtonClick }) => {
+const Hero: React.FC<HeroProps> = ({ session, handleSignUpButtonClick }) => {
   const [colorScheme, setColorScheme] = useState<"light" | "dark">("light");
 
   useEffect(() => {
@@ -28,7 +30,7 @@ const Hero: React.FC<HeroProps> = ({ handleSignUpButtonClick }) => {
   }, []);
 
   return (
-    <main id="main">
+    <main id="main" className="main">
       <div className="main-body">
         <div className="main-top">
           <div className="main-intros">
@@ -55,10 +57,13 @@ const Hero: React.FC<HeroProps> = ({ handleSignUpButtonClick }) => {
             <button
               className="signup-btn button"
               onClick={handleSignUpButtonClick}
+              disabled={session !== null}
             >
               Sign Up
             </button>
-            <a href="#features">Learn more...</a>
+            <a href="#features" className="learn-btn">
+              Learn more...
+            </a>
           </div>
         </div>
         <div className="chainlink">

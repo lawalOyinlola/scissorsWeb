@@ -1,30 +1,102 @@
-# React + TypeScript + Vite
+# Capstone Project | Scissors Web
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Overview:
 
-Currently, two official plugins are available:
+The Scissors Web project is a testament to the principles of modern web development, featuring a sleek and intuitive user interface coupled with powerful functionality. From authentication to link management and analytics, every aspect of the application is designed to streamline the URL management process and empower users with actionable insights.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Whether you're a casual user looking to share links with friends or a business professional seeking to track link performance, the Scissors Web project offers a comprehensive solution tailored to your needs.
 
-## Expanding the ESLint configuration
+## Table of Contents
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- [Features](#features)
+- [Demo](#demo)
+- [Dependencies](#dependencies)
+- [Folder Structure](#folder-structure)
+- [Contributing](#contributing)
+- [Screenshot](#screenshot)
+- [Built With](#built-with)
+- [Earlier Version](#earlier-version)
 
-- Configure the top-level `parserOptions` property like this:
+## Features
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### Authentication:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- Implemented a secure authentication system to ensure user data privacy and access control.
+- Users can securely log in and manage their shortened URLs within a personalized dashboard.
+
+### Link Shortening:
+
+- Utilized advanced techniques, including use of emoji combinations, to provide unique and memorable shortened URLs.
+- Users can effortlessly trim lengthy URLs into concise and visually appealing links, making sharing and managing links more engaging.
+
+### QR Code Generation:
+
+- Integrated QR code generation functionality to allow users to generate QR codes for their shortened URLs.
+- Enhances the usability of shortened URLs by enabling users to easily share and access links through QR codes, especially in mobile environments.
+
+### Analytics:
+
+- Implemented analytics features to provide users with insights into the performance of their shortened URLs.
+- Users can track various metrics such as click counts, browser statistics, geographical distribution... to gain valuable insights into link engagement and audience behavior.
+
+### Error Boundary:
+
+- Implemented error boundaries to enhance application robustness and provide a graceful fallback mechanism in case of unexpected errors.
+- Ensures a smooth user experience by handling errors gracefully without disrupting the overall functionality of the application.
+
+## Demo
+
+You can try the app live at [Scissors Web](https://altschool-scissors.netlify.app/).
+
+## Dependencies
+
+- react
+- @phosphor-icons/react
+- @supabase/supabase-js
+- file-saver
+- react-router-dom
+
+## Folder Structure
+
+The project structure is organized as follows:
+public/: Contains the public assets.
+src/: Contains the source code of the application and all components
+src/components: Contains all component file .
+src/pages: Contains the Pages and their CSS styles .
+src/css: CSS styling for individual component
+src/data: Contains data files used in some components
+src/images: Contains images used in the App components
+App.tsx: The main application component where routing is done.
+main.tsx: The root component file.
+package.json: Lists the project dependencies and scripts.
+index.html
+README.md/: The documentation file.
+...and others
+
+## Contributing
+
+Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+
+    Fork the project.
+    Create a new branch for your feature: git checkout -b feature-name.
+    Make your changes and commit them: git commit -m 'Add some feature'.
+    Push to the branch: git push origin feature-name.
+    Submit a pull request.
+
+## Screenshot
+
+![Desktop screenshot](./public/screenshot_scissors_desktop.png)
+![Mobile screenshot](./public/screenshot_scissors_mobile.png)
+![Dark Mode screenshot](./public/scissors-darkmode.png)
+
+## Built with
+
+- React
+- Vanilla JavaScript
+- TypeScript
+- Semantic HTML5 markup
+- CSS custom properties
+
+## Earlier Version
+
+Checkout earlier non-responsive design using just HTML and CSS in the ![HTML](https://github.com/lawalOyinlola/altschoolproject-submit/tree/html) branch of this repo.

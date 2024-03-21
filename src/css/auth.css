@@ -13,6 +13,7 @@
 }
 
 .auth-container {
+  position: relative;
   z-index: 9999;
   width: 100%;
   max-width: 56rem;
@@ -97,7 +98,7 @@
   background: transparent;
 }
 
-.input-box label {
+.input-box input + label {
   position: absolute;
   top: 0;
   left: 0;
@@ -105,10 +106,6 @@
   font-size: 1.4rem;
   pointer-events: none;
   transition: 0.5s;
-  /* background-color: #1f2128; */
-  /* padding: auto 2px; */
-  /* padding-left: 5px;
-  padding-right: 5px; */
 }
 
 .input-box input:focus + label,
@@ -119,7 +116,7 @@
   font-size: 1.2rem;
 }
 
-.input-box.invalid input:invalid + label {
+.input-box input:focus:invalid + label {
   color: red;
 }
 
@@ -145,5 +142,21 @@
 
 .forgot:hover,
 .forgot:active {
+  color: #0065fe;
+}
+
+.cancel-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(10%, -30%);
+  cursor: pointer;
+  background-color: #1f2128;
+  border-radius: 100%;
+  color: #f1f4f8;
+}
+
+.cancel-btn:hover,
+.cancel-btn:active {
   color: #0065fe;
 }

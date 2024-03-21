@@ -6,18 +6,10 @@ import SocialsFb from "../images/socials-facebook.svg";
 import LineVector from "../images/line-vector.svg";
 import FooterLeft from "../images/footer-left.svg";
 import FooterRight from "../images/footer-right.svg";
+import { footerData } from "../data/data";
 import "../css/footer.css";
 
-interface FooterDataItem {
-  category: string;
-  items: string[];
-}
-
-interface FooterProps {
-  footerData: FooterDataItem[];
-}
-
-const Footer: React.FC<FooterProps> = ({ footerData }) => {
+const Footer: React.FC = () => {
   return (
     <footer>
       <div className="documentation">
@@ -39,9 +31,9 @@ const Footer: React.FC<FooterProps> = ({ footerData }) => {
           </div>
         </div>
         <div className="documents-block">
-          {footerData.map((category, index) => (
+          {footerData.map((category, index: number) => (
             <ul key={index} className="documents">
-              {category.items.map((item, itemIndex) => (
+              {category.items.map((item: string, itemIndex: number) => (
                 <li key={itemIndex}>{item}</li>
               ))}
             </ul>

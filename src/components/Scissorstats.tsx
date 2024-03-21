@@ -2,12 +2,10 @@ import { analyticsData, featuresData } from "../data/data";
 import LineGradient from "../images/line-gradient.svg";
 import "../css/scissorstats.css";
 
-interface Analysis {
-  name: string;
-  number: number;
+interface AnalyticsData {
+  number: string;
   stat: string;
 }
-
 interface Feature {
   iconSrc: string;
   altText: string;
@@ -30,8 +28,8 @@ const ScissorStats: React.FC = () => {
           One Stop Four <span>Possibilities</span>
         </p>
         <div className="analytics-info">
-          {analyticsData.map((analysis: Analysis) => (
-            <div key={analysis.name}>
+          {analyticsData.map((analysis: AnalyticsData, index: number) => (
+            <div key={index}>
               <p>{analysis.number}</p>
               <p>{analysis.stat}</p>
             </div>

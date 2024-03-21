@@ -106,7 +106,7 @@
 }
 
 .white-btn {
-  border: 1px solid #f1f4f8;
+  outline: 1px solid #f1f4f8;
   background-color: transparent;
   color: #f1f4f8;
 }
