@@ -26,13 +26,13 @@ const AnalyticsPage: React.FC = () => {
       </div>
       <div className="flex">
         <strong>Browser:</strong>
-        <ul>
+        {/* <ul>
           {Object.entries(analyticsData.browser).map(([browserName]) => (
             <li key={browserName}>
               {browserName}: {}
             </li>
           ))}
-        </ul>
+        </ul> */}
       </div>
       <div className="flex dark">
         <p>Total click: {analyticsData["total-clicks"]}</p>
@@ -55,13 +55,13 @@ const AnalyticsPage: React.FC = () => {
       </div>
       <div className="column flex">
         <strong>Country:</strong>
-        <ul>
+        {/* <ul>
           {Object.entries(analyticsData.country).map(([country]) => (
             <li key={country}>
               {country}: {}
             </li>
           ))}
-        </ul>
+        </ul> */}
       </div>
     </section>
   );
