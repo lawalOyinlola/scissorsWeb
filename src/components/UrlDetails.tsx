@@ -1,13 +1,17 @@
 import { saveAs } from "file-saver";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Copy,
   ShareNetwork,
   XCircle,
   DownloadSimple,
+  WhatsappLogo,
+  FacebookLogo,
+  TwitterLogo,
+  EnvelopeSimple,
 } from "@phosphor-icons/react";
-import "../css/modal.css";
 import Modal from "./Modal";
+import "../css/modal.css";
 
 interface DetailsProps {
   urlIsOpen: boolean;
@@ -26,11 +30,12 @@ const UrlDetails: React.FC<DetailsProps> = ({
 }) => {
   const [modalMessage, setModalMessage] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [shareComponent, setShareComponent] = useState<boolean>(false);
 
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(shortLink);
-      setModalMessage("Copied to clipboard!");
+      setModalMessage("Link has been copied to clipboard!");
       setShowModal(true);
     } catch (error) {
       console.error("Failed to copy:", error);
@@ -39,18 +44,98 @@ const UrlDetails: React.FC<DetailsProps> = ({
     }
   };
 
+  const closeShareComponent = () => {
+    setShareComponent(false);
+    document.body.classList.remove("auth-open");
+  };
+
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeShareComponent();
+      }
+    };
+
+    if (shareComponent) {
+      document.addEventListener("keydown", handleKeyPress);
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [shareComponent, closeShareComponent]);
+
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      closeShareComponent();
+    }
+  };
+
   const handleShare = async () => {
+    document.body.classList.add("auth-open");
     try {
-      const shareData = {
+      const shareData: ShareData & { files: File[] } = {
         title: "Url link shortened from https://spoo.me/scissors",
         text: "Check out this link!",
         url: shortLink,
+        files: [],
       };
 
-      await navigator.share(shareData);
+      // Convert QR code image URL to Blob
+      const qrCodeResponse = await fetch(qrCodeImage);
+      const qrCodeBlob = await qrCodeResponse.blob();
+      const qrCodeFile = new File([qrCodeBlob], "qr_code.png", {
+        type: "image/png",
+      });
+
+      // Include QR code File object in the files array
+      shareData.files.push(qrCodeFile);
+
+      // Check if navigator.share is supported
+      if (navigator.share) {
+        // If supported, use navigator.share
+        await navigator.share(shareData);
+      } else {
+        setShareComponent(true);
+        // If not supported, display a custom modal or fallback option
+        console.log("navigator.share not supported. Displaying custom modal.");
+        // Your custom modal logic here
+      }
     } catch (error) {
       console.error("Error sharing:", error);
     }
+  };
+
+  // const shareViaWhatsApp = (shortLink: string) => {
+  // const message = "Check out this link: " + shortLink;
+  const shareViaWhatsApp = (shortLink: string, qrCodeImageUrl: string) => {
+    const message = `Check out this link: ${shortLink} \nQR Code: ${qrCodeImageUrl}`;
+    const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(message)}`;
+    window.location.href = whatsappUrl;
+  };
+
+  const shareViaTwitter = (shortLink: string) => {
+    const tweetText = "Check out this link: " + shortLink;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      tweetText
+    )}`;
+    window.open(twitterUrl, "_blank");
+  };
+
+  const shareViaFacebook = (shortLink: string) => {
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+      shortLink
+    )}`;
+    window.open(facebookUrl, "_blank");
+  };
+
+  const shareViaEmail = (shortLink: string) => {
+    const subject = "Check out this link";
+    const body = `Hey, I found this interesting link: ${shortLink}`;
+    const emailUrl = `mailto:?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+    window.location.href = emailUrl;
   };
 
   const handleDownloadQrCode = () => {
@@ -110,6 +195,38 @@ const UrlDetails: React.FC<DetailsProps> = ({
             <ShareNetwork size={20} />
             Share
           </button>
+        )}
+        {shareComponent && (
+          <div className="overlay" onClick={handleOverlayClick}>
+            <div className="share-component">
+              <p>
+                Share API not enabled or unsupported by your browser. Use the
+                alternative below{" "}
+              </p>
+              <div className="share-socials">
+                <button
+                  onClick={() => shareViaWhatsApp(shortLink, qrCodeImage)}
+                >
+                  <WhatsappLogo size={32} weight="duotone" />
+                </button>
+                <button onClick={() => shareViaTwitter(shortLink)}>
+                  <TwitterLogo size={32} weight="duotone" />
+                </button>
+                <button onClick={() => shareViaFacebook(shortLink)}>
+                  <FacebookLogo size={32} weight="duotone" />
+                </button>
+                <button onClick={() => shareViaEmail(shortLink)}>
+                  <EnvelopeSimple size={32} weight="duotone" />
+                </button>
+              </div>
+              <XCircle
+                size={34}
+                weight="duotone"
+                onClick={closeShareComponent}
+                className="cancel-btn"
+              />
+            </div>
+          </div>
         )}
       </div>
     </div>

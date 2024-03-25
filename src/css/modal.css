@@ -2,11 +2,12 @@
   position: fixed;
   top: 0;
   left: 50%;
+  width: max-content;
   transform: translateX(-50%);
   z-index: 9999999;
-  margin: 4rem 2rem 0;
+  margin: 4rem 0;
   border-radius: 12px;
-  padding: 4.2rem;
+  padding: 2.4rem;
   background-color: #292e3c;
   box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
 }

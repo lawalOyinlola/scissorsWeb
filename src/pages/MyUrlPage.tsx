@@ -6,6 +6,11 @@ import {
   Copy,
   QrCode,
   Trash,
+  WhatsappLogo,
+  FacebookLogo,
+  TwitterLogo,
+  EnvelopeSimple,
+  XCircle,
 } from "@phosphor-icons/react";
 import { Session } from "@supabase/supabase-js";
 import { supabase } from "../supabase";
@@ -40,8 +45,36 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
   );
   const [modalMessage, setModalMessage] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
-
+  const [shareLink, setShareLink] = useState<string | null>(null);
+  // const [shareComponent, setShareComponent] = useState(false);
   const navigate = useNavigate();
+
+  const closeShareComponent = () => {
+    setShareLink(null);
+    document.body.classList.remove("auth-open");
+  };
+
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closeShareComponent();
+      }
+    };
+
+    if (shareLink !== null) {
+      document.addEventListener("keydown", handleKeyPress);
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, [shareLink, closeShareComponent]);
+
+  const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      closeShareComponent();
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -70,6 +103,18 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
       fetchData();
     }
   }, [session?.user.id]);
+
+  const handleCopy = async (shortLink: string) => {
+    try {
+      await navigator.clipboard.writeText(shortLink);
+      setModalMessage("Link has been copied to clipboard!");
+      setShowModal(true);
+    } catch (error) {
+      console.error("Failed to copy:", error);
+      setModalMessage("Failed to copy to clipboard!");
+      setShowModal(true);
+    }
+  };
 
   // generate QRcode
   const generateQrCode = async (url: string) => {
@@ -103,6 +148,53 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
     }
   };
 
+  const handleShare = async (shortLink: string) => {
+    setShareLink(null);
+    document.body.classList.add("auth-open");
+
+    try {
+      const shareData = {
+        title: "Url link shortened from https://spoo.me/scissors",
+        text: "Check out this link!",
+        url: shortLink,
+      };
+
+      await navigator.share(shareData);
+    } catch (error) {
+      setShareLink(shortLink);
+    }
+  };
+
+  const shareViaWhatsApp = (shortLink: string) => {
+    const message = "Check out this link: " + shortLink;
+    const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(message)}`;
+    window.location.href = whatsappUrl;
+  };
+
+  const shareViaTwitter = (shortLink: string) => {
+    const tweetText = "Check out this link: " + shortLink;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      tweetText
+    )}`;
+    window.open(twitterUrl, "_blank");
+  };
+
+  const shareViaFacebook = (shortLink: string) => {
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+      shortLink
+    )}`;
+    window.open(facebookUrl, "_blank");
+  };
+
+  const shareViaEmail = (shortLink: string) => {
+    const subject = "Check out this link";
+    const body = `Hey, I found this interesting link: ${shortLink}`;
+    const emailUrl = `mailto:?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+    window.location.href = emailUrl;
+  };
+
   const handleDeleteLink = async (linkId: number) => {
     try {
       const { data, error } = await supabase
@@ -119,18 +211,6 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
       console.log("Link deleted successfully:", data);
     } catch (error) {
       console.error("Error deleting link:", (error as Error).message);
-    }
-  };
-
-  const handleCopy = async (shortLink: string) => {
-    try {
-      await navigator.clipboard.writeText(shortLink);
-      setModalMessage("Copied to clipboard!");
-      setShowModal(true);
-    } catch (error) {
-      console.error("Failed to copy:", error);
-      setModalMessage("Failed to copy to clipboard!");
-      setShowModal(true);
     }
   };
 
@@ -221,10 +301,53 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
                   <p>{link.long_link}</p>
                 </div>
                 <div className="url-btns">
-                  <button className="white-btn" title="share">
+                  <button
+                    className="white-btn"
+                    title="share"
+                    onClick={() => handleShare(link.short_link)}
+                  >
                     <ShareNetwork size={18} />
                     Share
                   </button>
+                  {shareLink === link.short_link && (
+                    <div className="overlay" onClick={handleOverlayClick}>
+                      <div className="share-component">
+                        <p>
+                          Share API not enabled or unsupported by your browser.
+                          Use the alternative below{" "}
+                        </p>
+                        <div className="share-socials">
+                          <button
+                            onClick={() => shareViaWhatsApp(link.short_link)}
+                          >
+                            <WhatsappLogo size={32} weight="duotone" />
+                          </button>
+                          <button
+                            onClick={() => shareViaTwitter(link.short_link)}
+                          >
+                            <TwitterLogo size={32} weight="duotone" />
+                          </button>
+                          <button
+                            onClick={() => shareViaFacebook(link.short_link)}
+                          >
+                            <FacebookLogo size={32} weight="duotone" />
+                          </button>
+                          <button
+                            onClick={() => shareViaEmail(link.short_link)}
+                          >
+                            <EnvelopeSimple size={32} weight="duotone" />
+                          </button>
+                        </div>
+                        <XCircle
+                          size={34}
+                          weight="duotone"
+                          onClick={closeShareComponent}
+                          className="cancel-btn"
+                        />
+                      </div>
+                    </div>
+                  )}
+
                   <button
                     className="white-btn"
                     onClick={() => handleQrCodeClick(link.short_link)}

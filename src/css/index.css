@@ -158,7 +158,8 @@ span {
   .url-form,
   .auth-container,
   .url-details,
-  .modal {
+  .modal,
+  .share-component {
     background-color: #f1f4f8;
   }
 
@@ -187,6 +188,10 @@ span {
 
   .long-link {
     background-color: #ccdffe;
+  }
+
+  .share-socials button {
+    background-color: #213547;
   }
 
   .socials img:hover {
@@ -321,7 +326,6 @@ span {
 
   .main-box {
     grid-template-columns: auto;
-    border: 1px solid red;
   }
 
   .socials-block {

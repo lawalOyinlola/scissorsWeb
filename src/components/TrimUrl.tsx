@@ -52,7 +52,15 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
   // Trim Url and Generate QR Code
   const trimUrl = async () => {
     if (!formData.url.trim()) {
-      setErrorMessage(`Enter a valid URL - "https://..."`);
+      setErrorMessage(
+        `Enter a valid URL starting with "http://" or "https://"`
+      );
+      return;
+    }
+
+    const urlRegex = /^(http|https):\/\//;
+    if (!urlRegex.test(formData.url)) {
+      setErrorMessage(`URL must start with "http://" or "https://"`);
       return;
     }
 
@@ -175,7 +183,7 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
         <form className="url-form" onSubmit={handleTrimUrl}>
           <input
             className="url"
-            type="url"
+            type="text"
             name="url"
             value={formData.url}
             placeholder="Paste URL here"

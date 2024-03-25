@@ -81,6 +81,10 @@
   gap: 2px;
 }
 
+.url-btns button:hover {
+  filter: brightness(80%);
+}
+
 button.delete-btn {
   outline: none;
   padding: 0;
@@ -99,4 +103,33 @@ button.delete-btn {
 .delete-btn:hover,
 .delete-btn:active {
   color: #0065fe;
+}
+
+.share-component {
+  position: relative;
+  max-width: 42rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  z-index: 9;
+  border-radius: 12px;
+  padding: 2.4rem;
+  background-color: #292e3c;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+}
+
+.share-socials {
+  display: flex;
+  gap: 2rem;
+}
+
+.share-socials button {
+  padding: 0.4rem;
+  outline: none;
+  border: none;
+}
+
+.share-socials button:hover {
+  filter: brightness(80%);
 }

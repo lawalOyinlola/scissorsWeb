@@ -19,30 +19,35 @@ Whether you're a casual user looking to share links with friends or a business p
 
 ## Features
 
-### Authentication:
+#### Authentication:
 
 - Implemented a secure authentication system to ensure user data privacy and access control.
 - Users can securely log in and manage their shortened URLs within a personalized dashboard.
 
-### Link Shortening:
+#### Link Shortening:
 
 - Utilized advanced techniques, including use of emoji combinations, to provide unique and memorable shortened URLs.
 - Users can effortlessly trim lengthy URLs into concise and visually appealing links, making sharing and managing links more engaging.
 
-### QR Code Generation:
+#### QR Code Generation:
 
 - Integrated QR code generation functionality to allow users to generate QR codes for their shortened URLs.
 - Enhances the usability of shortened URLs by enabling users to easily share and access links through QR codes, especially in mobile environments.
 
-### Analytics:
+#### Analytics:
 
 - Implemented analytics features to provide users with insights into the performance of their shortened URLs.
 - Users can track various metrics such as click counts, browser statistics, geographical distribution... to gain valuable insights into link engagement and audience behavior.
 
-### Error Boundary:
+#### Error Boundary:
 
 - Implemented error boundaries to enhance application robustness and provide a graceful fallback mechanism in case of unexpected errors.
 - Ensures a smooth user experience by handling errors gracefully without disrupting the overall functionality of the application.
+
+#### Theme Modes:
+
+- Seamlessly integrates light and dark mode themes based on the user's device default settings.
+- Offers users the flexibility to switch between light and dark modes directly from the user interface, providing a personalized browsing experience.
 
 ## Demo
 
@@ -58,19 +63,19 @@ You can try the app live at [Scissors Web](https://altschool-scissors.netlify.ap
 
 ## Folder Structure
 
-The project structure is organized as follows:
-public/: Contains the public assets.
-src/: Contains the source code of the application and all components
-src/components: Contains all component file .
-src/pages: Contains the Pages and their CSS styles .
-src/css: CSS styling for individual component
-src/data: Contains data files used in some components
-src/images: Contains images used in the App components
-App.tsx: The main application component where routing is done.
-main.tsx: The root component file.
-package.json: Lists the project dependencies and scripts.
-index.html
-README.md/: The documentation file.
+The project structure is organized as follows:  
+public/: Contains the public assets.  
+src/: Contains the source code of the application and all components  
+src/components: Contains all component file.  
+src/pages: Contains the Pages and their CSS styles.  
+src/css: CSS styling for individual component.  
+src/data: Contains data files used in some components.  
+src/images: Contains images used in the App components.  
+App.tsx: The main application component where routing is done.  
+main.tsx: The root component file.  
+package.json: Lists the project dependencies and scripts.  
+index.html  
+README.md/: The documentation file.  
 ...and others
 
 ## Contributing

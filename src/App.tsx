@@ -50,6 +50,40 @@ const App: React.FC = () => {
     e.preventDefault();
     setIsLoading(true);
 
+    setErrors({
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+
+    if (!formData.email.trim()) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Email address is required",
+      }));
+      setIsLoading(false);
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        email: "Enter a valid email address",
+      }));
+      setIsLoading(false);
+      return;
+    }
+
+    if (formData.password.length < 6) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        password: "Password must be at least 6 characters long",
+      }));
+      setIsLoading(false);
+      return;
+    }
+
     if (formData.password !== formData.confirmPassword) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -72,6 +106,11 @@ const App: React.FC = () => {
       setShowModal(true);
       setFormData({
         email: formData.email,
+        password: "",
+        confirmPassword: "",
+      });
+      setErrors({
+        email: "",
         password: "",
         confirmPassword: "",
       });
@@ -149,14 +188,29 @@ const App: React.FC = () => {
 
   const handleTabClick = (tabId: "signup" | "login" | "forgot") => {
     setActiveTab(tabId);
+    setErrors({
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
   };
 
   const handleLoginButtonClick = () => {
+    setErrors({
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
     openAuth();
     setActiveTab("login");
   };
 
   const handleSignUpButtonClick = () => {
+    setErrors({
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
     openAuth();
     setActiveTab("signup");
   };

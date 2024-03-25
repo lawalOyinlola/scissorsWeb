@@ -10,6 +10,7 @@ p.error {
   position: absolute;
   top: 0;
   left: 50%;
+  width: max-content;
   transform: translateX(-50%);
   color: red;
 }
