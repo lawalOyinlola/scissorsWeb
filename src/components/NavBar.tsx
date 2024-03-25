@@ -79,7 +79,7 @@ const NavBar: React.FC<NavBarProps> = ({
             </li>
             <li onClick={handleMenuBtn}>
               <a
-                href="#features"
+                href="./#features"
                 className="features-link"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
@@ -93,13 +93,13 @@ const NavBar: React.FC<NavBarProps> = ({
               </a>
             </li>
             <li onClick={handleMenuBtn}>
-              <a href="#pricing"> Pricing </a>
+              <a href="./#pricing"> Pricing </a>
             </li>
             <li onClick={handleMenuBtn}>
-              <a href="#stats">Analytics</a>
+              <a href="./#stats">Analytics</a>
             </li>
             <li onClick={handleMenuBtn}>
-              <a href="#faq">FAQs</a>
+              <a href="./#faq">FAQs</a>
             </li>
 
             <ul className="login">

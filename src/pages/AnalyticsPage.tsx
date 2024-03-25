@@ -25,7 +25,7 @@ const AnalyticsPage: React.FC = () => {
         <p>Last click OS: {analyticsData["last-click-os"]}</p>
       </div>
       <div className="flex">
-        <strong>Browser:</strong>
+        <strong>Browser</strong>
         {/* <ul>
           {Object.entries(analyticsData.browser).map(([browserName]) => (
             <li key={browserName}>
@@ -35,20 +35,25 @@ const AnalyticsPage: React.FC = () => {
         </ul> */}
       </div>
       <div className="flex dark">
-        <p>Total click: {analyticsData["total-clicks"]}</p>
+        <p>Total click</p>
+        <h2>{analyticsData["total-clicks"]}</h2>
       </div>
       <div className="flex left">
-        <p>Average daily clicks: {analyticsData.average_daily_clicks}</p>
+        <p>Average daily clicks</p>
+        <h2>{analyticsData.average_daily_clicks}</h2>
       </div>
       <div className="flex right"></div>
       <div className="flex ">
-        <p>Average weekly clicks: {analyticsData.average_weekly_clicks}</p>
+        <p>Average weekly clicks</p>
+        <h2>{analyticsData.average_weekly_clicks}</h2>
       </div>
       <div className="flex dark">
-        <p>Average monthly clicks: {analyticsData.average_monthly_clicks}</p>
+        <p>Average monthly clicks</p>
+        <h2>{analyticsData.average_monthly_clicks}</h2>
       </div>
       <div className="flex left">
-        <p>Total unique click: {analyticsData.total_unique_clicks}</p>
+        <p>Total unique click</p>
+        <h2> {analyticsData.total_unique_clicks}</h2>
       </div>
       <div className="flex right">
         <p>Expired: {analyticsData.expired.toString()}</p>

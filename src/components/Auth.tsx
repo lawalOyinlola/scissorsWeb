@@ -191,6 +191,9 @@ const Auth: React.FC<AuthProps> = ({
                   <div className="input-box">
                     <input type="password" name="password" required />
                     <label>Confirm New Password</label>
+                    {errors.confirmPassword && (
+                      <p className="error">{errors.confirmPassword}</p>
+                    )}
                   </div>
                   <button className="button">next →</button>
                 </form>
