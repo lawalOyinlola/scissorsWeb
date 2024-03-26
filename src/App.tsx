@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ErrorBoundary } from "react-error-boundary";
 import { useState, useEffect } from "react";
 import { Session } from "@supabase/supabase-js";
 import { getSession, supabase } from "./supabase";
@@ -9,6 +10,8 @@ import AnalyticsPage from "./pages/AnalyticsPage";
 import Footer from "./components/Footer";
 import Auth from "./components/Auth";
 import Modal from "./components/Modal.js";
+import NotFound from "./components/NotFound.js";
+import MyErrorBoundary from "./components/MyErrorBoundary.js";
 import "./css/index.css";
 
 const App: React.FC = () => {
@@ -219,7 +222,7 @@ const App: React.FC = () => {
     {
       path: "/",
       element: (
-        <>
+        <ErrorBoundary FallbackComponent={MyErrorBoundary}>
           <NavBar
             handleLoginButtonClick={handleLoginButtonClick}
             session={session}
@@ -245,13 +248,13 @@ const App: React.FC = () => {
           {showModal && (
             <Modal message={modalMessage} onClose={() => setShowModal(false)} />
           )}
-        </>
+        </ErrorBoundary>
       ),
     },
     {
       path: "/myurl",
       element: (
-        <>
+        <ErrorBoundary FallbackComponent={MyErrorBoundary}>
           <NavBar
             handleLoginButtonClick={handleLoginButtonClick}
             session={session}
@@ -274,13 +277,13 @@ const App: React.FC = () => {
           {showModal && (
             <Modal message={modalMessage} onClose={() => setShowModal(false)} />
           )}
-        </>
+        </ErrorBoundary>
       ),
     },
     {
       path: "/analytics/:shortcode",
       element: (
-        <>
+        <ErrorBoundary FallbackComponent={MyErrorBoundary}>
           <NavBar
             handleLoginButtonClick={handleLoginButtonClick}
             session={session}
@@ -303,7 +306,24 @@ const App: React.FC = () => {
           {showModal && (
             <Modal message={modalMessage} onClose={() => setShowModal(false)} />
           )}
-        </>
+        </ErrorBoundary>
+      ),
+    },
+    {
+      path: "*",
+      element: (
+        <ErrorBoundary FallbackComponent={MyErrorBoundary}>
+          <NotFound />
+          <Footer />
+        </ErrorBoundary>
+      ),
+    },
+    {
+      path: "/error",
+      element: (
+        <ErrorBoundary FallbackComponent={MyErrorBoundary}>
+          <MyErrorBoundary />
+        </ErrorBoundary>
       ),
     },
   ]);

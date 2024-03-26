@@ -47,7 +47,7 @@ Whether you're a casual user looking to share links with friends or a business p
 #### Theme Modes:
 
 - Seamlessly integrates light and dark mode themes based on the user's device default settings.
-- Offers users the flexibility to switch between light and dark modes directly from the user interface, providing a personalized browsing experience.
+- Automatically detects users preferred theme based on their device settings between light and dark modes, providing a personalized browsing experience.
 
 ## Demo
 

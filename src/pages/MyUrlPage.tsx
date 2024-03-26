@@ -158,10 +158,18 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
         text: "Check out this link!",
         url: shortLink,
       };
-
-      await navigator.share(shareData);
+      // Check if navigator.share is supported
+      if (navigator.share) {
+        // If supported, use navigator.share
+        await navigator.share(shareData);
+      } else {
+        setShareLink(shortLink);
+        // If not supported, display a custom modal or fallback option
+        console.log("navigator.share not supported. Displaying custom modal.");
+        // Your custom modal logic here
+      }
     } catch (error) {
-      setShareLink(shortLink);
+      console.error(error);
     }
   };
 
@@ -180,10 +188,14 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
   };
 
   const shareViaFacebook = (shortLink: string) => {
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
-      shortLink
-    )}`;
-    window.open(facebookUrl, "_blank");
+    try {
+      const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
+        shortLink
+      )}`;
+      window.open(facebookUrl, "_blank");
+    } catch (error) {
+      console.error("Error sharing via Facebook:", error);
+    }
   };
 
   const shareViaEmail = (shortLink: string) => {

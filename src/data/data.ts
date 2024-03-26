@@ -83,7 +83,7 @@ export const faqsData = [
     question:
       "Can I customize the shortened URLs to reflect my brand or content?",
     answer:
-      "Customizing shortened URLs to reflect your brand or content is a feature available exclusively to our registered users. Create an account to enjoy the benefits of personalized and branded short links.",
+      "Yes, customizing shortened URLs to reflect your brand or content is a feature available exclusively to our registered users. Create an account to enjoy the benefits of personalized and branded short links.",
   },
   {
     question: "Can I track the performance of my shortened URLs?",
@@ -102,10 +102,17 @@ export const faqsData = [
       "A QR code, or Quick Response code, is a two-dimensional barcode that can store various types of information. It can encode text, URLs, contact information, and more. QR codes are widely used for quick access to information; users can scan the code with a smartphone camera to open a link, reveal contact details, or perform other actions, making them a versatile and efficient tool for information sharing.",
   },
   {
+    question: "Why do I get an error when shortening a link? ",
+    answer: `Users may encounter errors when shortening links if they fail to input a valid URL format. It's important to ensure that the link provided starts with either "http://" or "https://", as these are the standard protocols for web URLs. Additionally, avoid starting the link with "www." alone, as it may not be recognized as a complete URL. For example, instead of entering "www.example.com" or "example.com", ensure the link is entered as "http://example.com" or "https://example.com".`,
+  },
+  {
+    question: "Why am I unable to create an alias for my link using Spoo.me?? ",
+    answer: `Users may encounter alias creation errors with Spoo.me if the requested alias is invalid or already taken. The alias must be alphanumeric and under 15 characters. Anything beyond 15 characters would be stripped by the API. Ensure that the alias meets these criteria to avoid errors.`,
+  },
+  {
     question:
-      "Is there an API available for integrating the URL shortening service into my own applications or websites?",
-    answer:
-      "Yes, we provide an API for seamless integration of our URL shortening service into your applications or websites. This allows you to incorporate our link shortening functionality directly into your projects, enhancing the user experience and extending the capabilities of your applications with ease.",
+      "What should I do if I receive an error while trying to shorten a link using custom alias with Emojify? ",
+    answer: `If you encounter an error when creating a custom emoji sequence alias with Emojify, ensure that the sequence contains only emojis. You may encounter alias creation errors if the requested alias is invalid or already taken. Custom emoji sequences must consist solely of emojis, with no other characters allowed. Validate the sequence to exclude any non-emoji characters or alphanumeric symbols to resolve the error.`,
   },
 ];
 

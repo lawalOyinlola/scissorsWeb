@@ -126,7 +126,8 @@ span {
   .url-form > p > strong,
   .forgot,
   .user > em,
-  .delete-btn {
+  .delete-btn,
+  .back-icon {
     color: #0065fe;
   }
 
@@ -140,8 +141,12 @@ span {
   .forgot:active,
   .cancel-btn:hover,
   .cancel-btn:active,
+  .back-icon:hover,
+  .back-icon:active,
   .delete-btn:hover,
-  .delete-btn:active {
+  .delete-btn:active,
+  .flex p,
+  .flex li {
     color: #213547;
   }
 
@@ -201,6 +206,36 @@ span {
   .cancel-btn {
     background-color: #f1f4f8;
     color: #0065fe;
+  }
+
+  .analysis > div {
+    outline: 0.5px solid rgba(0, 102, 254, 0.15);
+  }
+
+  .analysis .column:first-of-type {
+    border-right: 1px solid rgba(0, 102, 254, 0.15);
+  }
+
+  .analysis .column:nth-of-type(2) {
+    border-bottom: 1px solid rgba(0, 102, 254, 0.15);
+    border-left: 0.5px solid rgba(0, 102, 254, 0.15);
+  }
+
+  .analysis .column:last-of-type {
+    border-top: 1px solid rgba(0, 102, 254, 0.15);
+    border-left: 0.5px solid rgba(0, 102, 254, 0.15);
+  }
+
+  .analysis .left {
+    border-left: 1px solid rgba(0, 102, 254, 0.15);
+  }
+
+  .analysis .right {
+    border-right: 1px solid rgba(0, 102, 254, 0.15);
+  }
+
+  .analysis .left {
+    background-color: rgba(0, 102, 254, 0.15);
   }
 }
 
@@ -328,6 +363,10 @@ span {
     grid-template-columns: auto;
   }
 
+  .analysis {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .socials-block {
     max-width: 14rem;
     position: absolute;
@@ -449,6 +488,10 @@ span {
     margin: 4.3rem 1rem 15.5rem;
   }
 
+  .analysis {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .documents-block {
     grid-template-columns: repeat(2, auto);
   }
@@ -484,5 +527,9 @@ span {
 
   .url-btns button {
     padding: 0.8rem 2rem;
+  }
+
+  .back-btn {
+    left: 1rem;
   }
 }
