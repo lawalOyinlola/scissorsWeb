@@ -74,42 +74,27 @@ const UrlDetails: React.FC<DetailsProps> = ({
   const handleShare = async () => {
     document.body.classList.add("auth-open");
     try {
-      const shareData: ShareData & { files: File[] } = {
+      const shareData = {
         title: "Url link shortened from https://spoo.me/scissors",
         text: "Check out this link!",
         url: shortLink,
-        files: [],
       };
-
-      // Convert QR code image URL to Blob
-      const qrCodeResponse = await fetch(qrCodeImage);
-      const qrCodeBlob = await qrCodeResponse.blob();
-      const qrCodeFile = new File([qrCodeBlob], "qr_code.png", {
-        type: "image/png",
-      });
-
-      // Include QR code File object in the files array
-      shareData.files.push(qrCodeFile);
-
       // Check if navigator.share is supported
       if (navigator.share) {
         // If supported, use navigator.share
         await navigator.share(shareData);
       } else {
-        setShareComponent(true);
         // If not supported, display a custom modal or fallback option
+        setShareComponent(true);
         console.log("navigator.share not supported. Displaying custom modal.");
-        // Your custom modal logic here
       }
     } catch (error) {
       console.error("Error sharing:", error);
     }
   };
 
-  // const shareViaWhatsApp = (shortLink: string) => {
-  // const message = "Check out this link: " + shortLink;
-  const shareViaWhatsApp = (shortLink: string, qrCodeImageUrl: string) => {
-    const message = `Check out this link: ${shortLink} \nQR Code: ${qrCodeImageUrl}`;
+  const shareViaWhatsApp = (shortLink: string) => {
+    const message = "Check out this link: " + shortLink;
     const whatsappUrl = `whatsapp://send?text=${encodeURIComponent(message)}`;
     window.location.href = whatsappUrl;
   };
@@ -204,9 +189,7 @@ const UrlDetails: React.FC<DetailsProps> = ({
                 alternative below{" "}
               </p>
               <div className="share-socials">
-                <button
-                  onClick={() => shareViaWhatsApp(shortLink, qrCodeImage)}
-                >
+                <button onClick={() => shareViaWhatsApp(shortLink)}>
                   <WhatsappLogo size={32} weight="duotone" />
                 </button>
                 <button onClick={() => shareViaTwitter(shortLink)}>
