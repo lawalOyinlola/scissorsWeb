@@ -141,7 +141,6 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
               short_link: shortenedUrl,
               qrcode: qrCodeImageUrl, // Use the fetched URL directly
             });
-            console.log("Data inserted successfully!");
           }
         } catch (error) {
           console.error("Error fetching QR code:", error);

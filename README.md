@@ -2,15 +2,15 @@
 
 ### Overview:
 
-The Scissors Web project is a testament to the principles of modern web development, featuring a sleek and intuitive user interface coupled with powerful functionality. From authentication to link management and analytics, every aspect of the application is designed to streamline the URL management process and empower users with actionable insights.
-
-Whether you're a casual user looking to share links with friends or a business professional seeking to track link performance, the Scissors Web project offers a comprehensive solution tailored to your needs.
+The Scissors Web project is a modern web application designed to simplify URL management and provide valuable insights into link performance. With its sleek user interface and powerful functionality, Scissors Web offers a seamless experience for both casual users and business professionals alike.
 
 ## Table of Contents
 
 - [Features](#features)
+- [Usage](#usage)
 - [Demo](#demo)
 - [Dependencies](#dependencies)
+- [Get Started](#get-started)
 - [Folder Structure](#folder-structure)
 - [Contributing](#contributing)
 - [Screenshot](#screenshot)
@@ -39,19 +39,27 @@ Whether you're a casual user looking to share links with friends or a business p
 - Implemented analytics features to provide users with insights into the performance of their shortened URLs.
 - Users can track various metrics such as click counts, browser statistics, geographical distribution... to gain valuable insights into link engagement and audience behavior.
 
-#### Error Boundary:
+#### Error Management:
 
-- Implemented error boundaries to enhance application robustness and provide a graceful fallback mechanism in case of unexpected errors.
-- Ensures a smooth user experience by handling errors gracefully without disrupting the overall functionality of the application.
+- Error Boundaries: Implemented error boundaries to enhance application robustness and provide a graceful fallback mechanism in case of unexpected errors, without disrupting the overall functionality of the application.
+- Custom 404 Page: A custom 404 page is provided to handle and gracefully display page-not-found errors, ensuring a smooth user experience even in the event of navigation to non-existent routes.
 
 #### Theme Modes:
 
 - Seamlessly integrates light and dark mode themes based on the user's device default settings.
 - Automatically detects users preferred theme based on their device settings between light and dark modes, providing a personalized browsing experience.
 
+## Usage
+
+- Try for free: Click to scroll to the Trim Url section use application.
+- Shorten URLs: Simply paste your long URLs into the dashboard to generate shortened links.
+- Sign Up/Login: Create an account or log in to access the full range of features like custom alias, analytics...
+- Manage Links: Organize and categorize your shortened links for easy access and management.
+- View Analytics: Dive into detailed analytics to track link clicks and user engagement under myurl/stats.
+
 ## Demo
 
-You can try the app live at [Scissors Web](https://altschool-scissors.netlify.app/).
+You can try the app live at [Scissors Web](https://scissorsweb-altschool.netlify.app/).
 
 ## Dependencies
 
@@ -60,6 +68,16 @@ You can try the app live at [Scissors Web](https://altschool-scissors.netlify.ap
 - @supabase/supabase-js
 - file-saver
 - react-router-dom
+- react-error-boundary
+
+## Get Started
+
+To get started with Scissors Web, follow these steps:
+
+- Clone this repository to your local machine.
+- Install dependencies using "npm install".
+- Start the development server with "npm start" or "npm run dev".
+- Access the application at http://localhost:3000.
 
 ## Folder Structure
 
@@ -80,7 +98,7 @@ README.md/: The documentation file.
 
 ## Contributing
 
-Contributions are welcome! If you'd like to contribute to this project, please follow these steps:
+Contributions are welcome! If you have any ideas, suggestions, or bug fixes, please open an issue or submit a pull request. You can follow this steps
 
     Fork the project.
     Create a new branch for your feature: git checkout -b feature-name.

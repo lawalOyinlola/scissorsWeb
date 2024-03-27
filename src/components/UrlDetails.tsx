@@ -107,6 +107,15 @@ const UrlDetails: React.FC<DetailsProps> = ({
     window.open(twitterUrl, "_blank");
   };
 
+  // share to twitter DM
+  // const shareViaTwitter = (shortLink: string) => {
+  //   const tweetText = "Check out this link: " + shortLink;
+  //   const twitterUrl = `https://twitter.com/messages/compose?text=${encodeURIComponent(
+  //     tweetText
+  //   )}`;
+  //   window.open(twitterUrl, "_blank");
+  // };
+
   const shareViaFacebook = (shortLink: string) => {
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
       shortLink
@@ -143,17 +152,18 @@ const UrlDetails: React.FC<DetailsProps> = ({
       )}
       <div className="url-details">
         {qrCodeImage && (
-          <div className="qrcode-img" title="click to download">
-            <img
-              src={qrCodeImage}
-              alt="qr code for shortened link"
-              onClick={handleDownloadQrCode}
-            />
+          <div
+            className="qrcode-img"
+            title="click to download"
+            onClick={handleDownloadQrCode}
+          >
+            <img src={qrCodeImage} alt="QR code image for shortened link" />
             <DownloadSimple
               size={34}
               weight="duotone"
               className="download-icon"
             />
+            <p>click QR code image to download</p>
           </div>
         )}
         <div
