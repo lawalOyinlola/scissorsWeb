@@ -12,7 +12,6 @@ const AnalyticsPage: React.FC = () => {
   const { shortcode } = useParams<{ shortcode: string }>();
   const shortLink = `https://spoo.me/${shortcode}`;
   const analyticsData = location.state?.analyticsData;
-  console.log(analyticsData);
 
   const handleCopy = async () => {
     try {

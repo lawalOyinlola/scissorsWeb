@@ -16,21 +16,6 @@ const HomePage: React.FC<HomePageProps> = ({
   handleSignUpButtonClick,
   session,
 }) => {
-  // const [isOpen, setIsOpen] = useState(false);
-
-  // const [activeTab, setActiveTab] = useState<"signup" | "login" | "forgot">(
-  //   "signup"
-  // );
-
-  // const openAuth = () => {
-  //   setIsOpen(true);
-  //   document.body.classList.add("auth-open");
-  // };
-
-  // const handleSignUpButtonClick = () => {
-  //   openAuth();
-  //   setActiveTab("signup");
-  // };
   return (
     <>
       <Hero

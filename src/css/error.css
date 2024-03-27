@@ -1,12 +1,22 @@
 .error-container {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6rem;
+  justify-content: center;
+  gap: 8rem;
+  margin: 2rem;
 }
 
-.links {
-  margin-top: 6rem;
+.wrong {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error-container h2 {
+  font-family: "Gilroy-Bold", sans-serif;
+  font-size: 4.4rem;
 }
 
 .link {

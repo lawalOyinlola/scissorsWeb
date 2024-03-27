@@ -120,7 +120,7 @@ const App: React.FC = () => {
       setIsLoading(false);
       handleTabClick("login");
 
-      console.log("User signed up successfully:", data);
+      console.log("User signed up successfully:", data.user?.role);
     } catch (error) {
       console.error("Error signing up:", (error as Error).message);
 
@@ -149,7 +149,7 @@ const App: React.FC = () => {
       setIsLoading(false);
       closeAuth();
 
-      console.log("User logged in successfully:", data.user);
+      console.log("User logged in successfully:", data.user?.role);
     } catch (error) {
       console.error("Error logging in:", (error as Error).message);
 
@@ -166,11 +166,10 @@ const App: React.FC = () => {
       if (error) {
         throw error;
       }
+
       setSession(null);
       setModalMessage("You logged out - Login to explore more features");
       setShowModal(true);
-
-      console.log("User logged out successfully");
     } catch (error) {
       console.error("Error logging out:", (error as Error).message);
 

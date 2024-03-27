@@ -1,32 +1,68 @@
+import { footerData } from "../data/data";
+import {
+  GithubLogo,
+  TwitterLogo,
+  TelegramLogo,
+  InstagramLogo,
+  LinkedinLogo,
+} from "@phosphor-icons/react";
 import LogoBlack from "../images/logo-black.svg";
-import SocialsX from "../images/socials-x.svg";
-import SocialsIg from "../images/socials-instagram.svg";
-import SocialsLn from "../images/socials-linkedin.svg";
-import SocialsFb from "../images/socials-facebook.svg";
 import LineVector from "../images/line-vector.svg";
 import FooterLeft from "../images/footer-left.svg";
 import FooterRight from "../images/footer-right.svg";
-import { footerData } from "../data/data";
 import "../css/footer.css";
 
 const Footer: React.FC = () => {
+  const contactViaTwitter = () => {
+    const message = encodeURIComponent(
+      `-redirected from ScissorsWeb.\n I'd like to get in touch with you...`
+    );
+    window.open(
+      `https://twitter.com/messages/compose?recipient_id=HoneyzRich&text=${message}`,
+      "_blank"
+    );
+  };
+
+  const contactViaTelegram = () => {
+    const message = encodeURIComponent(
+      `-redirected from ScissorsWeb.\n I'd like to get in touch with you...`
+    );
+    window.open(`https://t.me/DLV_Yero?text=${message}`, "_blank");
+  };
+
+  const contactViaInstagram = () => {
+    const message = encodeURIComponent(
+      `-redirected from ScissorsWeb.\n I'd like to get in touch with you...`
+    );
+    window.open(
+      `https://www.instagram.com/direct/new/?user=honeyz_rich&text=${message}`,
+      "_blank"
+    );
+  };
+
   return (
     <footer>
       <div className="documentation">
         <div className="socials-block">
           <img src={LogoBlack} alt="scissors logo" />
           <div className="socials">
-            <a href="">
-              <img src={SocialsX} alt="X icon" />
+            <a
+              href="https://github.com/lawalOyinlola/ScissorsWeb-AltschoolProject"
+              target="_blank"
+            >
+              <GithubLogo className="socials-btn" weight="duotone" />
             </a>
-            <a href="">
-              <img src={SocialsIg} alt="instagram icon" />
+            <a onClick={contactViaTwitter}>
+              <TwitterLogo className="socials-btn" weight="duotone" />
             </a>
-            <a href="">
-              <img src={SocialsLn} alt="linkedin icon" />
+            <a onClick={contactViaTelegram}>
+              <TelegramLogo className="socials-btn" weight="duotone" />
             </a>
-            <a href="">
-              <img src={SocialsFb} alt="facebook icon" />
+            <a onClick={contactViaInstagram}>
+              <InstagramLogo className="socials-btn" weight="duotone" />
+            </a>
+            <a>
+              <LinkedinLogo className="socials-btn" weight="duotone" />
             </a>
           </div>
         </div>

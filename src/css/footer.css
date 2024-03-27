@@ -15,7 +15,8 @@ footer {
 .socials-block {
   display: flex;
   flex-direction: column;
-  gap: 3.2rem;
+  align-items: start;
+  gap: 2rem;
 }
 
 .socials-block img {
@@ -23,15 +24,20 @@ footer {
   filter: grayscale(100%) invert(100%);
 }
 
-.socials img:hover {
-  filter: none;
-}
-
 .socials {
-  padding: 0 0.8rem;
   display: flex;
   align-items: center;
-  gap: 2.4rem;
+  gap: 0.4rem;
+}
+
+.socials-btn {
+  color: #f1f4f8;
+  font-size: 2.4rem;
+}
+
+.socials-btn:hover,
+.socials-btn:active {
+  color: #0065fe;
 }
 
 .documents-block {

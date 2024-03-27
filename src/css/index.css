@@ -199,8 +199,8 @@ span {
     background-color: #213547;
   }
 
-  .socials img:hover {
-    filter: grayscale(100%) invert(40%);
+  .socials-btn {
+    color: #292e3c;
   }
 
   .cancel-btn {
@@ -371,6 +371,10 @@ span {
     max-width: 14rem;
     position: absolute;
     left: 4%;
+    gap: 1rem;
+  }
+
+  .socials {
     gap: 1rem;
   }
 

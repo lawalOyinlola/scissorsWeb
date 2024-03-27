@@ -46,7 +46,6 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
   const [modalMessage, setModalMessage] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
   const [shareLink, setShareLink] = useState<string | null>(null);
-  // const [shareComponent, setShareComponent] = useState(false);
   const navigate = useNavigate();
 
   const closeShareComponent = () => {
@@ -86,14 +85,11 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
 
         if (error) {
           setError(error.message);
-          console.error("Error fetching data:", error.message);
         } else {
           setLinks(data || []);
-          console.log("Data retrieved successfully!", data);
         }
       } catch (error) {
         setError((error as Error).message);
-        console.error("Error fetching data:", (error as Error).message);
       } finally {
         setLoading(false);
       }
@@ -163,10 +159,8 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
         // If supported, use navigator.share
         await navigator.share(shareData);
       } else {
-        setShareLink(shortLink);
         // If not supported, display a custom modal or fallback option
-        console.log("navigator.share not supported. Displaying custom modal.");
-        // Your custom modal logic here
+        setShareLink(shortLink);
       }
     } catch (error) {
       console.error(error);
@@ -247,8 +241,6 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
           analyticsData: analyticsResult,
         },
       });
-
-      console.log("Analytics data:", analyticsData);
     } catch (error) {
       console.error("Error fetching analytics data:", error);
     }
