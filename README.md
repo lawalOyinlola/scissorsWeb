@@ -1,4 +1,4 @@
-# Capstone Project | Scissors Web
+# Scissors Web |  Altschool Capstone Project
 
 ### Overview:
 
