@@ -13,33 +13,6 @@ import FooterRight from "../images/footer-right.svg";
 import "../css/footer.css";
 
 const Footer: React.FC = () => {
-  const contactViaTwitter = () => {
-    const message = encodeURIComponent(
-      `-redirected from ScissorsWeb.\n I'd like to get in touch with you...`
-    );
-    window.open(
-      `https://twitter.com/messages/compose?recipient_id=HoneyzRich&text=${message}`,
-      "_blank"
-    );
-  };
-
-  const contactViaTelegram = () => {
-    const message = encodeURIComponent(
-      `-redirected from ScissorsWeb.\n I'd like to get in touch with you...`
-    );
-    window.open(`https://t.me/DLV_Yero?text=${message}`, "_blank");
-  };
-
-  const contactViaInstagram = () => {
-    const message = encodeURIComponent(
-      `-redirected from ScissorsWeb.\n I'd like to get in touch with you...`
-    );
-    window.open(
-      `https://www.instagram.com/direct/new/?user=honeyz_rich&text=${message}`,
-      "_blank"
-    );
-  };
-
   return (
     <footer>
       <div className="documentation">
@@ -52,13 +25,16 @@ const Footer: React.FC = () => {
             >
               <GithubLogo className="socials-btn" weight="duotone" />
             </a>
-            <a onClick={contactViaTwitter}>
+            <a href="https://twitter.com/HoneyzRich" target="_blank">
               <TwitterLogo className="socials-btn" weight="duotone" />
             </a>
-            <a onClick={contactViaTelegram}>
+            <a href="https://t.me/DLV_Yero" target="_blank">
               <TelegramLogo className="socials-btn" weight="duotone" />
             </a>
-            <a onClick={contactViaInstagram}>
+            <a
+              href="https://www.instagram.com/direct/t/100255291380317"
+              target="_blank"
+            >
               <InstagramLogo className="socials-btn" weight="duotone" />
             </a>
             <a>
