@@ -236,11 +236,14 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
       const analyticsResponse = await fetch(analyticsUrl, analyticsOptions);
       const analyticsResult = await analyticsResponse.json();
       setAnalyticsData(analyticsResult);
-      navigate(`/analytics/${shortcode}`, {
-        state: {
-          analyticsData: analyticsResult,
-        },
-      });
+      {
+        !analyticsData &&
+          navigate(`/analytics/${shortcode}`, {
+            state: {
+              analyticsData: analyticsResult,
+            },
+          });
+      }
     } catch (error) {
       console.error("Error fetching analytics data:", error);
     }
