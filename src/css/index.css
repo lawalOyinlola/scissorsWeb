@@ -76,6 +76,9 @@ img {
 span {
   color: #0065fe;
 }
+input {
+  touch-action: manipulation;
+}
 
 .button:hover {
   outline: 2px solid #0065fe;
@@ -127,7 +130,8 @@ span {
   .forgot,
   .user > em,
   .delete-btn,
-  .back-icon {
+  .back-icon,
+  .qrcode-img p {
     color: #0065fe;
   }
 
@@ -236,6 +240,11 @@ span {
 
   .analysis .left {
     background-color: rgba(0, 102, 254, 0.15);
+  }
+
+  .home {
+    color: #213547;
+    border: 1px solid #213547;
   }
 }
 

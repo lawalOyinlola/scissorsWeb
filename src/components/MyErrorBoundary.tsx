@@ -9,7 +9,7 @@ function MyErrorBoundary() {
         <Bug size={120} weight="duotone" />
         <h2>Something went wrong</h2>
       </div>
-      <Link to="/" className="link">
+      <Link to="/" className="home">
         Go back to home page.
       </Link>
     </section>

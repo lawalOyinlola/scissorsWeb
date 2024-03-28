@@ -53,17 +53,17 @@
   position: relative;
 }
 
-.qrcode-img p {
-  font-size: 1rem;
-  color: rgba(0, 102, 254, 0.9);
-}
-
 .download-icon {
   opacity: 0;
   position: absolute;
   top: 0;
   right: 0;
   color: rgba(0, 102, 254, 0.9);
+}
+
+.qrcode-img p {
+  font-size: 1.2rem;
+  color: #77adff;
 }
 
 .qrcode-img:hover .download-icon {
@@ -77,7 +77,7 @@
 }
 
 .qrcode-img:hover::before {
-  height: 97%;
+  height: 96%;
   width: 100%;
   background-color: rgba(204, 224, 255, 0.3);
   position: absolute;
