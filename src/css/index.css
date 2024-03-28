@@ -76,9 +76,6 @@ img {
 span {
   color: #0065fe;
 }
-input {
-  touch-action: manipulation;
-}
 
 .button:hover {
   outline: 2px solid #0065fe;
