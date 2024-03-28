@@ -12,11 +12,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 }
 
-.error-container h2 {
+.wrong h2 {
   font-family: "Gilroy-Bold", sans-serif;
   font-size: 4.4rem;
+}
+
+.bug {
+  font-size: 12rem;
 }
 
 .not-found {

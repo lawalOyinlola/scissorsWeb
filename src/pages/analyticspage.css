@@ -12,7 +12,6 @@
   top: 10%;
   left: 4rem;
   background-color: transparent;
-  transform: all 0.8s;
   outline: none;
   border: none;
   padding: 0;
@@ -21,7 +20,6 @@
 .back-icon {
   border-radius: 100%;
   color: #f1f4f8;
-  /* background-color: #1f2128; */
   background-color: transparent;
   cursor: pointer;
   transform: all 0.8s;
@@ -61,6 +59,7 @@
 
 .long {
   padding-left: 4rem;
+  word-break: break-all;
 }
 
 .analysis .column {
@@ -74,7 +73,8 @@
 }
 
 .analysis .column:nth-of-type(2) {
-  border-bottom: 1px solid rgba(241, 244, 248, 0.412);
+  background-color: rgba(0, 102, 254, 0.018);
+  border-bottom: 1px solid rgba(241, 244, 248, 0.62);
   border-left: 0.5px solid rgba(241, 244, 248, 0.14);
 }
 

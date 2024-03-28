@@ -40,8 +40,18 @@ const AnalyticsPage: React.FC = () => {
           <p>Creation date: &nbsp;&nbsp;{analyticsData["creation-date"]}</p>
         </div>
         <div className="column flex">
-          <p>Last click: {analyticsData["last-click"]}</p>
-          <p>Last click country: {analyticsData["last-click-country"]}</p>
+          <p>
+            Last click: &nbsp;
+            {!analyticsData["last-click"]
+              ? "none"
+              : analyticsData["last-click"]}
+          </p>
+          <p>
+            Last click country: &nbsp;
+            {!analyticsData["last-click-country"]
+              ? "none"
+              : analyticsData["last-click-country"]}
+          </p>
         </div>
         <div className="flex">
           <strong>Browsers</strong>
@@ -63,23 +73,49 @@ const AnalyticsPage: React.FC = () => {
         </div>
         <div className="flex left">
           <p>Average daily clicks</p>
-          <h2>{analyticsData.average_daily_clicks}</h2>
+          <h2>
+            {!analyticsData.average_daily_clicks
+              ? 0
+              : analyticsData.average_daily_clicks}{" "}
+          </h2>
         </div>
         <div className="flex right">
-          <p>Last click browser: {analyticsData["last-click-browser"]}</p>
-          <p>Last click OS: {analyticsData["last-click-os"]}</p>
+          <p>
+            Last click browser: &nbsp;
+            {!analyticsData["last-click-browser"]
+              ? "none"
+              : analyticsData["last-click-browser"]}
+          </p>
+          <p>
+            Last click OS: &nbsp;
+            {!analyticsData["last-click-os"]
+              ? "none"
+              : analyticsData["last-click-os"]}
+          </p>
         </div>
         <div className="flex left">
           <p>Average weekly clicks</p>
-          <h2>{analyticsData.average_weekly_clicks}</h2>
+          <h2>
+            {!analyticsData.average_weekly_clicks
+              ? 0
+              : analyticsData.average_weekly_clicks}
+          </h2>
         </div>
         <div className="flex dark">
           <p>Average monthly clicks</p>
-          <h2>{analyticsData.average_monthly_clicks}</h2>
+          <h2>
+            {!analyticsData.average_monthly_clicks
+              ? 0
+              : analyticsData.average_monthly_clicks}
+          </h2>
         </div>
         <div className="flex left">
           <p>Total unique click</p>
-          <h2> {analyticsData.total_unique_clicks}</h2>
+          <h2>
+            {!analyticsData.total_unique_clicks
+              ? 0
+              : analyticsData.total_unique_clicks}
+          </h2>
         </div>
         <div className="flex right">
           <p>Expired: {analyticsData.expired.toString()}</p>

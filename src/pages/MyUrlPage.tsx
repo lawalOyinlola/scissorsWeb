@@ -201,6 +201,11 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
     window.location.href = emailUrl;
   };
 
+  const handleSingleClick = () => {
+    setModalMessage("Double click to delete");
+    setShowModal(true);
+  };
+
   const handleDeleteLink = async (linkId: number) => {
     try {
       const { data, error } = await supabase
@@ -373,6 +378,7 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
                 </div>
                 <button
                   className="delete-btn"
+                  onClick={handleSingleClick}
                   onDoubleClick={() => handleDeleteLink(link.id)}
                   title="double click to delete"
                 >
