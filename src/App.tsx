@@ -260,7 +260,7 @@ const App: React.FC = () => {
             handleLogout={handleLogout}
           />
           <MyUrlPage session={session} />
-          <Footer />
+          {/* <Footer /> */}
           <Auth
             authIsOpen={authIsOpen}
             errors={errors}

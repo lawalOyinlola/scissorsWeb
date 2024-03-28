@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Alien } from "@phosphor-icons/react";
-import "../css/notfound.css";
+import "../css/error.css";
 
 function NotFound() {
   return (
