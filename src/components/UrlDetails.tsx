@@ -1,5 +1,6 @@
 import { saveAs } from "file-saver";
 import { useState, useEffect } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import {
   Copy,
   ShareNetwork,
@@ -31,6 +32,7 @@ const UrlDetails: React.FC<DetailsProps> = ({
   const [modalMessage, setModalMessage] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
   const [shareComponent, setShareComponent] = useState<boolean>(false);
+  const [parent] = useAutoAnimate();
 
   const closeShareComponent = () => {
     setShareComponent(false);
@@ -151,7 +153,7 @@ const UrlDetails: React.FC<DetailsProps> = ({
       {showModal && (
         <Modal message={modalMessage} onClose={() => setShowModal(false)} />
       )}
-      <div className="url-details">
+      <div className="url-details" ref={parent}>
         {qrCodeImage && (
           <div
             className="qrcode-img"

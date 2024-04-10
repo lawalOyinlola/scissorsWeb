@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { faqsData } from "../data/data";
 import LineGradient from "../images/line-gradient.svg";
 import IconPlus from "../images/icon-plus.svg";
@@ -15,8 +16,10 @@ interface FaqItemProps {
 const FaqItem: React.FC<
   FaqItemProps & { isOpen: boolean; toggleMenu: () => void }
 > = ({ question, answer, isOpen, toggleMenu }) => {
+  const [parent] = useAutoAnimate();
+
   return (
-    <div className="faq-text" onClick={toggleMenu}>
+    <div className="faq-text" onClick={toggleMenu} ref={parent}>
       <p>{question}</p>
       <img src={isOpen ? IconMinus : IconPlus} alt="Toggle icon" />
       {isOpen && <p className="open">{answer}</p>}

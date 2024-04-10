@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { ArrowCircleLeft } from "@phosphor-icons/react/dist/ssr";
 import Modal from "../components/Modal";
 import "./analyticspage.css";
@@ -7,6 +8,7 @@ import "./analyticspage.css";
 const AnalyticsPage: React.FC = () => {
   const [modalMessage, setModalMessage] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
+  const [parent] = useAutoAnimate();
 
   const location = useLocation();
   const { shortcode } = useParams<{ shortcode: string }>();
@@ -26,7 +28,7 @@ const AnalyticsPage: React.FC = () => {
   };
 
   return (
-    <>
+    <div ref={parent}>
       {showModal && (
         <Modal message={modalMessage} onClose={() => setShowModal(false)} />
       )}
@@ -135,7 +137,7 @@ const AnalyticsPage: React.FC = () => {
           )}
         </div>
       </section>
-    </>
+    </div>
   );
 };
 
