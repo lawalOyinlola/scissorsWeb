@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import {
+  CaretDoubleDown,
+  CaretDoubleUp,
   ChartLine,
   ShareNetwork,
   Copy,
@@ -46,7 +49,9 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
   const [modalMessage, setModalMessage] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
   const [shareLink, setShareLink] = useState<string | null>(null);
+  const [isAscending, setIsAscending] = useState(true);
   const navigate = useNavigate();
+  const [parent] = useAutoAnimate();
 
   const closeShareComponent = () => {
     setShareLink(null);
@@ -81,12 +86,13 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
         const { data, error } = await supabase
           .from("links")
           .select("*")
-          .eq("user_id", session?.user.id);
+          .eq("user_id", session?.user.id)
+          .order("created_at", { ascending: isAscending });
 
         if (error) {
           setError(error.message);
         } else {
-          setLinks(data || []);
+          setLinks(data.reverse() || []);
         }
       } catch (error) {
         setError((error as Error).message);
@@ -98,7 +104,11 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
     if (session?.user.id) {
       fetchData();
     }
-  }, [session?.user.id]);
+  }, [session?.user.id, isAscending]);
+
+  const toggleOrder = () => {
+    setIsAscending((prevIsAscending) => !prevIsAscending);
+  };
 
   const handleCopy = async (shortLink: string) => {
     try {
@@ -277,8 +287,10 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
     return <div className="loading">No links found for this user.</div>;
   }
 
+  const hasLink = links.length > 1;
+
   return (
-    <section className="url-page" id="url">
+    <section className="url-page" id="url" ref={parent}>
       {selectedLink && (
         <UrlDetails
           urlIsOpen={true}
@@ -293,11 +305,27 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
       )}
       <div>
         {session && (
-          <p className="user">
-            Signed in as:&nbsp;<em>{session?.user?.email}</em>
-          </p>
+          <div>
+            <p className="user">
+              Signed in as:&nbsp;<em>{session?.user?.email}</em>
+            </p>
+            {hasLink && (
+              <a
+                className="order-btn white-btn"
+                onClick={toggleOrder}
+                ref={parent}
+              >
+                {isAscending ? "Newest to Oldest" : "Oldest to Newest"}
+                {isAscending ? (
+                  <CaretDoubleDown size={16} weight="duotone" />
+                ) : (
+                  <CaretDoubleUp size={16} weight="duotone" />
+                )}
+              </a>
+            )}
+          </div>
         )}
-        <div className="main-box">
+        <div className="main-box" ref={parent}>
           {links.map((link) => (
             <div className="url-container" key={link.id}>
               <div>
@@ -312,7 +340,7 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
                 <div className="long-link">
                   <p>{link.long_link}</p>
                 </div>
-                <div className="url-btns">
+                <div className="url-btns" ref={parent}>
                   <button
                     className="white-btn"
                     title="share"

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { XCircle } from "@phosphor-icons/react";
 import "../css/auth.css";
 
@@ -31,6 +32,7 @@ const Auth: React.FC<AuthProps> = ({
   handleSignUp,
   isLoading,
 }) => {
+  const [parent] = useAutoAnimate();
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -77,7 +79,7 @@ const Auth: React.FC<AuthProps> = ({
             </li>
           </ul>
 
-          <div className="tab-content">
+          <div className="tab-content" ref={parent}>
             {/* Signup form */}
             {activeTab === "signup" && (
               <div id="signup">
@@ -102,6 +104,7 @@ const Auth: React.FC<AuthProps> = ({
                       name="password"
                       value={formData.password}
                       onChange={handleInputChange}
+                      minLength={6}
                       autoComplete="off"
                       required
                     />
@@ -118,6 +121,7 @@ const Auth: React.FC<AuthProps> = ({
                       name="confirmPassword"
                       value={formData.confirmPassword}
                       onChange={handleInputChange}
+                      minLength={6}
                       autoComplete="off"
                       required
                     />
@@ -157,6 +161,8 @@ const Auth: React.FC<AuthProps> = ({
                       name="password"
                       value={formData.password}
                       onChange={handleInputChange}
+                      minLength={6}
+                      autoComplete="off"
                       required
                     />
                     <label>Password</label>
@@ -185,11 +191,25 @@ const Auth: React.FC<AuthProps> = ({
                 <h2>Create New Password</h2>
                 <form action="/" method="post">
                   <div className="input-box">
-                    <input type="password" name="password" required />
+                    <input
+                      type="password"
+                      name="password"
+                      onChange={handleInputChange}
+                      autoComplete="off"
+                      minLength={6}
+                      required
+                    />
                     <label>New Password</label>
                   </div>
                   <div className="input-box">
-                    <input type="password" name="password" required />
+                    <input
+                      type="password"
+                      name="password"
+                      onChange={handleInputChange}
+                      autoComplete="off"
+                      minLength={6}
+                      required
+                    />
                     <label>Confirm New Password</label>
                     {errors.confirmPassword && (
                       <p className="error">{errors.confirmPassword}</p>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { X, List } from "@phosphor-icons/react";
 import { Session } from "@supabase/supabase-js";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import Logo from "../images/logo-scissor.svg";
 import ChevronDown from "../images/chevron-down.svg";
 import ChevronDownBlue from "../images/chevron-down-blue.svg";
@@ -22,6 +23,7 @@ const NavBar: React.FC<NavBarProps> = ({
 
   const [navIsOpen, setNavIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [parent] = useAutoAnimate();
 
   const toggleMenu = () => {
     setNavIsOpen(!navIsOpen);
@@ -123,7 +125,7 @@ const NavBar: React.FC<NavBarProps> = ({
           </ul>
         </nav>
 
-        <button className="menu-btn" onClick={toggleMenu}>
+        <button className="menu-btn" onClick={toggleMenu} ref={parent}>
           {!navIsOpen ? (
             <List size={42} weight="bold" />
           ) : (

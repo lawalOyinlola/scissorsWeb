@@ -1,11 +1,10 @@
-// import { useState } from "react";
+import { Session } from "@supabase/supabase-js";
 import Hero from "../components/Hero.js";
 import ScissorStats from "../components/Scissorstats";
 import Pricing from "../components/Pricing";
 import TrimUrl from "../components/TrimUrl";
 import Faq from "../components/Faq";
 import GetStarted from "../components/Getstarted";
-import { Session } from "@supabase/supabase-js";
 
 interface HomePageProps {
   handleSignUpButtonClick: () => void;

@@ -64,11 +64,12 @@ You can try the app live at [Scissors Web](https://scissorsweb-altschool.netlify
 ## Dependencies
 
 - react
-- @phosphor-icons/react
-- @supabase/supabase-js
-- file-saver
 - react-router-dom
 - react-error-boundary
+- @supabase/supabase-js
+- @phosphor-icons/react
+- @formkit/auto-animate"
+- file-saver
 
 ## Get Started
 
@@ -77,7 +78,7 @@ To get started with Scissors Web, follow these steps:
 - Clone this repository to your local machine.
 - Install dependencies using "npm install".
 - Start the development server with "npm start" or "npm run dev".
-- Access the application at http://localhost:3000.
+- Access the application at "http://localhost:3000" or your default localhost.
 
 ## Folder Structure
 
@@ -85,7 +86,7 @@ The project structure is organized as follows:
 public/: Contains the public assets.  
 src/: Contains the source code of the application and all components  
 src/components: Contains all component file.  
-src/pages: Contains the Pages and their CSS styles.  
+src/pages: Contains the Pages and their CSS styling.  
 src/css: CSS styling for individual component.  
 src/data: Contains data files used in some components.  
 src/images: Contains images used in the App components.  

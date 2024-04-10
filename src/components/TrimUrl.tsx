@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Session } from "@supabase/supabase-js";
 import { supabase } from "../supabase";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 import UrlDetails from "./UrlDetails";
 import MagicWand from "../images/magic-wand.svg";
 import MagicWandBlue from "../images/magic-wand-blue.svg";
@@ -27,6 +28,7 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const [parent] = useAutoAnimate();
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -168,7 +170,7 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
   };
 
   return (
-    <>
+    <div ref={parent}>
       {urlIsOpen && (
         <UrlDetails
           urlIsOpen={urlIsOpen}
@@ -241,7 +243,7 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
         <img className="form-left" src={FormLeft} alt="abstract" />
         <img className="form-right" src={FormRight} alt="abstract" />
       </section>
-    </>
+    </div>
   );
 };
 

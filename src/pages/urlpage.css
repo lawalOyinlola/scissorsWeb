@@ -24,6 +24,15 @@
   font-size: 1.8rem;
 }
 
+.order-btn {
+  padding: 1rem;
+  margin: 0 2rem 2rem;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
 .main-box {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -81,7 +90,8 @@
   gap: 2px;
 }
 
-.url-btns button:hover {
+.url-btns button:hover,
+.order-btn:hover {
   filter: brightness(80%);
 }
 
