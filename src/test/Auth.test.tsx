@@ -5,10 +5,15 @@ import Auth from "../components/Auth";
 describe("Auth Component", () => {
   const mockProps = {
     isLoading: false,
+    isRedirected: false,
+    setIsRedirected: jest.fn(),
     closeAuth: jest.fn(),
     handleInputChange: jest.fn(),
-    handleSignUp: jest.fn(),
     handleLogin: jest.fn(),
+    handleLogout: jest.fn(),
+    handleSignUp: jest.fn(),
+    handlePasswordReset: jest.fn(),
+    handlePasswordUpdate: jest.fn(),
     handleTabClick: jest.fn(),
     activeTab: "",
     authIsOpen: true,

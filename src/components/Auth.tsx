@@ -5,8 +5,10 @@ import "../css/auth.css";
 
 interface AuthProps {
   isLoading: boolean;
+  authIsOpen: boolean;
   isRedirected: boolean;
   setIsRedirected: React.Dispatch<React.SetStateAction<boolean>>;
+  activeTab: "signup" | "login" | "forgot" | "reset";
   closeAuth: () => void;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSignUp: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -15,8 +17,6 @@ interface AuthProps {
   handlePasswordReset: (e: React.FormEvent<HTMLFormElement>) => void;
   handlePasswordUpdate: (e: React.FormEvent<HTMLFormElement>) => void;
   handleTabClick: (tabId: "signup" | "login" | "forgot" | "reset") => void;
-  activeTab: "signup" | "login" | "forgot" | "reset";
-  authIsOpen: boolean;
   errors: any;
   formData: {
     email: string;
@@ -26,21 +26,21 @@ interface AuthProps {
 }
 
 const Auth: React.FC<AuthProps> = ({
-  authIsOpen,
-  activeTab,
-  closeAuth,
-  errors,
-  formData,
-  handleTabClick,
-  handleInputChange,
-  handleLogin,
-  handleLogout,
-  handleSignUp,
-  handlePasswordReset,
-  handlePasswordUpdate,
   isLoading,
+  authIsOpen,
   isRedirected,
   setIsRedirected,
+  activeTab,
+  closeAuth,
+  handleInputChange,
+  handleSignUp,
+  handleLogin,
+  handleLogout,
+  handlePasswordReset,
+  handlePasswordUpdate,
+  handleTabClick,
+  errors,
+  formData,
 }) => {
   const [parent] = useAutoAnimate();
 
