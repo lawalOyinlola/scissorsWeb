@@ -72,8 +72,7 @@ describe("Auth Component", () => {
       <Auth {...mockProps} activeTab="forgot" />
     );
 
-    expect(getByText("Create New Password")).toBeInTheDocument();
-    expect(getByLabelText("New Password")).toBeInTheDocument();
-    expect(getByLabelText("Confirm New Password")).toBeInTheDocument();
+    expect(getByText("Reset Password")).toBeInTheDocument();
+    expect(getByLabelText("email")).toBeInTheDocument();
   });
 });

@@ -1,4 +1,4 @@
-# Scissors Web |  Altschool Capstone Project
+# Scissors Web | AltSchool Capstone Project
 
 ### Overview:
 
@@ -51,15 +51,16 @@ The Scissors Web project is a modern web application designed to simplify URL ma
 
 ## Usage
 
-- Try for free: Click to scroll to the Trim Url section use application.
-- Shorten URLs: Simply paste your long URLs into the dashboard to generate shortened links.
+- Try for free: Click to scroll to the Trim Url section to use application.
 - Sign Up/Login: Create an account or log in to access the full range of features like custom alias, analytics...
-- Manage Links: Organize and categorize your shortened links for easy access and management.
+- Reset Password: Reset account password to regain access or update password.
+- Generate QR Code: Automatically generate QR code from shortened link when clicking the "trim url" or "QR Code" buttons.
+- Manage Links: Organize and Sort your shortened links for easy access and management.
 - View Analytics: Dive into detailed analytics to track link clicks and user engagement under myurl/stats.
 
 ## Demo
 
-You can try the app live at [Scissors Web](https://scissorsweb-altschool.netlify.app/).
+You can try the app live at [Scissors Web](https://scissorsweb.netlify.app/).
 
 ## Dependencies
 
