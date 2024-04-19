@@ -30,5 +30,4 @@ tsconfig.json
 tsconfig.node.json
 vite.config.js
 vite.config.ts
-jest.config.cjs
 
