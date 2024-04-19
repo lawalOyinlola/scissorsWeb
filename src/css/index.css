@@ -77,6 +77,18 @@ span {
   color: #0065fe;
 }
 
+*:focus-visible {
+  outline: none;
+  border: none;
+  box-shadow: 0 0 0 0.4rem rgba(230, 125, 34, 0.5);
+}
+
+input:focus-visible {
+  outline: none;
+  border: none;
+  box-shadow: 0 0 0 0.4rem rgba(230, 125, 34, 0.5);
+}
+
 .button:hover {
   outline: 2px solid #0065fe;
   background-color: #f1f4f8;
@@ -178,13 +190,15 @@ span {
   .chevron,
   .triangle,
   .triangle + img,
+  .icon-img,
   .price-texts img,
   .main-bottom img,
   .why-scissors img,
   .faq-intro img,
   .faq-text img,
   .socials-block img,
-  .url-details img {
+  .url-details img,
+  .sort-btn .magic-wand {
     filter: none;
   }
 
@@ -251,6 +265,14 @@ span {
 @media (max-width: 87em) {
   html {
     font-size: 56.25%;
+  }
+
+  .analytics {
+    gap: 8rem;
+  }
+
+  .analytics-heading {
+    width: 24ch;
   }
 
   .main-intros,
@@ -340,6 +362,10 @@ span {
   .analytics-info {
     text-align: center;
     gap: 5rem;
+  }
+
+  .analytics-heading {
+    text-align: center;
   }
 
   .features {

@@ -19,11 +19,14 @@ const App: React.FC = () => {
   const [session, setSession] = useState<Session | null>(null);
   const [modalMessage, setModalMessage] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<"signup" | "login" | "forgot">(
-    "signup"
-  );
-  const [errors, setErrors] = useState<{ [key: string]: string }>({
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isRedirected, setIsRedirected] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<
+    "signup" | "login" | "forgot" | "reset"
+  >("signup");
+  const [errors, setErrors] = useState<{
+    [key: string]: string;
+  }>({
     email: "",
     password: "",
     confirmPassword: "",
@@ -35,13 +38,24 @@ const App: React.FC = () => {
   });
 
   useEffect(() => {
+    // check if there's a session and update the status
     const fetchSession = async () => {
       const session = await getSession();
       setSession(session);
     };
+    // Check redirection action, triggered by password recovery link click
+    supabase.auth.onAuthStateChange(async (event, session) => {
+      if (session && event === "PASSWORD_RECOVERY") {
+        setActiveTab("reset");
+        openAuth();
+        setIsRedirected(true);
+      }
+    });
+
     fetchSession();
   }, []);
 
+  // Handle input change to update input data
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
@@ -49,16 +63,21 @@ const App: React.FC = () => {
     });
   };
 
+  // Handle Sign up
   const handleSignUp = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // set loading state true
     setIsLoading(true);
 
+    // initialize Errors
     setErrors({
       email: "",
       password: "",
       confirmPassword: "",
     });
 
+    // Validation
+    // If no email input
     if (!formData.email.trim()) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -68,6 +87,7 @@ const App: React.FC = () => {
       return;
     }
 
+    // check email format is standard using a regex function
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(formData.email)) {
       setErrors((prevErrors) => ({
@@ -78,6 +98,7 @@ const App: React.FC = () => {
       return;
     }
 
+    // Check password length is greater than 6
     if (formData.password.length < 6) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -87,6 +108,7 @@ const App: React.FC = () => {
       return;
     }
 
+    // check password and confirm password are the same
     if (formData.password !== formData.confirmPassword) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -96,6 +118,7 @@ const App: React.FC = () => {
       return;
     }
 
+    // authenticate user
     try {
       const { data, error } = await supabase.auth.signUp({
         email: formData.email,
@@ -105,6 +128,7 @@ const App: React.FC = () => {
       if (error) {
         throw error;
       }
+      // update a successful sign up and save email to database
       setModalMessage("You signed up successfully");
       setShowModal(true);
       setFormData({
@@ -112,26 +136,30 @@ const App: React.FC = () => {
         password: "",
         confirmPassword: "",
       });
+      // Initialize errors after a successful sign up
       setErrors({
         email: "",
         password: "",
         confirmPassword: "",
       });
-      setIsLoading(false);
+      // switch tab/navigate user to login
       handleTabClick("login");
 
       console.log("User signed up successfully:", data.user?.role);
     } catch (error) {
       console.error("Error signing up:", (error as Error).message);
-
+      // if error show error modal and update user
       setModalMessage(`Error signing up: ${(error as Error).message}`);
       setShowModal(true);
-      setIsLoading(false);
     }
+    // remove loading state
+    setIsLoading(false);
   };
 
+  // Handle Login
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // set loading state true
     setIsLoading(true);
 
     try {
@@ -143,22 +171,24 @@ const App: React.FC = () => {
       if (error) {
         throw error;
       }
+      // begin a session, prompt user through a modal of successful login and close the authentication window
       setSession(data.session ?? null);
       setModalMessage("You logged in successfully");
       setShowModal(true);
-      setIsLoading(false);
       closeAuth();
 
       console.log("User logged in successfully:", data.user?.role);
     } catch (error) {
       console.error("Error logging in:", (error as Error).message);
-
+      // If error update user through the modal
       setModalMessage(`Error logging in: ${(error as Error).message}`);
       setShowModal(true);
-      setIsLoading(false);
     }
+    // remove loading state
+    setIsLoading(false);
   };
 
+  // Handle logout
   const handleLogout = async () => {
     try {
       const { error } = await supabase.auth.signOut();
@@ -166,29 +196,74 @@ const App: React.FC = () => {
       if (error) {
         throw error;
       }
-
+      // update session state
       setSession(null);
-      setModalMessage("You logged out - Login to explore more features");
-      setShowModal(true);
+      // Update user through a modal of successful logout, if he is not being redirected from a reset link
+      if (!isRedirected) {
+        setModalMessage("You logged out - Login to explore more features");
+        setShowModal(true);
+      }
     } catch (error) {
       console.error("Error logging out:", (error as Error).message);
-
+      // If error update user through the modal
       setModalMessage(`Error logging out: ${(error as Error).message}`);
       setShowModal(true);
     }
   };
 
+  // Handle password reset( Send reset link to email)
+  const handlePasswordReset = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // set loading state true
+    setIsLoading(true);
+    // send reset link to email
+    try {
+      const { data, error } = await supabase.auth.resetPasswordForEmail(
+        formData.email
+      );
+
+      if (error) {
+        throw error;
+      }
+      // update user of success
+      setModalMessage("Email sent for password reset");
+      setShowModal(true);
+      console.log("Email sent for password reset:", data);
+    } catch (error) {
+      console.error("Error sending email:", (error as Error).message);
+      // update user if error
+      setModalMessage(`Error sending email ${(error as Error).message}`);
+      setShowModal(true);
+    }
+    // remove loading state
+    setIsLoading(false);
+  };
+
+  // open the authentication modal and remove scrollable from body element
   const openAuth = () => {
     setAuthIsOpen(true);
     document.body.classList.add("auth-open");
   };
 
+  // close the authentication modal and add scrollable back to the body element
   const closeAuth = () => {
     setAuthIsOpen(false);
     document.body.classList.remove("auth-open");
+    // if redirected for update password, also logout and update redirect state
+    if (isRedirected) {
+      handleLogout();
+      setIsRedirected(false);
+    }
   };
 
-  const handleTabClick = (tabId: "signup" | "login" | "forgot") => {
+  // navigate through the Authentication menu
+  const handleTabClick = (tabId: "signup" | "login" | "forgot" | "reset") => {
+    // if redirected for update password, logout and update/initialize redirect state
+    if (isRedirected) {
+      handleLogout();
+      setIsRedirected(false);
+    }
+    // then navigate Auth tab and initialize error
     setActiveTab(tabId);
     setErrors({
       email: "",
@@ -197,24 +272,58 @@ const App: React.FC = () => {
     });
   };
 
+  // handle click of the login button
   const handleLoginButtonClick = () => {
+    // initialize errors
     setErrors({
       email: "",
       password: "",
       confirmPassword: "",
     });
-    openAuth();
+    // navigate to login menu and open authentication modal
     setActiveTab("login");
+    openAuth();
   };
 
   const handleSignUpButtonClick = () => {
+    // initialize errors
     setErrors({
       email: "",
       password: "",
       confirmPassword: "",
     });
-    openAuth();
+    // navigate to signup menu and open authentication modal
     setActiveTab("signup");
+    openAuth();
+  };
+
+  // Handle Password Update
+  const handlePasswordUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    //   // set loading state true
+    setIsLoading(true);
+    //   // send reset link to email
+    const { data, error } = await supabase.auth.updateUser({
+      password: formData.password,
+    });
+
+    if (data) {
+      // If successful prompt user
+      setModalMessage("Password updated successfully!");
+      setShowModal(true);
+      // log the user out
+      handleLogout();
+      // navigate Auth tab login modal
+      handleTabClick("login");
+    }
+
+    if (error) {
+      // If error update user through the modal
+      setModalMessage(`Error resetting password: ${(error as Error).message}`);
+      setShowModal(true);
+    }
+    // remove loading state
+    setIsLoading(false);
   };
 
   const router = createBrowserRouter([
@@ -239,10 +348,15 @@ const App: React.FC = () => {
             closeAuth={closeAuth}
             activeTab={activeTab}
             handleTabClick={handleTabClick}
-            handleLogin={handleLogin}
             handleInputChange={handleInputChange}
+            handleLogin={handleLogin}
+            handleLogout={handleLogout}
             handleSignUp={handleSignUp}
+            handlePasswordReset={handlePasswordReset}
+            handlePasswordUpdate={handlePasswordUpdate}
             isLoading={isLoading}
+            setIsRedirected={setIsRedirected}
+            isRedirected={isRedirected}
           />
           {showModal && (
             <Modal message={modalMessage} onClose={() => setShowModal(false)} />
@@ -268,10 +382,15 @@ const App: React.FC = () => {
             closeAuth={closeAuth}
             activeTab={activeTab}
             handleTabClick={handleTabClick}
-            handleLogin={handleLogin}
             handleInputChange={handleInputChange}
+            handleLogin={handleLogin}
+            handleLogout={handleLogout}
             handleSignUp={handleSignUp}
+            handlePasswordReset={handlePasswordReset}
+            handlePasswordUpdate={handlePasswordUpdate}
             isLoading={isLoading}
+            setIsRedirected={setIsRedirected}
+            isRedirected={isRedirected}
           />
           {showModal && (
             <Modal message={modalMessage} onClose={() => setShowModal(false)} />
@@ -297,10 +416,15 @@ const App: React.FC = () => {
             closeAuth={closeAuth}
             activeTab={activeTab}
             handleTabClick={handleTabClick}
-            handleLogin={handleLogin}
             handleInputChange={handleInputChange}
+            handleLogin={handleLogin}
+            handleLogout={handleLogout}
             handleSignUp={handleSignUp}
+            handlePasswordReset={handlePasswordReset}
+            handlePasswordUpdate={handlePasswordUpdate}
             isLoading={isLoading}
+            setIsRedirected={setIsRedirected}
+            isRedirected={isRedirected}
           />
           {showModal && (
             <Modal message={modalMessage} onClose={() => setShowModal(false)} />

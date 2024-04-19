@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import "../css/modal.css";
 
 interface ModalProps {
@@ -7,6 +7,7 @@ interface ModalProps {
 }
 
 const Modal: React.FC<ModalProps> = ({ message, onClose }) => {
+  // Close modal after timeout
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose();

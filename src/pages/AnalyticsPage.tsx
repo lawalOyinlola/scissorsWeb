@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { ArrowCircleLeft } from "@phosphor-icons/react/dist/ssr";
 import Modal from "../components/Modal";
 import "./analyticspage.css";
@@ -8,27 +7,30 @@ import "./analyticspage.css";
 const AnalyticsPage: React.FC = () => {
   const [modalMessage, setModalMessage] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [parent] = useAutoAnimate();
 
   const location = useLocation();
   const { shortcode } = useParams<{ shortcode: string }>();
   const shortLink = `https://spoo.me/${shortcode}`;
   const analyticsData = location.state?.analyticsData;
 
+  // Handle copy of shortened link
   const handleCopy = async () => {
     try {
+      // copy shortened link to clipboard
       await navigator.clipboard.writeText(shortLink);
+      // if success update user using modal
       setModalMessage("Short link has been copied to clipboard!");
       setShowModal(true);
     } catch (error) {
       console.error("Failed to copy:", error);
+      // if error update user using modal
       setModalMessage("Failed to copy to clipboard!");
       setShowModal(true);
     }
   };
 
   return (
-    <div ref={parent}>
+    <div>
       {showModal && (
         <Modal message={modalMessage} onClose={() => setShowModal(false)} />
       )}

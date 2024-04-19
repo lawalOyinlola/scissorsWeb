@@ -110,7 +110,7 @@
 
 .input-box input:focus + label,
 .input-box input:valid + label {
-  top: -20px;
+  top: -24px;
   left: 0;
   color: #0065fe;
   font-size: 1.2rem;
@@ -133,6 +133,10 @@
   padding: 2rem 0;
 }
 
+.login-tos {
+  font-size: 1.2rem;
+}
+
 .forgot {
   align-self: end;
   font-size: 1.2rem;
@@ -141,8 +145,17 @@
 }
 
 .forgot:hover,
-.forgot:active {
+.forgot:active,
+.contact-support a {
   color: #0065fe;
+}
+
+.reset-form {
+  margin-top: 4rem;
+}
+
+.button.next {
+  margin-top: 2rem;
 }
 
 .cancel-btn {
@@ -154,6 +167,10 @@
   background-color: #1f2128;
   border-radius: 100%;
   color: #f1f4f8;
+}
+
+.contact-support {
+  text-align: end;
 }
 
 .cancel-btn:hover,

@@ -68,7 +68,8 @@ You can try the app live at [Scissors Web](https://scissorsweb-altschool.netlify
 - react-error-boundary
 - @supabase/supabase-js
 - @phosphor-icons/react
-- @formkit/auto-animate"
+- @formkit/auto-animate
+- @gsap/react
 - file-saver
 
 ## Get Started
