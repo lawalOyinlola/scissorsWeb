@@ -7,6 +7,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+
 node_modules
 dist
 dist-ssr
@@ -23,3 +24,11 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Editor directories and files
+tsconfig.json
+tsconfig.node.json
+vite.config.js
+vite.config.ts
+jest.config.cjs
+
