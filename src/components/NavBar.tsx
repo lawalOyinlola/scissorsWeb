@@ -25,16 +25,7 @@ const NavBar: React.FC<NavBarProps> = ({
   const [isHovered, setIsHovered] = useState(false);
   const [parent] = useAutoAnimate();
 
-  const toggleMenu = () => {
-    setNavIsOpen(!navIsOpen);
-    toggleNavOpenClass(!navIsOpen);
-  };
-
-  const handleMenuBtn = () => {
-    setNavIsOpen(false);
-    toggleNavOpenClass(false);
-  };
-
+  // toggle class to disable scrolling when mobile Nav is open
   const toggleNavOpenClass = (navIsOpen: boolean) => {
     if (navIsOpen) {
       body.classList.add("nav-open");
@@ -43,22 +34,38 @@ const NavBar: React.FC<NavBarProps> = ({
     }
   };
 
+  // to open and close mobile Nav menu using Hamburger button
+  const toggleMenu = () => {
+    setNavIsOpen(!navIsOpen);
+    toggleNavOpenClass(!navIsOpen);
+  };
+
+  // close mobile Nav menu and enable scrollable back when a Nav menu link is clicked
+  const handleMenuBtn = () => {
+    setNavIsOpen(false);
+    toggleNavOpenClass(false);
+  };
+
+  // Make header fixed when scrolled to a certain portion of the screen
   const toggleFixedHeader = () => {
     const navbar = document.getElementById("navbar");
 
     const scrollPosition = window.scrollY;
-    const threshold = 500;
+    const threshold = 1000;
     if (navbar && body) {
       if (scrollPosition > threshold) {
+        // Fix header when you scroll to threshold point
         navbar.classList.add("fixed");
         body.style.paddingTop = navbar.offsetHeight + "px";
       } else {
+        // Remove the fixed header when out of threshold
         navbar.classList.remove("fixed");
         body.style.paddingTop = "0";
       }
     }
   };
 
+  // listen to scroll event
   useEffect(() => {
     window.addEventListener("scroll", toggleFixedHeader);
     return () => {
@@ -69,9 +76,9 @@ const NavBar: React.FC<NavBarProps> = ({
   return (
     <header id="navbar">
       <div className="header">
-        <NavLink to="/" className="link">
+        <a href="../#" className="link">
           <img src={Logo} alt="scissors logo" />
-        </NavLink>
+        </a>
         <nav className="header-nav">
           <ul className={!navIsOpen ? "nav" : "nav open"}>
             <li onClick={handleMenuBtn}>
@@ -117,14 +124,14 @@ const NavBar: React.FC<NavBarProps> = ({
                 )}
               </li>
               <li className="try" onClick={toggleMenu}>
-                <a href="#trim-url" className="try-btn button">
+                <a href="../#trim-url" className="try-btn button">
                   Try for free
                 </a>
               </li>
             </ul>
           </ul>
         </nav>
-
+        {/* Mobile Nav Button */}
         <button className="menu-btn" onClick={toggleMenu} ref={parent}>
           {!navIsOpen ? (
             <List size={42} weight="bold" />

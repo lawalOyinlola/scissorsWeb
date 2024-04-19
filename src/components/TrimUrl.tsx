@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Session } from "@supabase/supabase-js";
 import { supabase } from "../supabase";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import UrlDetails from "./UrlDetails";
 import MagicWand from "../images/magic-wand.svg";
 import MagicWandBlue from "../images/magic-wand-blue.svg";
 import FormLeft from "../images/form-left.svg";
 import FormRight from "../images/form-right.svg";
 import "../css/trimurl.css";
+
+gsap.registerPlugin(useGSAP, ScrollTrigger);
+gsap.defaults({ ease: "sine.inOut", duration: 1 });
 
 interface TrimUrlProps {
   session: Session | null;
@@ -24,11 +30,12 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
     longLink: "",
     qrCodeImage: "",
   });
-  const [urlIsOpen, setUrlIsOpen] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [urlIsOpen, setUrlIsOpen] = useState<boolean>(false);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
   const [parent] = useAutoAnimate();
+  const container = useRef<HTMLDivElement>(null);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -53,28 +60,32 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
 
   // Trim Url and Generate QR Code
   const trimUrl = async () => {
+    // Check if user input a url to be shortened
     if (!formData.url.trim()) {
       setErrorMessage(
         `Enter a valid URL starting with "http://" or "https://"`
       );
       return;
     }
-
+    // Url Regex checker, if url  starts with https/http
     const urlRegex = /^(http|https):\/\//;
     if (!urlRegex.test(formData.url)) {
       setErrorMessage(`URL must start with "http://" or "https://"`);
       return;
     }
 
+    // Set loading state true to when starting trim function
     setLoading(true);
     // trim url
     let url = "";
     let aliasKey = "alias";
+    // if emojify domain is selected
     if (formData.domain === "emojify") {
-      url = "https://spoo-me-url-shortener.p.rapidapi.com/emoji";
+      url = import.meta.env.VITE_EMOJIFY_URL as string;
       aliasKey = "emojies";
     } else {
-      url = "https://spoo-me-url-shortener.p.rapidapi.com/";
+      // else by default(i.e user selected none or spoo.me)
+      url = import.meta.env.VITE_SPOO_ME_URL as string;
     }
 
     const options = {
@@ -82,8 +93,8 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
       headers: {
         "content-type": "application/x-www-form-urlencoded",
         Accept: "application/json",
-        "X-RapidAPI-Key": "9bdbb17e96msha66477146363d67p17b8f4jsne2b47f46bca8",
-        "X-RapidAPI-Host": "spoo-me-url-shortener.p.rapidapi.com",
+        "X-RapidAPI-Key": import.meta.env.VITE_RAPIDAPI_KEY as string,
+        "X-RapidAPI-Host": import.meta.env.VITE_TRIMURL_HOST as string,
       },
       body: new URLSearchParams({
         url: formData.url,
@@ -97,21 +108,35 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
       const urlArray = JSON.parse(result);
       const shortenedUrl = urlArray.short_url;
 
-      // check if short url was generated, if not update user
+      // check if short url was generated, if not update user of error/ solution
       if (!shortenedUrl) {
-        setUrlDetails({
-          shortLink: "Alias is already taken / not supported",
-          longLink:
-            "Try a different emoji (emojify) or text (spoo.me) alias, or leave it blank for random url slug",
-          qrCodeImage: "",
-        });
+        // if selected domain is emojify
+        if (formData.domain === "emojify") {
+          // update the user with this error
+          setUrlDetails({
+            shortLink: "Alias(Emoji) is already taken, or not supported",
+            longLink:
+              "Try a different emoji and or emoji combination, or leave it blank for random url slug",
+            qrCodeImage: "",
+          });
+        } else {
+          // else update the user with this error
+          setUrlDetails({
+            shortLink: "Alias(Text) is already taken",
+            longLink:
+              "Try a different text and or text combination, or leave it blank for random url slug",
+            qrCodeImage: "",
+          });
+        }
+
+        // turn off loading state, provide user with shortened url details or error information
         setLoading(false);
         openUrlDetails();
         return;
       }
 
       // generate qrCode from shortened url
-      const baseUrl = "https://easy-qr-code.p.rapidapi.com/generate?content=";
+      const baseUrl = import.meta.env.VITE_QRCODE_URL as string;
       const dynamicUrl = baseUrl + encodeURIComponent(shortenedUrl);
 
       const fetchQrCode = async () => {
@@ -119,9 +144,8 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
         const qrCodeOptions = {
           method: "GET",
           headers: {
-            "X-RapidAPI-Key":
-              "9bdbb17e96msha66477146363d67p17b8f4jsne2b47f46bca8",
-            "X-RapidAPI-Host": "easy-qr-code.p.rapidapi.com",
+            "X-RapidAPI-Key": import.meta.env.VITE_RAPIDAPI_KEY as string,
+            "X-RapidAPI-Host": import.meta.env.VITE_QRCODE_HOST as string,
           },
         };
 
@@ -141,7 +165,7 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
             await supabase.from("links").insert({
               long_link: formData.url,
               short_link: shortenedUrl,
-              qrcode: qrCodeImageUrl, // Use the fetched URL directly
+              qrcode: qrCodeImageUrl,
             });
           }
         } catch (error) {
@@ -157,6 +181,7 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
     }
   };
 
+  // Handle the Trim Url operation
   const handleTrimUrl = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     // initialize data
@@ -169,6 +194,23 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
     await trimUrl();
   };
 
+  // GSAP Animation
+  useGSAP(
+    () => {
+      gsap.from(".url-form", {
+        opacity: 0.7,
+        scale: 0.9,
+        scrollTrigger: {
+          trigger: ".url-form",
+          start: "top 95%",
+          end: "top center",
+          scrub: true,
+        },
+      });
+    },
+    { scope: container }
+  );
+
   return (
     <div ref={parent}>
       {urlIsOpen && (
@@ -180,68 +222,70 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
           qrCodeImage={urlDetails.qrCodeImage}
         />
       )}
-      <section className="trim-url" id="trim-url">
-        <form className="url-form" onSubmit={handleTrimUrl}>
-          <input
-            className="url"
-            type="text"
-            name="url"
-            value={formData.url}
-            placeholder="Paste URL here"
-            onChange={handleInputChange}
-          />
-          {errorMessage && <p className="error">{errorMessage}</p>}
-
-          <select
-            name="domain"
-            id="domain"
-            value={formData.domain}
-            onChange={handleInputChange}
-          >
-            <option>Choose Domain</option>
-            <option value="spoo.me">spoo.me</option>
-            <option value="emojify">emojify</option>
-          </select>
-
-          <div className="alias">
+      <section id="trim-url" ref={container}>
+        <div className="trim-url">
+          <form className="url-form" onSubmit={handleTrimUrl}>
             <input
+              className="url"
               type="text"
-              name="alias"
-              value={formData.alias}
-              placeholder={
-                formData.domain === "emojify"
-                  ? "Type Emoji here"
-                  : "Type Alias here"
-              }
-              disabled={session === null}
+              name="url"
+              value={formData.url}
+              placeholder="Paste URL here"
               onChange={handleInputChange}
             />
-            {!session && <p className="alias-error">* login to use alias</p>}
-          </div>
+            {errorMessage && <p className="error">{errorMessage}</p>}
 
-          <button
-            className="url-btn button"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-            disabled={loading}
-          >
-            {loading ? "Triming Url..." : "Trim URL"}
-            <img
-              className="magic-wand"
-              src={isHovered ? MagicWandBlue : MagicWand}
-              alt="arrow down icon"
-            />
-          </button>
+            <select
+              name="domain"
+              id="domain"
+              value={formData.domain}
+              onChange={handleInputChange}
+            >
+              <option>Choose Domain</option>
+              <option value="spoo.me">spoo.me</option>
+              <option value="emojify">emojify</option>
+            </select>
 
-          <p>
-            By clicking TrimURL, I agree to the
-            <strong>Terms of Service, Privacy Policy</strong> and Use of
-            Cookies.
-          </p>
-        </form>
+            <div className="alias">
+              <input
+                type="text"
+                name="alias"
+                value={formData.alias}
+                placeholder={
+                  formData.domain === "emojify"
+                    ? "Type Emoji here"
+                    : "Type Alias here"
+                }
+                disabled={session === null}
+                onChange={handleInputChange}
+              />
+              {!session && <p className="alias-error">* login to use alias</p>}
+            </div>
 
-        <img className="form-left" src={FormLeft} alt="abstract" />
-        <img className="form-right" src={FormRight} alt="abstract" />
+            <button
+              className="url-btn button"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+              disabled={loading}
+            >
+              {loading ? "Triming Url..." : "Trim URL"}
+              <img
+                className="magic-wand"
+                src={isHovered ? MagicWandBlue : MagicWand}
+                alt="arrow down icon"
+              />
+            </button>
+
+            <p>
+              By clicking TrimURL, I agree to the
+              <strong>Terms of Service, Privacy Policy</strong> and Use of
+              Cookies.
+            </p>
+          </form>
+
+          <img className="form-left" src={FormLeft} alt="abstract" />
+          <img className="form-right" src={FormRight} alt="abstract" />
+        </div>
       </section>
     </div>
   );

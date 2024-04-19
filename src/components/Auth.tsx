@@ -5,12 +5,17 @@ import "../css/auth.css";
 
 interface AuthProps {
   isLoading: boolean;
+  isRedirected: boolean;
+  setIsRedirected: React.Dispatch<React.SetStateAction<boolean>>;
   closeAuth: () => void;
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSignUp: (e: React.FormEvent<HTMLFormElement>) => void;
   handleLogin: (e: React.FormEvent<HTMLFormElement>) => void;
-  handleTabClick: (tabId: "signup" | "login" | "forgot") => void;
-  activeTab: "signup" | "login" | "forgot";
+  handleLogout: () => void;
+  handlePasswordReset: (e: React.FormEvent<HTMLFormElement>) => void;
+  handlePasswordUpdate: (e: React.FormEvent<HTMLFormElement>) => void;
+  handleTabClick: (tabId: "signup" | "login" | "forgot" | "reset") => void;
+  activeTab: "signup" | "login" | "forgot" | "reset";
   authIsOpen: boolean;
   errors: any;
   formData: {
@@ -27,12 +32,19 @@ const Auth: React.FC<AuthProps> = ({
   errors,
   formData,
   handleTabClick,
-  handleLogin,
   handleInputChange,
+  handleLogin,
+  handleLogout,
   handleSignUp,
+  handlePasswordReset,
+  handlePasswordUpdate,
   isLoading,
+  isRedirected,
+  setIsRedirected,
 }) => {
   const [parent] = useAutoAnimate();
+
+  // Listen for ESC button press to close Auth component
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -40,18 +52,26 @@ const Auth: React.FC<AuthProps> = ({
       }
     };
 
+    // If Auth Component is open listen for ESC key press
     if (authIsOpen) {
       document.addEventListener("keydown", handleKeyPress);
     }
-
+    // If Auth Component is not open,remove the listen for ESC key press
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
   }, [authIsOpen, closeAuth]);
 
+  // Close Auth modal window on click of overlay
   const handleOverlayClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
+      // close modal window
       closeAuth();
+      // if redirected for update password, also logout and update redirect state
+      if (isRedirected) {
+        handleLogout();
+        setIsRedirected(false);
+      }
     }
   };
 
@@ -178,9 +198,12 @@ const Auth: React.FC<AuthProps> = ({
                     Forgot Password?
                   </a>
                   <button className="button">
-                    {" "}
                     {isLoading ? "..." : "Log In"}
                   </button>
+                  <p className="login-tos">
+                    By logging in, You agree to Scissor's Terms of Service and
+                    Privacy Policy.
+                  </p>
                 </form>
               </div>
             )}
@@ -188,34 +211,86 @@ const Auth: React.FC<AuthProps> = ({
             {/* Forgot password form */}
             {activeTab === "forgot" && (
               <div id="forgot">
-                <h2>Create New Password</h2>
-                <form action="/" method="post">
+                <h2>Reset Password</h2>
+                <form
+                  action="/"
+                  method="post"
+                  onSubmit={handlePasswordReset}
+                  className="reset-form"
+                >
                   <div className="input-box">
                     <input
-                      type="password"
-                      name="password"
+                      type="email"
+                      name="email"
+                      value={formData.email}
                       onChange={handleInputChange}
-                      autoComplete="off"
-                      minLength={6}
                       required
                     />
-                    <label>New Password</label>
+                    <label>Email</label>
+                    {errors.email && <p className="error">{errors.email}</p>}
                   </div>
+                  {/* <div className="input-box">
+                    <input
+                      type="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleInputChange}
+                      minLength={6}
+                      autoComplete="off"
+                      required
+                    />
+                    <label>Password</label>
+                    {errors.password && (
+                      <p className="error">{errors.password}</p>
+                    )}
+                  </div> */}
+                  <button className="button next">
+                    {isLoading ? "..." : "next →"}
+                  </button>
+                  <p className="contact-support">
+                    Error resetting password?&nbsp;
+                    <a href="mailto:oyinlolalawal1705@gmail.com">
+                      Contact Support
+                    </a>
+                  </p>
+                </form>
+              </div>
+            )}
+
+            {/* Reset/Update password form */}
+            {activeTab === "reset" && (
+              <div id="reset">
+                <h2>Create New Password</h2>
+                <form
+                  action="/"
+                  method="post"
+                  onSubmit={handlePasswordUpdate}
+                  className="reset-form"
+                >
                   <div className="input-box">
                     <input
                       type="password"
                       name="password"
+                      value={formData.password}
                       onChange={handleInputChange}
-                      autoComplete="off"
                       minLength={6}
+                      autoComplete="off"
                       required
                     />
-                    <label>Confirm New Password</label>
-                    {errors.confirmPassword && (
-                      <p className="error">{errors.confirmPassword}</p>
+                    <label>Password</label>
+                    {errors.password && (
+                      <p className="error">{errors.password}</p>
                     )}
                   </div>
-                  <button className="button">next →</button>
+                  <button className="button next">
+                    {isLoading ? "..." : "confirm"}
+                  </button>
+                  <p className="contact-support">
+                    Error resetting password?&nbsp;
+                    <a href="mailto:oyinlolalawal1705@gmail.com">
+                      Contact Support
+                    </a>
+                  </p>
                 </form>
               </div>
             )}
