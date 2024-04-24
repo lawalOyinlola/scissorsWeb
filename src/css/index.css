@@ -223,6 +223,16 @@ input:focus-visible {
     color: #0065fe;
   }
 
+  .search-input {
+    border: 1px solid #80b2ff;
+    background-color: #f1f4f8;
+    color: #0065fe;
+  }
+
+  .search-input::placeholder {
+    color: #0065fe;
+  }
+
   .analysis > div {
     outline: 0.5px solid rgba(0, 102, 254, 0.15);
   }

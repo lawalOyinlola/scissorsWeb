@@ -49,6 +49,11 @@ The Scissors Web project is a modern web application designed to simplify URL ma
 - Seamlessly integrates light and dark mode themes based on the user's device default settings.
 - Automatically detects users preferred theme based on their device settings between light and dark modes, providing a personalized browsing experience.
 
+#### Link Management:
+
+- Easily organize URLs by toggling between sorting options from "Newest to Oldest" or vice versa, offering flexibility in navigating through the link collection.
+- Utilize the search functionality to swiftly locate specific links by entering keywords or phrases, streamlining the retrieval process within the extensive list of URLs.
+
 ## Usage
 
 - Try for free: Click to scroll to the Trim Url section to use application.

@@ -17,11 +17,16 @@ gsap.defaults({ ease: "sine.inOut", duration: 1 });
 interface FaqItemProps {
   question: string;
   answer: string;
+  isOpen: boolean;
+  toggleMenu: () => void;
 }
 
-const FaqItem: React.FC<
-  FaqItemProps & { isOpen: boolean; toggleMenu: () => void }
-> = ({ question, answer, isOpen, toggleMenu }) => {
+const FaqItem: React.FC<FaqItemProps> = ({
+  question,
+  answer,
+  isOpen,
+  toggleMenu,
+}) => {
   const [parent] = useAutoAnimate();
 
   return (

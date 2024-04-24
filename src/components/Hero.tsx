@@ -45,7 +45,7 @@ const Hero: React.FC<HeroProps> = ({ session, handleSignUpButtonClick }) => {
         scrollTrigger: {
           trigger: ".chainlink",
           start: "bottom 76%",
-          end: "top 20%",
+          end: "top top",
           scrub: true,
         },
       });
