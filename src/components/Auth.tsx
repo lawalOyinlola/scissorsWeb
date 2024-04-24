@@ -229,21 +229,6 @@ const Auth: React.FC<AuthProps> = ({
                     <label>Email</label>
                     {errors.email && <p className="error">{errors.email}</p>}
                   </div>
-                  {/* <div className="input-box">
-                    <input
-                      type="password"
-                      name="password"
-                      value={formData.password}
-                      onChange={handleInputChange}
-                      minLength={6}
-                      autoComplete="off"
-                      required
-                    />
-                    <label>Password</label>
-                    {errors.password && (
-                      <p className="error">{errors.password}</p>
-                    )}
-                  </div> */}
                   <button className="button next">
                     {isLoading ? "..." : "next →"}
                   </button>

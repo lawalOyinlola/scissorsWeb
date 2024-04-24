@@ -44,19 +44,21 @@ interface UrlPageProps {
 
 const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
   const [links, setLinks] = useState<Link[]>([]);
+  const [isAscending, setIsAscending] = useState(true);
+  const [filteredLinks, setFilteredLinks] = useState<Link[]>([]);
+  const [searchInput, setSearchInput] = useState("");
+  const [selectedLink, setSelectedLink] = useState<Link | null>(null);
+  const [shareLink, setShareLink] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [urlIsOpen, setUrlIsOpen] = useState(false);
-  const [selectedLink, setSelectedLink] = useState<Link | null>(null);
   const [qrCodeImageUrl, setQrCodeImageUrl] = useState<string>("");
   const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(
     null
   );
   const [modalMessage, setModalMessage] = useState<string>("");
   const [showModal, setShowModal] = useState<boolean>(false);
-  const [shareLink, setShareLink] = useState<string | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
-  const [isAscending, setIsAscending] = useState(true);
   const navigate = useNavigate();
   const [parent] = useAutoAnimate();
   const container = useRef<HTMLDivElement>(null);
@@ -87,6 +89,22 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
       fetchData();
     }
   }, [session?.user.id, isAscending]);
+
+  // Filter links based on search input
+  useEffect(() => {
+    const filtered = links.filter(
+      (link) =>
+        // ensure case sensitive search
+        link.short_link.toLowerCase().includes(searchInput.toLowerCase()) ||
+        link.long_link.toLowerCase().includes(searchInput.toLowerCase())
+    );
+    setFilteredLinks(filtered);
+  }, [searchInput, links]);
+
+  // link filtering from input change event
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInput(e.target.value);
+  };
 
   // Toggle link order - Ascending/Descending
   const toggleOrder = () => {
@@ -324,6 +342,7 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
 
   const noLink = links.length === 0;
   const hasLink = links.length > 1;
+  const noFilteredLinks = filteredLinks.length === 0;
   const urlHasDetails = urlIsOpen && selectedLink;
 
   return (
@@ -351,25 +370,38 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
               <div className="no-link">No links found for this user.</div>
             )}
 
-            {/* if more than 1 link, display toggle order button */}
+            {/* if more than 1 link, */}
             {hasLink && (
-              <a
-                className="sort-btn white-btn"
-                onClick={toggleOrder}
-                ref={parent}
-              >
-                {isAscending ? "Newest to Oldest" : "Oldest to Newest"}
-                {isAscending ? (
-                  <CaretDoubleDown size={16} weight="duotone" />
-                ) : (
-                  <CaretDoubleUp size={16} weight="duotone" />
+              <div className="filter-btns">
+                {/* and search input */}
+                <input
+                  className="search-input"
+                  type="text"
+                  value={searchInput}
+                  onChange={handleInputChange}
+                  placeholder="Search links..."
+                />
+                {/* display toggle order button */}
+                {!noFilteredLinks && (
+                  <a
+                    className="sort-btn white-btn"
+                    onClick={toggleOrder}
+                    ref={parent}
+                  >
+                    {isAscending ? "Newest to Oldest" : "Oldest to Newest"}
+                    {isAscending ? (
+                      <CaretDoubleDown size={16} weight="duotone" />
+                    ) : (
+                      <CaretDoubleUp size={16} weight="duotone" />
+                    )}
+                  </a>
                 )}
-              </a>
+              </div>
             )}
           </div>
         )}
         <div className="main-box" ref={parent}>
-          {links.map((link) => (
+          {filteredLinks.map((link) => (
             <div className="url-container" key={link.id}>
               <div className="links">
                 <div
@@ -482,14 +514,16 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
             </div>
           ))}
         </div>
-        <a className="sort-btn white-btn" href="../#trim-url">
-          Go to trim URL
-          <img
-            className="magic-wand"
-            src={MagicWandBlue}
-            alt="arrow down icon"
-          />
-        </a>
+        <div className="url-nav">
+          <a className="sort-btn white-btn " href="../#trim-url">
+            Go to trim URL
+            <img
+              className="magic-wand"
+              src={MagicWandBlue}
+              alt="arrow down icon"
+            />
+          </a>
+        </div>
       </div>
     </section>
   );
