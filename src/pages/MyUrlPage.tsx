@@ -43,25 +43,37 @@ interface UrlPageProps {
 }
 
 const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
-  const [links, setLinks] = useState<Link[]>([]);
-  const [isAscending, setIsAscending] = useState(true);
-  const [filteredLinks, setFilteredLinks] = useState<Link[]>([]);
-  const [searchInput, setSearchInput] = useState("");
-  const [selectedLink, setSelectedLink] = useState<Link | null>(null);
-  const [shareLink, setShareLink] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [urlIsOpen, setUrlIsOpen] = useState(false);
+  const [modalMessage, setModalMessage] = useState<string>("");
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [links, setLinks] = useState<Link[]>([]);
+  const [isAscending, setIsAscending] = useState<boolean>(true);
+  const [filteredLinks, setFilteredLinks] = useState<Link[]>([]);
+  const [searchInput, setSearchInput] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [selectedLink, setSelectedLink] = useState<Link | null>(null);
+  const [shareLink, setShareLink] = useState<string | null>(null);
+  const [UrlDetailsIsOpen, setUrlDetailsIsOpen] = useState(false);
   const [qrCodeImageUrl, setQrCodeImageUrl] = useState<string>("");
   const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(
     null
   );
-  const [modalMessage, setModalMessage] = useState<string>("");
-  const [showModal, setShowModal] = useState<boolean>(false);
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const navigate = useNavigate();
   const [parent] = useAutoAnimate();
   const container = useRef<HTMLDivElement>(null);
+
+  const pageSize = 10;
+  const totalPages = Math.ceil(filteredLinks.length / pageSize);
+  const startIndex = (currentPage - 1) * pageSize;
+  const endIndex = Math.min(startIndex + pageSize, filteredLinks.length);
+  const linksPerPage = filteredLinks.slice(startIndex, endIndex);
+
+  const noLink = links.length === 0;
+  const hasLink = links.length > 1;
+  const noFilteredLinks = filteredLinks.length === 0;
+  const urlHasDetails = UrlDetailsIsOpen && selectedLink;
 
   // Fetch session data(links)
   useEffect(() => {
@@ -76,6 +88,7 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
         if (error) {
           setError(error.message);
         } else {
+          // Save links in a state from newest to oldest
           setLinks(data.reverse() || []);
         }
       } catch (error) {
@@ -92,18 +105,39 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
 
   // Filter links based on search input
   useEffect(() => {
-    const filtered = links.filter(
+    const filteredLinks = links.filter(
       (link) =>
         // ensure case sensitive search
         link.short_link.toLowerCase().includes(searchInput.toLowerCase()) ||
         link.long_link.toLowerCase().includes(searchInput.toLowerCase())
     );
-    setFilteredLinks(filtered);
+    // save to state
+    setFilteredLinks(filteredLinks);
+    // start input search from page 1
+    setCurrentPage(1);
   }, [searchInput, links]);
 
   // link filtering from input change event
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
+  };
+
+  // Page Navigation
+  // navigate to next page
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+  // navigate to previous page
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+  // navigate to exact page
+  const handleExactPage = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
   };
 
   // Toggle link order - Ascending/Descending
@@ -129,7 +163,7 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
     const selectedLink = links.find((link) => link.short_link === shortLink);
     if (selectedLink) {
       setSelectedLink(selectedLink);
-      setUrlIsOpen(true);
+      setUrlDetailsIsOpen(true);
       document.body.classList.add("auth-open");
       await generateQrCode(selectedLink.short_link);
     } else {
@@ -164,7 +198,7 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
     // Initialize data
     setSelectedLink(null);
     generateQrCode("");
-    setUrlIsOpen(false);
+    setUrlDetailsIsOpen(false);
     document.body.classList.remove("auth-open");
   };
 
@@ -270,15 +304,14 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
       const analyticsOptions = {
         method: "POST",
         headers: {
-          "X-RapidAPI-Key":
-            "9bdbb17e96msha66477146363d67p17b8f4jsne2b47f46bca8",
-          "X-RapidAPI-Host": "spoo-me-url-shortener.p.rapidapi.com",
+          "X-RapidAPI-Key": import.meta.env.VITE_RAPIDAPI_KEY as string,
+          "X-RapidAPI-Host": import.meta.env.VITE_RAPIDAPI_HOST as string,
         },
       };
       const analyticsResponse = await fetch(analyticsUrl, analyticsOptions);
       const analyticsResult = await analyticsResponse.json();
       setAnalyticsData(analyticsResult);
-      // Perform navigation to links AnalyticsPage if there's AnalyticsData
+      // Perform navigation to links AnalyticsPage if it exist/data
       {
         !analyticsData &&
           navigate(`/analytics/${shortcode}`, {
@@ -340,16 +373,11 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
     return <div className="loading">Error: {error}</div>;
   }
 
-  const noLink = links.length === 0;
-  const hasLink = links.length > 1;
-  const noFilteredLinks = filteredLinks.length === 0;
-  const urlHasDetails = urlIsOpen && selectedLink;
-
   return (
     <section id="url" className="url-page" ref={parent}>
       {urlHasDetails && (
         <UrlDetails
-          urlIsOpen={true}
+          UrlDetailsIsOpen={true}
           closeUrlDetails={closeUrlDetails}
           shortLink={selectedLink.short_link}
           longLink={selectedLink.long_link}
@@ -401,7 +429,8 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
           </div>
         )}
         <div className="main-box" ref={parent}>
-          {filteredLinks.map((link) => (
+          {/* Render links for the current page */}
+          {linksPerPage.map((link) => (
             <div className="url-container" key={link.id}>
               <div className="links">
                 <div
@@ -514,7 +543,63 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
             </div>
           ))}
         </div>
+
         <div className="url-nav">
+          {noFilteredLinks ? (
+            <div>No search result found...</div>
+          ) : (
+            <div className="pagination">
+              {/* Pagination controls */}
+              {totalPages > 1 ? (
+                <div className="pagination-ctrls">
+                  <button
+                    className="white-btn"
+                    onClick={handlePrevPage}
+                    disabled={currentPage === 1}
+                    title={
+                      currentPage === 1
+                        ? "This is the first page"
+                        : "Go back to previous page"
+                    }
+                  >
+                    Previous
+                  </button>
+
+                  <div className="dots">
+                    {[...Array(totalPages).keys()].map((pageNumber) => (
+                      <div
+                        key={pageNumber}
+                        onClick={() => handleExactPage(pageNumber + 1)}
+                        className={
+                          currentPage === pageNumber + 1
+                            ? "page-active page"
+                            : "page"
+                        }
+                      />
+                    ))}
+                  </div>
+                  <button
+                    className="white-btn "
+                    onClick={handleNextPage}
+                    disabled={currentPage === totalPages}
+                    title={
+                      currentPage < totalPages
+                        ? "This is the last page"
+                        : "Go to next page"
+                    }
+                  >
+                    Next
+                  </button>
+                </div>
+              ) : (
+                <div></div>
+              )}
+              <span>
+                Page: {currentPage} / {totalPages}
+              </span>
+            </div>
+          )}
+
           <a className="sort-btn white-btn " href="../#trim-url">
             Go to trim URL
             <img

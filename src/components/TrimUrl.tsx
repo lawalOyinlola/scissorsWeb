@@ -30,7 +30,7 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
     longLink: "",
     qrCodeImage: "",
   });
-  const [urlIsOpen, setUrlIsOpen] = useState<boolean>(false);
+  const [UrlDetailsIsOpen, setUrlDetailsIsOpen] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -49,12 +49,12 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
   };
 
   const closeUrlDetails = () => {
-    setUrlIsOpen(false);
+    setUrlDetailsIsOpen(false);
     document.body.classList.remove("auth-open");
   };
 
   const openUrlDetails = () => {
-    setUrlIsOpen(true);
+    setUrlDetailsIsOpen(true);
     document.body.classList.add("auth-open");
   };
 
@@ -94,7 +94,7 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
         "content-type": "application/x-www-form-urlencoded",
         Accept: "application/json",
         "X-RapidAPI-Key": import.meta.env.VITE_RAPIDAPI_KEY as string,
-        "X-RapidAPI-Host": import.meta.env.VITE_TRIMURL_HOST as string,
+        "X-RapidAPI-Host": import.meta.env.VITE_RAPIDAPI_HOST as string,
       },
       body: new URLSearchParams({
         url: formData.url,
@@ -213,9 +213,9 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
 
   return (
     <div ref={parent}>
-      {urlIsOpen && (
+      {UrlDetailsIsOpen && (
         <UrlDetails
-          urlIsOpen={urlIsOpen}
+          UrlDetailsIsOpen={UrlDetailsIsOpen}
           closeUrlDetails={closeUrlDetails}
           shortLink={urlDetails.shortLink}
           longLink={urlDetails.longLink}
