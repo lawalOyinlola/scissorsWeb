@@ -150,16 +150,56 @@ button.delete-btn {
   gap: 4rem;
 }
 
-/* .pagination {
+.pagination {
   display: flex;
   align-items: center;
   justify-content: space-between;
   margin: 4rem 2rem;
 }
 
-.pagination .button {
-  width: 11rem;
-} */
+.pagination-ctrls {
+  display: flex;
+}
+
+.pagination-ctrls button {
+  width: 9rem;
+  padding: 0.8rem;
+}
+
+.pagination-ctrls button:is(:not(.white-btn)) {
+  opacity: 0;
+  cursor: auto;
+  pointer-events: none;
+}
+
+.pagination-ctrls button:hover {
+  filter: brightness(84%);
+}
+
+.pagination-ctrls button:disabled {
+  filter: brightness(50%);
+}
+
+.dots {
+  margin: 0 2.4rem 1rem;
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  color: #f1f4f8;
+}
+
+.dots .page {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 100%;
+  border: 1px solid #0065fe;
+  background-color: #f1f4f8;
+  cursor: pointer;
+}
+
+.dots .page-active {
+  background-color: #0065fe;
+}
 
 .url-nav .sort-btn {
   gap: 0.2rem;

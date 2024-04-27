@@ -575,6 +575,10 @@ input:focus-visible {
     padding: 0.8rem 2rem;
   }
 
+  .pagination-ctrls button {
+    font-size: 1.2rem;
+    width: 8rem;
+  }
   .back-btn {
     left: 1rem;
   }

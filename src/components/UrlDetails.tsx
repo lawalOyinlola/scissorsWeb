@@ -14,7 +14,7 @@ import Modal from "./Modal";
 import "../css/modal.css";
 
 interface DetailsProps {
-  urlIsOpen: boolean;
+  UrlDetailsIsOpen: boolean;
   longLink: string;
   shortLink: string;
   qrCodeImage: string;
@@ -22,7 +22,7 @@ interface DetailsProps {
 }
 
 const UrlDetails: React.FC<DetailsProps> = ({
-  urlIsOpen,
+  UrlDetailsIsOpen,
   longLink,
   shortLink,
   qrCodeImage,
@@ -161,7 +161,7 @@ const UrlDetails: React.FC<DetailsProps> = ({
   };
 
   return (
-    <div className={urlIsOpen ? "overlay" : "overlay hidden"}>
+    <div className={UrlDetailsIsOpen ? "overlay" : "overlay hidden"}>
       {showModal && (
         <Modal message={modalMessage} onClose={() => setShowModal(false)} />
       )}
