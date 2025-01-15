@@ -165,7 +165,7 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
             await supabase.from("links").insert({
               long_link: formData.url,
               short_link: shortenedUrl,
-              qrcode: qrCodeImageUrl,
+              // qrcode: qrCodeImageUrl,
             });
           }
         } catch (error) {
