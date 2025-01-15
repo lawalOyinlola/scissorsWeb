@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Session } from "@supabase/supabase-js";
-import { supabase } from "../supabase";
+import { supabase } from "../../utils/supabase";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
