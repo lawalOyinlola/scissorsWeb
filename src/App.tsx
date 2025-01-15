@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ErrorBoundary } from "react-error-boundary";
 import { useState, useEffect } from "react";
 import { Session } from "@supabase/supabase-js";
-import { getSession, supabase } from "./supabase";
+import { getSession, supabase } from "../utils/supabase.ts";
 import NavBar from "./components/NavBar";
 import HomePage from "./pages/HomePage";
 import MyUrlPage from "./pages/MyUrlPage";
@@ -11,7 +11,7 @@ import Footer from "./components/Footer";
 import Auth from "./components/Auth";
 import Modal from "./components/Modal.js";
 import NotFound from "./components/NotFound.js";
-import MyErrorBoundary from "./components/MyErrorBoundary.js";
+import MyErrorBoundary from "./components/MyErrorBoundary.tsx";
 import "./css/index.css";
 
 const App: React.FC = () => {
@@ -176,8 +176,6 @@ const App: React.FC = () => {
       setModalMessage("You logged in successfully");
       setShowModal(true);
       closeAuth();
-
-      console.log("User logged in successfully:", data.user?.role);
     } catch (error) {
       console.error("Error logging in:", (error as Error).message);
       // If error update user through the modal

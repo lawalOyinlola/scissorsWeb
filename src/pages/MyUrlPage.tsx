@@ -16,7 +16,7 @@ import {
   XCircle,
 } from "@phosphor-icons/react";
 import { Session } from "@supabase/supabase-js";
-import { supabase } from "../supabase";
+import { supabase } from "../../utils/supabase";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import UrlDetails from "../components/UrlDetails";
@@ -395,7 +395,7 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
             </p>
             {/* if no links, display */}
             {noLink && (
-              <div className="no-link">No links found for this user.</div>
+              <div className="no-link">No link found for this user.</div>
             )}
 
             {/* if more than 1 link, */}
@@ -546,7 +546,7 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
 
         <div className="url-nav">
           {noFilteredLinks ? (
-            <div>No search result found...</div>
+            !noLink && <div>No search result found...</div>
           ) : (
             <div className="pagination">
               {/* Pagination controls */}

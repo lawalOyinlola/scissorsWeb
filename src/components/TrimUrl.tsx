@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { Session } from "@supabase/supabase-js";
-import { supabase } from "../supabase";
+import { supabase } from "../../utils/supabase";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
@@ -165,7 +165,7 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
             await supabase.from("links").insert({
               long_link: formData.url,
               short_link: shortenedUrl,
-              qrcode: qrCodeImageUrl,
+              // qrcode: qrCodeImageUrl,
             });
           }
         } catch (error) {
