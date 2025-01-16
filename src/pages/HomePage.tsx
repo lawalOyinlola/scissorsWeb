@@ -1,5 +1,5 @@
 import { Session } from "@supabase/supabase-js";
-import Hero from "../components/Hero.js";
+import Hero from "../components/Hero";
 import ScissorStats from "../components/Scissorstats";
 import Pricing from "../components/Pricing";
 import TrimUrl from "../components/TrimUrl";

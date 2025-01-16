@@ -9,9 +9,9 @@ import MyUrlPage from "./pages/MyUrlPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
 import Footer from "./components/Footer";
 import Auth from "./components/Auth";
-import Modal from "./components/Modal.js";
-import NotFound from "./components/NotFound.js";
-import MyErrorBoundary from "./components/MyErrorBoundary.tsx";
+import Modal from "./components/Modal";
+import NotFound from "./components/NotFound";
+import MyErrorBoundary from "./components/MyErrorBoundary";
 import "./css/index.css";
 
 const App: React.FC = () => {

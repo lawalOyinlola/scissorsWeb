@@ -136,23 +136,30 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
       }
 
       // generate qrCode from shortened url
-      const baseUrl = import.meta.env.VITE_QRCODE_URL as string;
-      const dynamicUrl = baseUrl + encodeURIComponent(shortenedUrl);
-
       const fetchQrCode = async () => {
-        const qrCodeUrl = dynamicUrl;
+        const qrCodeUrl = import.meta.env.VITE_QRCODE_SHORTENER_URL as string;
+
         const qrCodeOptions = {
-          method: "GET",
+          method: "POST",
           headers: {
-            "X-RapidAPI-Key": import.meta.env.VITE_RAPIDAPI_KEY as string,
-            "X-RapidAPI-Host": import.meta.env.VITE_QRCODE_HOST as string,
+            "x-rapidapi-key": import.meta.env.VITE_RAPIDAPI_KEY as string,
+            "x-rapidapi-host": import.meta.env
+              .VITE_QRCODE_SHORTENER_HOST as string,
+            "Content-Type": "application/json",
+            "X-RapidAPI-Secret": import.meta.env.VITE_RAPIDAPI_KEY as string,
           },
+          body: JSON.stringify({
+            type: "link",
+            data: shortenedUrl,
+            foreground: "rgb(0,101,254)",
+            // add a logo and background later
+          }),
         };
 
         try {
           const qrCodeResponse = await fetch(qrCodeUrl, qrCodeOptions);
-          const qrCodeImageBlob = await qrCodeResponse.blob();
-          const qrCodeImageUrl = URL.createObjectURL(qrCodeImageBlob);
+          const qrCodeResult = await qrCodeResponse.json();
+          const qrCodeImageUrl = qrCodeResult.link;
 
           setUrlDetails({
             shortLink: shortenedUrl,
@@ -165,13 +172,52 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
             await supabase.from("links").insert({
               long_link: formData.url,
               short_link: shortenedUrl,
-              // qrcode: qrCodeImageUrl,
+              qrcode: qrCodeImageUrl,
             });
           }
         } catch (error) {
           console.error("Error fetching QR code:", error);
         }
       };
+
+      // const baseUrl = import.meta.env.VITE_QRCODE_URL2 as string;
+      // const dynamicUrl = baseUrl + encodeURIComponent(shortenedUrl);
+
+      // const fetchQrCode = async () => {
+      //   const qrCodeUrl = dynamicUrl;
+
+      //   const qrCodeOptions = {
+      //     method: "GET",
+      //     headers: {
+      //       "X-RapidAPI-Key": import.meta.env.VITE_RAPIDAPI_KEY as string,
+      //       "X-RapidAPI-Host": import.meta.env.VITE_QRCODE_HOST2 as string,
+      //     },
+      //   };
+
+      //   try {
+      //     const qrCodeResponse = await fetch(qrCodeUrl, qrCodeOptions);
+      //     const qrCodeBase64 = await qrCodeResponse.text();
+
+      //     console.log(qrCodeBase64);
+
+      //     setUrlDetails({
+      //       shortLink: shortenedUrl,
+      //       longLink: formData.url,
+      //       qrCodeImage: qrCodeBase64,
+      //     });
+
+      //     // save to database if user is signed in
+      //     if (session) {
+      //       await supabase.from("links").insert({
+      //         long_link: formData.url,
+      //         short_link: shortenedUrl,
+      //         qrcode: qrCodeBase64,
+      //       });
+      //     }
+      //   } catch (error) {
+      //     console.error("Error fetching QR code:", error);
+      //   }
+      // };
 
       fetchQrCode();
       openUrlDetails();

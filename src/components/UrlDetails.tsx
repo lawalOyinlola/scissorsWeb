@@ -172,7 +172,11 @@ const UrlDetails: React.FC<DetailsProps> = ({
             title="click to download"
             onClick={handleDownloadQrCode}
           >
-            <img src={qrCodeImage} alt="QR code image for shortened link" />
+            <img
+              // src={`data:image/png;base64,${qrCodeImage}`}
+              src={qrCodeImage}
+              alt="QR code image for shortened link"
+            />
             <DownloadSimple
               size={34}
               weight="duotone"
