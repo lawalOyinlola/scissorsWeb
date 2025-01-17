@@ -80,7 +80,7 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
     const fetchData = async () => {
       try {
         const { data, error } = await supabase
-          .from("links")
+          .from("short_links")
           .select("*")
           .eq("user_id", session?.user.id)
           .order("created_at", { ascending: isAscending });
@@ -338,7 +338,7 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
     // Delete from database
     try {
       const { data, error } = await supabase
-        .from("links")
+        .from("short_links")
         .delete()
         .eq("id", selectedLink.id);
       if (error) {

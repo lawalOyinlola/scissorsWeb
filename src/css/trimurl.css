@@ -62,6 +62,7 @@ p.error {
   align-items: center;
   grid-column: 1/-1;
   gap: 1rem;
+  cursor: pointer;
 }
 
 .url-form p,
@@ -88,6 +89,7 @@ p.error {
 .magic-wand {
   border: none;
   width: 9%;
+  cursor: pointer;
 }
 
 .form-left {

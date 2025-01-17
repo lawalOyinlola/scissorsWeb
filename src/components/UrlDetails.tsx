@@ -128,6 +128,7 @@ const UrlDetails: React.FC<DetailsProps> = ({
   //   )}`;
   //   window.open(twitterUrl, "_blank");
   // };
+
   // Share to Facebook in new window
   const shareViaFacebook = () => {
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(
@@ -135,6 +136,7 @@ const UrlDetails: React.FC<DetailsProps> = ({
     )}`;
     window.open(facebookUrl, "_blank");
   };
+
   // Share to Email in new window
   const shareViaEmail = () => {
     const subject = "Check out this link";
@@ -172,11 +174,7 @@ const UrlDetails: React.FC<DetailsProps> = ({
             title="click to download"
             onClick={handleDownloadQrCode}
           >
-            <img
-              // src={`data:image/png;base64,${qrCodeImage}`}
-              src={qrCodeImage}
-              alt="QR code image for shortened link"
-            />
+            <img src={qrCodeImage} alt="QR code image for shortened link" />
             <DownloadSimple
               size={34}
               weight="duotone"
