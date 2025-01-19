@@ -297,15 +297,19 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
 
   // Handle the click of Stat button
   const handleStatClick = async (shortLink: string) => {
+    setLoading(true);
+
     try {
       const shortcode = shortLink.split("/").pop();
 
-      const analyticsUrl = `https://spoo-me-url-shortener.p.rapidapi.com/stats/${shortcode}`;
+      const analyticsUrl = `${
+        import.meta.env.VITE_SPOO_ME_URL
+      }stats/${shortcode}`;
       const analyticsOptions = {
         method: "POST",
         headers: {
           "X-RapidAPI-Key": import.meta.env.VITE_RAPIDAPI_KEY as string,
-          "X-RapidAPI-Host": import.meta.env.VITE_RAPIDAPI_HOST as string,
+          "X-RapidAPI-Host": import.meta.env.VITE_SPOO_ME_HOST as string,
         },
       };
       const analyticsResponse = await fetch(analyticsUrl, analyticsOptions);
@@ -321,7 +325,10 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
           });
       }
     } catch (error) {
-      console.error("Error fetching analytics data:", error);
+      setModalMessage(`Error fetching analytics data:, ${error}`);
+      setShowModal(true);
+    } finally {
+      setLoading(false);
     }
   };
 

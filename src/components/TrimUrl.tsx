@@ -81,7 +81,7 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
     let aliasKey = "alias";
     // if emojify domain is selected
     if (formData.domain === "emojify") {
-      url = import.meta.env.VITE_EMOJIFY_URL as string;
+      url = `${import.meta.env.VITE_SPOO_ME_URL}emoji`;
       aliasKey = "emojies";
     } else {
       // else by default(i.e user selected none or spoo.me)
@@ -91,10 +91,10 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
     const options = {
       method: "POST",
       headers: {
+        "X-RapidAPI-Key": import.meta.env.VITE_RAPIDAPI_KEY as string,
+        "X-RapidAPI-Host": import.meta.env.VITE_SPOO_ME_HOST as string,
         "content-type": "application/x-www-form-urlencoded",
         Accept: "application/json",
-        "X-RapidAPI-Key": import.meta.env.VITE_RAPIDAPI_KEY as string,
-        "X-RapidAPI-Host": import.meta.env.VITE_RAPIDAPI_HOST as string,
       },
       body: new URLSearchParams({
         url: formData.url,

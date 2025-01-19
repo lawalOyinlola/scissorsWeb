@@ -122,7 +122,12 @@ const AnalyticsPage: React.FC = () => {
           </h2>
         </div>
         <div className="flex right">
-          <p>Expired: {analyticsData.expired.toString()}</p>
+          <strong>Expiration time:</strong>
+          <p>
+            {!analyticsData["expiration-time"]
+              ? " No expiration time"
+              : analyticsData["expiration-time"].toString()}
+          </p>
         </div>
         <div className="column flex">
           <strong>Countries:</strong>
