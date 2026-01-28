@@ -1,10 +1,10 @@
 import { footerData } from "../data/data";
 import {
-  GithubLogo,
-  TwitterLogo,
-  TelegramLogo,
-  InstagramLogo,
-  LinkedinLogo,
+  GithubLogoIcon,
+  TwitterLogoIcon,
+  TelegramLogoIcon,
+  InstagramLogoIcon,
+  LinkedinLogoIcon,
 } from "@phosphor-icons/react";
 import LogoBlack from "../images/logo-black.svg";
 import LineVector from "../images/line-vector.svg";
@@ -23,22 +23,22 @@ const Footer: React.FC = () => {
               href="https://github.com/lawalOyinlola/ScissorsWeb-AltschoolProject"
               target="_blank"
             >
-              <GithubLogo className="socials-btn" weight="duotone" />
+              <GithubLogoIcon className="socials-btn" weight="duotone" />
             </a>
             <a href="https://twitter.com/HoneyzRich" target="_blank">
-              <TwitterLogo className="socials-btn" weight="duotone" />
+              <TwitterLogoIcon className="socials-btn" weight="duotone" />
             </a>
             <a href="https://t.me/DLV_Yero" target="_blank">
-              <TelegramLogo className="socials-btn" weight="duotone" />
+              <TelegramLogoIcon className="socials-btn" weight="duotone" />
             </a>
             <a
               href="https://www.instagram.com/direct/t/100255291380317"
               target="_blank"
             >
-              <InstagramLogo className="socials-btn" weight="duotone" />
+              <InstagramLogoIcon className="socials-btn" weight="duotone" />
             </a>
             <a>
-              <LinkedinLogo className="socials-btn" weight="duotone" />
+              <LinkedinLogoIcon className="socials-btn" weight="duotone" />
             </a>
           </div>
         </div>
@@ -63,6 +63,10 @@ const Footer: React.FC = () => {
         <img src={LineVector} alt="horizontal line vector" />
         <a href="#">
           <p>Scissor 2023</p>
+        </a>
+        <img src={LineVector} alt="horizontal line vector" />
+        <a href="https://lawaloyinlola.com/" target="_blank" rel="noopener noreferrer">
+          <p>Built by Yero</p>
         </a>
       </aside>
       <img className="bg-footer-left" src={FooterLeft} alt="abstract" />

@@ -33,6 +33,7 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
   const [UrlDetailsIsOpen, setUrlDetailsIsOpen] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [qrCodeError, setQrCodeError] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [parent] = useAutoAnimate();
   const container = useRef<HTMLDivElement>(null);
@@ -74,83 +75,144 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
       return;
     }
 
+    // Validate environment variables
+    const spooMeApiKey = import.meta.env.VITE_SPOO_ME_API_KEY;
+
     // Set loading state true to when starting trim function
     setLoading(true);
-    // trim url
-    let url = "";
-    let aliasKey = "alias";
-    // if emojify domain is selected
+    setErrorMessage("");
+
+    // Determine API endpoint and request format based on selected domain
+    let apiEndpoint = "";
+    let requestOptions: RequestInit;
+    
     if (formData.domain === "emojify") {
-      url = `${import.meta.env.VITE_SPOO_ME_URL}emoji`;
-      aliasKey = "emojies";
+      // Emoji URLs use v0 API endpoint (form-urlencoded)
+      apiEndpoint = "https://spoo.me/emoji";
+      const headers: HeadersInit = {
+        "Content-Type": "application/x-www-form-urlencoded",
+        Accept: "application/json",
+      };
+      
+      // Add API key if available (optional but recommended)
+      if (spooMeApiKey) {
+        headers["Authorization"] = `Bearer ${spooMeApiKey}`;
+      }
+
+      requestOptions = {
+        method: "POST",
+        headers,
+        body: new URLSearchParams({
+          url: formData.url,
+          ...(formData.alias && { emojies: formData.alias }),
+        }),
+      };
     } else {
-      // else by default(i.e user selected none or spoo.me)
-      url = import.meta.env.VITE_SPOO_ME_URL as string;
+      // Regular URLs use v1 API endpoint (JSON)
+      apiEndpoint = "https://spoo.me/api/v1/shorten";
+      const headers: HeadersInit = {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      };
+      
+      // Add API key if available (optional but recommended for higher rate limits)
+      if (spooMeApiKey) {
+        headers["Authorization"] = `Bearer ${spooMeApiKey}`;
+      }
+
+      requestOptions = {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          long_url: formData.url,
+          ...(formData.alias && { alias: formData.alias }),
+        }),
+      };
     }
 
-    const options = {
-      method: "POST",
-      headers: {
-        "X-RapidAPI-Key": import.meta.env.VITE_RAPIDAPI_KEY as string,
-        "X-RapidAPI-Host": import.meta.env.VITE_SPOO_ME_HOST as string,
-        "content-type": "application/x-www-form-urlencoded",
-        Accept: "application/json",
-      },
-      body: new URLSearchParams({
-        url: formData.url,
-        [aliasKey]: formData.alias,
-      }),
-    };
-
     try {
-      const response = await fetch(url, options);
-      const result = await response.text();
-      const urlArray = JSON.parse(result);
-      const shortenedUrl = urlArray.short_url;
+      const response = await fetch(apiEndpoint, requestOptions);
 
-      // check if short url was generated, if not update user of error/ solution
-      if (!shortenedUrl) {
-        // if selected domain is emojify
-        if (formData.domain === "emojify") {
-          // update the user with this error
-          setUrlDetails({
-            shortLink: "Alias(Emoji) is already taken, or not supported",
-            longLink:
-              "Try a different emoji and or emoji combination, or leave it blank for random url slug",
-            qrCodeImage: "",
-          });
-        } else {
-          // else update the user with this error
-          setUrlDetails({
-            shortLink: "Alias(Text) is already taken",
-            longLink:
-              "Try a different text and or text combination, or leave it blank for random url slug",
-            qrCodeImage: "",
-          });
+      // Check if response is ok
+      if (!response.ok) {
+        const errorText = await response.text();
+        let errorMessage = "Failed to shorten URL";
+        
+        try {
+          const errorData = JSON.parse(errorText);
+          errorMessage = errorData.message || errorData.error || errorMessage;
+        } catch {
+          // If parsing fails, use status text
+          errorMessage = `API Error: ${response.status} ${response.statusText}`;
         }
 
-        // turn off loading state, provide user with shortened url details or error information
+        setErrorMessage(errorMessage);
+        setLoading(false);
+        return;
+      }
+
+      // Parse response
+      let urlData;
+      
+      try {
+        const responseText = await response.text();
+        urlData = JSON.parse(responseText);
+      } catch (parseError) {
+        console.error("Failed to parse API response:", parseError);
+        setErrorMessage("Invalid response from API. Please try again.");
+        setLoading(false);
+        return;
+      }
+
+      // Handle different response formats (v1 vs v0 API)
+      const shortenedUrl = urlData.short_url || urlData.shortUrl;
+
+      // Check if short url was generated
+      if (!shortenedUrl) {
+        const errorMessage = formData.domain === "emojify"
+          ? "Alias(Emoji) is already taken, or not supported"
+          : "Alias(Text) is already taken";
+        
+        const errorSolution = formData.domain === "emojify"
+          ? "Try a different emoji and or emoji combination, or leave it blank for random url slug"
+          : "Try a different text and or text combination, or leave it blank for random url slug";
+
+        setUrlDetails({
+          shortLink: errorMessage,
+          longLink: errorSolution,
+          qrCodeImage: "",
+        });
+
         setLoading(false);
         openUrlDetails();
         return;
       }
 
-      // generate qrCode from shortened url
+      // Generate QR code from shortened URL
       const fetchQrCode = async () => {
-        const baseUrl = import.meta.env.VITE_QRCODE_URL as string;
-        const qrCodeUrl = baseUrl + encodeURIComponent(shortenedUrl);
-
-        const qrCodeOptions = {
-          method: "GET",
-          headers: {
-            "X-RapidAPI-Key": import.meta.env.VITE_RAPIDAPI_KEY as string,
-            "X-RapidAPI-Host": import.meta.env.VITE_QRCODE_HOST as string,
-          },
-        };
+        setQrCodeError(""); // Clear any previous QR code errors
 
         try {
-          const qrCodeResponse = await fetch(qrCodeUrl, qrCodeOptions);
+          // Use a CORS-friendly QR code API
+          // Option 1: api.qrserver.com (free, no API key needed, CORS enabled)
+          const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(shortenedUrl)}`;
+
+          const qrCodeResponse = await fetch(qrCodeUrl, {
+            method: "GET",
+            mode: "cors",
+          });
+
+          if (!qrCodeResponse.ok) {
+            throw new Error(`QR Code generation failed: ${qrCodeResponse.status} ${qrCodeResponse.statusText}`);
+          }
+
           const qrCodeBlob = await qrCodeResponse.blob();
+          
+          // Verify it's actually an image
+          if (!qrCodeBlob.type.startsWith("image/")) {
+            throw new Error("Invalid QR code response format");
+          }
+
           const qrCodeImageUrl = URL.createObjectURL(qrCodeBlob);
 
           setUrlDetails({
@@ -159,35 +221,80 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
             qrCodeImage: qrCodeImageUrl,
           });
 
-          // save to database if user is signed in
+          // Save to database if user is signed in
           if (session) {
-            const { error } = await supabase
-              .from("short_links")
-              .insert([
-                {
-                  long_link: formData.url,
-                  short_link: shortenedUrl,
-                  qrcode: qrCodeImageUrl,
-                },
-              ])
-              .select();
+            try {
+              const { error } = await supabase
+                .from("short_links")
+                .insert([
+                  {
+                    long_link: formData.url,
+                    short_link: shortenedUrl,
+                    qrcode: qrCodeImageUrl,
+                  },
+                ])
+                .select();
 
-            if (error) {
-              console.error("Error inserting data:", error);
+              if (error) {
+                console.error("Error saving to database:", error);
+                // Don't fail the whole operation if DB insert fails
+                // User still gets their shortened URL
+              }
+            } catch (dbError) {
+              console.error("Database error:", dbError);
+              // Continue even if database save fails
             }
           }
-        } catch (error) {
-          console.error("Error fetching QR code:", error);
+
+          openUrlDetails();
+        } catch (qrError) {
+          console.error("Error generating QR code:", qrError);
+          
+          const errorMsg = qrError instanceof Error 
+            ? qrError.message 
+            : "Failed to generate QR code. The shortened URL is still available.";
+          
+          setQrCodeError(errorMsg);
+          
+          // Still show the shortened URL even if QR code fails
+          setUrlDetails({
+            shortLink: shortenedUrl,
+            longLink: formData.url,
+            qrCodeImage: "",
+          });
+          openUrlDetails();
         } finally {
           setLoading(false);
         }
       };
 
-      fetchQrCode();
-      openUrlDetails();
-      setLoading(false);
+      await fetchQrCode();
     } catch (error) {
-      console.error(error);
+      console.error("Error shortening URL:", error);
+      
+      let errorMessage = "An unexpected error occurred. Please try again.";
+      
+      if (error instanceof Error) {
+        const errorMsg = error.message.toLowerCase();
+        
+        // Provide user-friendly error messages
+        if (errorMsg.includes("network") || errorMsg.includes("fetch")) {
+          errorMessage = "Network error: Please check your internet connection and try again.";
+        } else if (errorMsg.includes("401") || errorMsg.includes("unauthorized")) {
+          errorMessage = "Authentication failed: Please check your API key in the environment variables.";
+        } else if (errorMsg.includes("429") || errorMsg.includes("rate limit")) {
+          errorMessage = "Rate limit exceeded: Please wait a moment and try again.";
+        } else if (errorMsg.includes("400") || errorMsg.includes("bad request")) {
+          errorMessage = "Invalid request: Please check that your URL is valid and try again.";
+        } else if (errorMsg.includes("cors")) {
+          errorMessage = "CORS error: Please contact support if this persists.";
+        } else {
+          errorMessage = `Failed to shorten URL: ${error.message}`;
+        }
+      }
+      
+      setErrorMessage(errorMessage);
+      setLoading(false);
     }
   };
 
@@ -230,6 +337,7 @@ const TrimURL: React.FC<TrimUrlProps> = ({ session }) => {
           shortLink={urlDetails.shortLink}
           longLink={urlDetails.longLink}
           qrCodeImage={urlDetails.qrCodeImage}
+          qrCodeError={qrCodeError}
         />
       )}
       <section id="trim-url" ref={container}>

@@ -173,23 +173,44 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
 
   // Generate QRcode
   const generateQrCode = async (url: string) => {
-    const baseUrl = import.meta.env.VITE_QRCODE_URL as string;
-    const qrCodeUrl = baseUrl + encodeURIComponent(url);
-    const qrCodeOptions = {
-      method: "GET",
-      headers: {
-        "X-RapidAPI-Key": import.meta.env.VITE_RAPIDAPI_KEY as string,
-        "X-RapidAPI-Host": import.meta.env.VITE_QRCODE_HOST as string,
-      },
-    };
+    if (!url || !url.trim()) {
+      setQrCodeImageUrl("");
+      return;
+    }
 
     try {
-      const qrCodeResponse = await fetch(qrCodeUrl, qrCodeOptions);
+      // Use CORS-friendly QR code API (free, no API key needed)
+      const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(url)}`;
+
+      const qrCodeResponse = await fetch(qrCodeUrl, {
+        method: "GET",
+        mode: "cors",
+      });
+      
+      if (!qrCodeResponse.ok) {
+        throw new Error(`QR Code generation failed: ${qrCodeResponse.status} ${qrCodeResponse.statusText}`);
+      }
+
       const qrCodeImageBlob = await qrCodeResponse.blob();
+      
+      // Verify it's actually an image
+      if (!qrCodeImageBlob.type.startsWith("image/")) {
+        throw new Error("Invalid QR code response format");
+      }
+
       const qrCodeImageUrl = URL.createObjectURL(qrCodeImageBlob);
       setQrCodeImageUrl(qrCodeImageUrl);
     } catch (error) {
       console.error("Error generating QR code:", error);
+      setQrCodeImageUrl(""); // Clear QR code on error
+      
+      // Show error to user if modal is available
+      const errorMessage = error instanceof Error 
+        ? `Failed to generate QR code: ${error.message}`
+        : "Failed to generate QR code. Please try again.";
+      
+      // You can add a toast/notification here if you have one
+      console.warn(errorMessage);
     }
   };
 
@@ -301,31 +322,62 @@ const MyUrlPage: React.FC<UrlPageProps> = ({ session }) => {
 
     try {
       const shortcode = shortLink.split("/").pop();
+      
+      if (!shortcode) {
+        throw new Error("Invalid short link format");
+      }
 
-      const analyticsUrl = `${
-        import.meta.env.VITE_SPOO_ME_URL
-      }stats/${shortcode}`;
-      const analyticsOptions = {
-        method: "POST",
-        headers: {
-          "X-RapidAPI-Key": import.meta.env.VITE_RAPIDAPI_KEY as string,
-          "X-RapidAPI-Host": import.meta.env.VITE_SPOO_ME_HOST as string,
-        },
+      const spooMeApiKey = import.meta.env.VITE_SPOO_ME_API_KEY;
+      
+      // Use Spoo.me v0 API for stats (POST method)
+      const analyticsUrl = `https://spoo.me/stats/${shortcode}`;
+      const headers: HeadersInit = {
+        "Content-Type": "application/json",
+        Accept: "application/json",
       };
+      
+      // Add API key if available (optional but recommended)
+      if (spooMeApiKey) {
+        headers["Authorization"] = `Bearer ${spooMeApiKey}`;
+      }
+
+      const analyticsOptions: RequestInit = {
+        method: "POST",
+        headers,
+      };
+
       const analyticsResponse = await fetch(analyticsUrl, analyticsOptions);
+
+      if (!analyticsResponse.ok) {
+        const errorText = await analyticsResponse.text();
+        let errorMessage = `Failed to fetch analytics: ${analyticsResponse.status}`;
+        
+        try {
+          const errorData = JSON.parse(errorText);
+          errorMessage = errorData.message || errorData.error || errorMessage;
+        } catch {
+          errorMessage = `${errorMessage} ${analyticsResponse.statusText}`;
+        }
+        
+        throw new Error(errorMessage);
+      }
+
       const analyticsResult = await analyticsResponse.json();
       setAnalyticsData(analyticsResult);
+      
       // Perform navigation to links AnalyticsPage if it exist/data
-      {
-        !analyticsData &&
-          navigate(`/analytics/${shortcode}`, {
-            state: {
-              analyticsData: analyticsResult,
-            },
-          });
+      if (!analyticsData) {
+        navigate(`/analytics/${shortcode}`, {
+          state: {
+            analyticsData: analyticsResult,
+          },
+        });
       }
     } catch (error) {
-      setModalMessage(`Error fetching analytics data:, ${error}`);
+      const errorMessage = error instanceof Error 
+        ? `Error fetching analytics data: ${error.message}`
+        : `Error fetching analytics data: ${error}`;
+      setModalMessage(errorMessage);
       setShowModal(true);
     } finally {
       setLoading(false);

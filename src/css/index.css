@@ -21,12 +21,12 @@ html {
   scroll-behavior: smooth;
 }
 
-body {
+.layout {
   max-width: 144rem;
   margin: 0 auto;
   font-size: 1.6rem;
   position: relative;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 .auth-open,

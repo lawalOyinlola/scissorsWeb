@@ -18,6 +18,7 @@ interface DetailsProps {
   longLink: string;
   shortLink: string;
   qrCodeImage: string;
+  qrCodeError?: string;
   closeUrlDetails: () => void;
 }
 
@@ -26,6 +27,7 @@ const UrlDetails: React.FC<DetailsProps> = ({
   longLink,
   shortLink,
   qrCodeImage,
+  qrCodeError,
   closeUrlDetails,
 }) => {
   const [modalMessage, setModalMessage] = useState<string>("");
@@ -181,6 +183,22 @@ const UrlDetails: React.FC<DetailsProps> = ({
               className="download-icon"
             />
             <p>click QR code image to download</p>
+          </div>
+        )}
+        {qrCodeError && (
+          <div className="qr-code-error" style={{
+            padding: "1rem",
+            backgroundColor: "rgba(255, 87, 87, 0.1)",
+            border: "1px solid rgba(255, 87, 87, 0.3)",
+            borderRadius: "6px",
+            color: "#ff5757",
+            fontSize: "1.2rem",
+            textAlign: "center"
+          }}>
+            <p style={{ margin: 0 }}>⚠️ {qrCodeError}</p>
+            <p style={{ margin: "0.5rem 0 0 0", fontSize: "1rem", opacity: 0.8 }}>
+              Your shortened URL is still available below.
+            </p>
           </div>
         )}
         <div
