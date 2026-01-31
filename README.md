@@ -94,7 +94,7 @@ VITE_SUPABASE_URL=your_supabase_project_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-**Note:** The Spoo.me API key is optional but recommended for higher rate limits (60/min vs 20/min). See [SPOO_ME_SETUP.md](./SPOO_ME_SETUP.md) for detailed setup instructions.
+**Note:** The Spoo.me API key is optional but recommended for higher rate limits (60/min vs 20/min).
 
 ### 4. Start Development Server
 
