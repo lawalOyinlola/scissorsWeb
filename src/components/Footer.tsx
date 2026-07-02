@@ -1,10 +1,10 @@
 import { footerData } from "../data/data";
 import {
-  GithubLogoIcon,
-  TwitterLogoIcon,
-  TelegramLogoIcon,
-  InstagramLogoIcon,
-  LinkedinLogoIcon,
+  GithubLogo,
+  TwitterLogo,
+  TelegramLogo,
+  InstagramLogo,
+  LinkedinLogo,
 } from "@phosphor-icons/react";
 import LogoBlack from "../images/logo-black.svg";
 import LineVector from "../images/line-vector.svg";
@@ -23,22 +23,22 @@ const Footer: React.FC = () => {
               href="https://github.com/lawalOyinlola/ScissorsWeb-AltschoolProject"
               target="_blank"
             >
-              <GithubLogoIcon className="socials-btn" weight="duotone" />
+              <GithubLogo className="socials-btn" weight="duotone" />
             </a>
             <a href="https://twitter.com/HoneyzRich" target="_blank">
-              <TwitterLogoIcon className="socials-btn" weight="duotone" />
+              <TwitterLogo className="socials-btn" weight="duotone" />
             </a>
             <a href="https://t.me/DLV_Yero" target="_blank">
-              <TelegramLogoIcon className="socials-btn" weight="duotone" />
+              <TelegramLogo className="socials-btn" weight="duotone" />
             </a>
             <a
               href="https://www.instagram.com/direct/t/100255291380317"
               target="_blank"
             >
-              <InstagramLogoIcon className="socials-btn" weight="duotone" />
+              <InstagramLogo className="socials-btn" weight="duotone" />
             </a>
             <a>
-              <LinkedinLogoIcon className="socials-btn" weight="duotone" />
+              <LinkedinLogo className="socials-btn" weight="duotone" />
             </a>
           </div>
         </div>

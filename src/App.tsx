@@ -8,7 +8,7 @@ const router = createBrowserRouter(routes);
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <RouterProvider router={router} />
+      <RouterProvider router={router} future={{ v7_startTransition: true }} />
     </AuthProvider>
   );
 };
